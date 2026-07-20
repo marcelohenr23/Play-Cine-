@@ -12,10 +12,11 @@
     :root {
       --bg-color: #0b0f19;
       --card-bg: #151c2c;
-      --accent-blue: #0072ff;
-      --accent-hover: #005bb5;
+      --accent-blue: #6366f1; /* Tom roxo/azul igual ao da imagem */
+      --accent-hover: #4f46e5;
       --text-color: #ffffff;
       --text-secondary: #94a3b8;
+      --input-bg: #131927;
     }
     
     * {
@@ -28,10 +29,176 @@
     body {
       background-color: var(--bg-color);
       color: var(--text-color);
-      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* HEADER / NAVBAR */
+    /* OCULTAR TELAS */
+    .screen {
+      display: none;
+      width: 100%;
+    }
+
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ----------------------------------
+       1. TELA DE LOGIN (ESTILO APP GOCINE)
+    ----------------------------------- */
+    #screen-login {
+      min-height: 100vh;
+      justify-content: space-between;
+      align-items: center;
+      padding: 40px 24px 20px 24px;
+    }
+
+    .login-header {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .login-logo {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #fff;
+    }
+
+    .login-subtitle {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 360px;
+    }
+
+    /* TABS ENTRAR / CRIAR CONTA */
+    .tabs-container {
+      display: flex;
+      background-color: var(--input-bg);
+      border-radius: 8px;
+      padding: 4px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-weight: bold;
+      font-size: 13px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background-color: #1e293b;
+      color: #fff;
+    }
+
+    /* INPUTS */
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background-color: var(--input-bg);
+      color: white;
+      font-size: 14px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: var(--accent-blue);
+      border: none;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .forgot-pass {
+      text-align: right;
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 8px;
+    }
+
+    .login-footer {
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-align: center;
+      opacity: 0.6;
+    }
+
+    /* ----------------------------------
+       2. TELA QUEM ESTÁ ASSISTINDO
+    ----------------------------------- */
+    #screen-profiles {
+      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .profiles-grid {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .profile-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .profile-avatar {
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      background: var(--accent-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      border: 2px solid transparent;
+      transition: 0.2s;
+    }
+
+    .profile-avatar:hover {
+      border-color: white;
+      transform: scale(1.05);
+    }
+
+    .profile-name {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--text-color);
+    }
+
+    /* ----------------------------------
+       3. TELA DO CATÁLOGO DE FILMES
+    ----------------------------------- */
     header {
       display: flex;
       justify-content: space-between;
@@ -47,41 +214,19 @@
     }
 
     .logo {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: bold;
       color: var(--accent-blue);
       text-transform: uppercase;
-      letter-spacing: 1px;
     }
 
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .btn-auth {
-      background: var(--accent-blue);
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    /* MENU TRÊS PONTINHOS */
-    .menu-container {
-      position: relative;
-    }
-
+    .menu-container { position: relative; }
     .menu-dots {
       background: none;
       border: none;
       color: white;
       font-size: 24px;
       cursor: pointer;
-      padding: 0 5px;
     }
 
     .dropdown-menu {
@@ -106,20 +251,13 @@
       cursor: pointer;
     }
 
-    .dropdown-menu a:hover {
-      background-color: var(--accent-blue);
-    }
+    .dropdown-menu.show { display: block; }
 
-    .dropdown-menu.show {
-      display: block;
-    }
-
-    /* BANNER PRINCIPAL (DESTAQUE / EM BREVE) */
     .hero {
-      height: 55vh;
-      margin-top: 60px;
+      height: 50vh;
+      margin-top: 55px;
       background: linear-gradient(to top, var(--bg-color), transparent),
-                  radial-gradient(circle, rgba(0,114,255,0.2) 0%, rgba(11,15,25,0.8) 100%),
+                  radial-gradient(circle, rgba(99,102,241,0.2) 0%, rgba(11,15,25,0.8) 100%),
                   url('https://picsum.photos/1200/600?random=10') center/cover no-repeat;
       display: flex;
       flex-direction: column;
@@ -137,19 +275,12 @@
       margin-bottom: 8px;
     }
 
-    .hero h1 { font-size: 32px; margin-bottom: 8px; }
-    .hero p { color: var(--text-secondary); font-size: 14px; }
-
-    /* CATÁLOGOS */
-    .catalog {
-      padding: 20px;
-    }
-
+    .catalog { padding: 20px; }
     .section-title {
-      font-size: 18px;
+      font-size: 16px;
       margin: 20px 0 10px 0;
       color: #fff;
-      border-left: 4px solid var(--accent-blue);
+      border-left: 3px solid var(--accent-blue);
       padding-left: 10px;
     }
 
@@ -160,18 +291,9 @@
       padding-bottom: 10px;
     }
 
-    .cards-row::-webkit-scrollbar {
-      height: 4px;
-    }
-
-    .cards-row::-webkit-scrollbar-thumb {
-      background: var(--accent-blue);
-      border-radius: 10px;
-    }
-
     .card {
-      min-width: 140px;
-      height: 210px;
+      min-width: 130px;
+      height: 195px;
       background-color: var(--card-bg);
       border-radius: 8px;
       overflow: hidden;
@@ -179,213 +301,130 @@
       flex-shrink: 0;
     }
 
-    .card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
+    .card img { width: 100%; height: 100%; object-fit: cover; }
     .card-info {
       position: absolute;
       bottom: 0;
       width: 100%;
       padding: 8px;
-      font-size: 12px;
+      font-size: 11px;
       background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-    }
-
-    /* MODAL AUTENTICAÇÃO E PERFIS */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-content {
-      background: var(--card-bg);
-      padding: 25px;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 350px;
-      text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .modal-content input {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      border-radius: 6px;
-      border: 1px solid #334155;
-      background: #0b0f19;
-      color: white;
-    }
-
-    .modal-content button.btn-action {
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      background: var(--accent-blue);
-      border: none;
-      color: white;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .toggle-auth {
-      margin-top: 15px;
-      font-size: 13px;
-      color: var(--text-secondary);
-      cursor: pointer;
-    }
-
-    .profiles-grid {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .profile-avatar {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      background: var(--accent-blue);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER / NAVBAR -->
-  <header>
-    <div class="logo">Play Cine</div>
-    <div class="nav-right">
-      <span id="user-display" style="font-size: 12px; color: var(--text-secondary);"></span>
-      <button class="btn-auth" id="btn-login-trigger" onclick="abrirModalAuth()">Entrar</button>
+  <!-- ==========================================
+       1. TELA DE LOGIN (INICIAL)
+  =========================================== -->
+  <div id="screen-login" class="screen active">
+    <div class="login-header">
+      <div class="login-logo">PLAY CINE</div>
+      <div class="login-subtitle">Cinema em cada detalhe</div>
+    </div>
 
-      <div class="menu-container">
-        <button class="menu-dots" onclick="toggleMenu()">&#8942;</button>
-        <div class="dropdown-menu" id="dropdown">
-          <a onclick="abrirPerfis()">Quem está assistindo?</a>
-          <a onclick="removerAnuncios()">Remover Anúncios (Premium)</a>
-          <a onclick="logout()" id="btn-logout" style="display:none; color: #ef4444;">Sair da Conta</a>
-        </div>
+    <div class="login-box">
+      <div class="tabs-container">
+        <button class="tab-btn active" id="tab-entrar" onclick="definirModoAuth(true)">Entrar</button>
+        <button class="tab-btn" id="tab-criar" onclick="definirModoAuth(false)">Criar conta</button>
       </div>
-    </div>
-  </header>
 
-  <!-- BANNER (DESTAQUE / EM BREVE) -->
-  <section class="hero">
-    <div class="hero-tag">DESTAQUE EM BREVE</div>
-    <h1>Filmes & Séries em Destaque</h1>
-    <p id="welcome-msg">Faça login para salvar seus favoritos no Play Cine.</p>
-  </section>
+      <div class="input-group">
+        <input type="email" id="auth-email" class="input-field" placeholder="Seu e-mail" required>
+      </div>
+      <div class="input-group">
+        <input type="password" id="auth-password" class="input-field" placeholder="Sua senha" required>
+        <div class="forgot-pass">Esqueceu a senha?</div>
+      </div>
 
-  <!-- CATÁLOGOS -->
-  <main class="catalog">
-    <h2 class="section-title">Filmes Populares no Play Cine</h2>
-    <div class="cards-row">
-      <div class="card"><img src="https://picsum.photos/200/300?random=1" alt="Filme"><div class="card-info">Filme Popular 1</div></div>
-      <div class="card"><img src="https://picsum.photos/200/300?random=2" alt="Filme"><div class="card-info">Filme Popular 2</div></div>
-      <div class="card"><img src="https://picsum.photos/200/300?random=3" alt="Filme"><div class="card-info">Filme Popular 3</div></div>
+      <button class="btn-submit" id="btn-submit-text" onclick="processarAutenticacao()">Entrar</button>
     </div>
 
-    <h2 class="section-title">Filmes Recentes</h2>
-    <div class="cards-row">
-      <div class="card"><img src="https://picsum.photos/200/300?random=4" alt="Filme"><div class="card-info">Lançamento 1</div></div>
-      <div class="card"><img src="https://picsum.photos/200/300?random=5" alt="Filme"><div class="card-info">Lançamento 2</div></div>
-    </div>
-
-    <h2 class="section-title">Séries Recentes</h2>
-    <div class="cards-row">
-      <div class="card"><img src="https://picsum.photos/200/300?random=6" alt="Série"><div class="card-info">Série 1</div></div>
-      <div class="card"><img src="https://picsum.photos/200/300?random=7" alt="Série"><div class="card-info">Série 2</div></div>
-    </div>
-  </main>
-
-  <!-- MODAL LOGIN / CADASTRO -->
-  <div class="modal-overlay" id="modal-auth">
-    <div class="modal-content">
-      <h2 id="auth-title">Entrar na Conta</h2>
-      <input type="email" id="auth-email" placeholder="Seu E-mail" required>
-      <input type="password" id="auth-password" placeholder="Sua Senha" required>
-      
-      <button class="btn-action" id="auth-btn-submit" onclick="processarAutenticacao()">Entrar</button>
-      <p class="toggle-auth" id="toggle-auth-btn" onclick="alternarModoAuth()">Não tem conta? Cadastre-se</p>
-      <button onclick="fecharModalAuth()" style="background:none; border:none; color:var(--text-secondary); margin-top:15px; cursor:pointer;">Fechar</button>
+    <div class="login-footer">
+      Play Cine é um guia informativo. Não transmite nem hospeda conteúdo.
     </div>
   </div>
 
-  <!-- MODAL QUEM ESTÁ ASSISTINDO -->
-  <div class="modal-overlay" id="modal-perfis">
-    <div class="modal-content">
-      <h2>Quem está assistindo?</h2>
-      <div class="profiles-grid">
-        <div>
-          <div class="profile-avatar" onclick="fecharModalPerfis()">👤</div>
-          <p style="margin-top: 8px;">Perfil 1</p>
-        </div>
-        <div>
-          <div class="profile-avatar" style="background:#00c6ff" onclick="fecharModalPerfis()">👑</div>
-          <p style="margin-top: 8px;">Premium</p>
-        </div>
+  <!-- ==========================================
+       2. TELA QUEM ESTÁ ASSISTINDO
+  =========================================== -->
+  <div id="screen-profiles" class="screen">
+    <h2>Quem está assistindo?</h2>
+    <div class="profiles-grid">
+      <div class="profile-card" onclick="selecionarPerfil('Principal')">
+        <div class="profile-avatar">👤</div>
+        <div class="profile-name">Principal</div>
+      </div>
+      <div class="profile-card" onclick="selecionarPerfil('Kids/Premium')">
+        <div class="profile-avatar" style="background:#00c6ff">👑</div>
+        <div class="profile-name">Premium</div>
       </div>
     </div>
+  </div>
+
+  <!-- ==========================================
+       3. TELA DO CATÁLOGOS / PRINCIPAL
+  =========================================== -->
+  <div id="screen-main" class="screen">
+    <!-- HEADER -->
+    <header>
+      <div class="logo">Play Cine</div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span id="current-profile" style="font-size:12px; color:var(--text-secondary)"></span>
+        <div class="menu-container">
+          <button class="menu-dots" onclick="toggleMenu()">&#8942;</button>
+          <div class="dropdown-menu" id="dropdown">
+            <a onclick="trocarPerfil()">Trocar Perfil</a>
+            <a onclick="removerAnuncios()">Remover Anúncios (Premium)</a>
+            <a onclick="logout()" style="color: #ef4444;">Sair da Conta</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- BANNER DESTAQUE -->
+    <section class="hero">
+      <div class="hero-tag">DESTAQUE EM BREVE</div>
+      <h1>Lançamentos em Destaque</h1>
+      <p style="color:var(--text-secondary); font-size:13px;">Aproveite os melhores filmes e séries.</p>
+    </section>
+
+    <!-- FILMES E SÉRIES -->
+    <main class="catalog">
+      <h2 class="section-title">Filmes Populares Recentes</h2>
+      <div class="cards-row">
+        <div class="card"><img src="https://picsum.photos/200/300?random=1" alt="Filme"><div class="card-info">Filme 1</div></div>
+        <div class="card"><img src="https://picsum.photos/200/300?random=2" alt="Filme"><div class="card-info">Filme 2</div></div>
+        <div class="card"><img src="https://picsum.photos/200/300?random=3" alt="Filme"><div class="card-info">Filme 3</div></div>
+      </div>
+
+      <h2 class="section-title">Séries Recentes</h2>
+      <div class="cards-row">
+        <div class="card"><img src="https://picsum.photos/200/300?random=4" alt="Série"><div class="card-info">Série 1</div></div>
+        <div class="card"><img src="https://picsum.photos/200/300?random=5" alt="Série"><div class="card-info">Série 2</div></div>
+      </div>
+    </main>
   </div>
 
   <script>
-    // Configurações do seu banco no Supabase
+    // CONFIGURAÇÃO SUPABASE
     const SUPABASE_URL = "https://yatgognkwvydlnzjgkmb.supabase.co";
     const SUPABASE_KEY = "sb_publishable_6-l97TZOBwGOFSmn2nOrZg_O4KeinU1";
-
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     let isLoginMode = true;
 
-    function toggleMenu() {
-      document.getElementById('dropdown').classList.toggle('show');
+    // LÓGICA DE TROCA DE TELAS
+    function mostrarTela(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
     }
 
-    function abrirModalAuth() {
-      document.getElementById('modal-auth').style.display = 'flex';
-    }
-
-    function fecharModalAuth() {
-      document.getElementById('modal-auth').style.display = 'none';
-    }
-
-    function abrirPerfis() {
-      document.getElementById('modal-perfis').style.display = 'flex';
-      document.getElementById('dropdown').classList.remove('show');
-    }
-
-    function fecharModalPerfis() {
-      document.getElementById('modal-perfis').style.display = 'none';
-    }
-
-    function removerAnuncios() {
-      alert("Para remover os anúncios, entre em contato para ativar sua assinatura Premium!");
-      document.getElementById('dropdown').classList.remove('show');
-    }
-
-    function alternarModoAuth() {
-      isLoginMode = !isLoginMode;
-      document.getElementById('auth-title').innerText = isLoginMode ? "Entrar na Conta" : "Criar Nova Conta";
-      document.getElementById('auth-btn-submit').innerText = isLoginMode ? "Entrar" : "Cadastrar";
-      document.getElementById('toggle-auth-btn').innerText = isLoginMode ? "Não tem conta? Cadastre-se" : "Já tem conta? Faça Login";
+    function definirModoAuth(modo) {
+      isLoginMode = modo;
+      document.getElementById('tab-entrar').classList.toggle('active', modo);
+      document.getElementById('tab-criar').classList.toggle('active', !modo);
+      document.getElementById('btn-submit-text').innerText = modo ? "Entrar" : "Criar conta";
     }
 
     async function processarAutenticacao() {
@@ -393,7 +432,7 @@
       const password = document.getElementById('auth-password').value;
 
       if (!email || !password) {
-        alert("Preencha e-mail e senha!");
+        alert("Preencha o e-mail e a senha!");
         return;
       }
 
@@ -402,49 +441,56 @@
         if (error) {
           alert("Erro ao entrar: " + error.message);
         } else {
-          alert("Login feito com sucesso!");
-          fecharModalAuth();
-          verificarSessao();
+          // Vai para a tela Quem está assistindo
+          mostrarTela('screen-profiles');
         }
       } else {
         const { data, error } = await supabase.auth.signUp({ email, password });
         if (error) {
           alert("Erro ao cadastrar: " + error.message);
         } else {
-          alert("Conta criada com sucesso! Faça login para entrar.");
-          alternarModoAuth();
+          alert("Conta criada com sucesso! Clique em Entrar.");
+          definirModoAuth(true);
         }
       }
     }
 
-    async function logout() {
-      await supabase.auth.signOut();
-      alert("Você saiu da conta.");
-      verificarSessao();
+    function selecionarPerfil(nome) {
+      document.getElementById('current-profile').innerText = nome;
+      mostrarTela('screen-main');
     }
 
-    async function verificarSessao() {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      const userDisplay = document.getElementById('user-display');
-      const btnLogin = document.getElementById('btn-login-trigger');
-      const btnLogout = document.getElementById('btn-logout');
-      const welcomeMsg = document.getElementById('welcome-msg');
+    function trocarPerfil() {
+      document.getElementById('dropdown').classList.remove('show');
+      mostrarTela('screen-profiles');
+    }
 
+    function toggleMenu() {
+      document.getElementById('dropdown').classList.toggle('show');
+    }
+
+    function removerAnuncios() {
+      alert("Para remover anúncios e virar Premium, entre em contato para ativar o plano!");
+      document.getElementById('dropdown').classList.remove('show');
+    }
+
+    async function logout() {
+      await supabase.auth.signOut();
+      document.getElementById('dropdown').classList.remove('show');
+      mostrarTela('screen-login');
+    }
+
+    // VERIFICA SESSÃO AO CARREGAR
+    async function checarSessao() {
+      const { data: { session } } = await supabase.auth.getSession();
       if (session) {
-        userDisplay.innerText = session.user.email;
-        btnLogin.style.display = 'none';
-        btnLogout.style.display = 'block';
-        welcomeMsg.innerText = `Bem-vindo de volta! Aproveite o Play Cine.`;
+        mostrarTela('screen-profiles');
       } else {
-        userDisplay.innerText = '';
-        btnLogin.style.display = 'block';
-        btnLogout.style.display = 'none';
-        welcomeMsg.innerText = 'Faça login para salvar seus favoritos no Play Cine.';
+        mostrarTela('screen-login');
       }
     }
 
-    verificarSessao();
+    checarSessao();
   </script>
 </body>
-  </html>
+</html>
