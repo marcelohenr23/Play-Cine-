@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Play Cine - Seu Portal de Filmes</title>
     <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome para ícones (lápis, engrenagem, etc) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -81,14 +83,20 @@
         </div>
     </div>
 
-    <!-- Modal para Criar Novo Perfil -->
+    <!-- Modal para Criar ou Editar Perfil (Com escolha de Avatar) -->
     <div id="profileModal" class="modal-overlay" style="display: none;">
-        <div class="modal-box">
-            <h3>Novo Perfil</h3>
+        <div class="modal-box modal-wide">
+            <h3 id="modalProfileTitle">Novo Perfil</h3>
             <div class="input-group" style="margin: 15px 0;">
                 <input type="text" id="newProfileName" placeholder="Nome do perfil" style="width:100%; padding:12px; border-radius:8px; border:1px solid #1a2234; background:#1a2234; color:#fff; outline:none;">
             </div>
-            <button id="saveProfileBtn" class="btn-primary" style="margin-bottom: 10px;">Salvar Perfil</button>
+            
+            <p style="text-align: left; font-size: 13px; color: #8b9bb4; margin-bottom: 8px;">Escolha um avatar:</p>
+            <div class="avatar-selector-grid" id="avatarSelectorGrid">
+                <!-- Avatares gerados via JS -->
+            </div>
+
+            <button id="saveProfileBtn" class="btn-primary" style="margin-top: 15px; margin-bottom: 10px;">Salvar Perfil</button>
             <button id="cancelProfileBtn" class="btn-secondary" style="width:100%; padding:12px; border-radius:8px; background:transparent; border:1px solid #8b9bb4; color:#8b9bb4; cursor:pointer;">Cancelar</button>
         </div>
     </div>
@@ -100,8 +108,8 @@
                 <div class="logo">
                     <h1>PLAY<span>CINE</span></h1>
                 </div>
-                <div class="active-profile-badge" id="activeProfileBadge">
-                    <span id="currentProfileNameText">Perfil</span>
+                <div class="active-profile-badge" id="activeProfileBadge" style="cursor: pointer;" title="Trocar de Perfil">
+                    <span id="currentProfileNameText">Perfil</span> <i class="fa-solid fa-caret-down"></i>
                 </div>
             </div>
             <div class="search-box">
