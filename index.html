@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <!-- Tela de Animação de Abertura (Estilo Netflix em Azul para o Play Cine) -->
+    <!-- Tela de Animação de Abertura (Estilo Netflix em Azul) -->
     <div id="introAnimation" class="intro-splash">
         <div class="intro-logo">
             <span class="letter highlight">P</span>
@@ -22,46 +22,75 @@
         </div>
     </div>
 
-    <!-- Cabeçalho Principal -->
-    <header class="main-header">
-        <div class="logo">
-            <h1>Play<span>Cine</span></h1>
-        </div>
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Pesquisar filme ou gênero...">
-        </div>
-    </header>
+    <!-- Tela de Autenticação (Login / Cadastro) -->
+    <div id="authScreen" class="auth-container">
+        <div class="auth-box">
+            <h2>Play<span>Cine</span></h2>
+            
+            <!-- Formulário de Login -->
+            <form id="loginForm" class="auth-form">
+                <h3>Entrar na sua conta</h3>
+                <input type="email" id="loginEmail" placeholder="E-mail" required>
+                <input type="password" id="loginPassword" placeholder="Senha" required>
+                <button type="submit" class="btn-primary">Entrar</button>
+                <p class="auth-switch">Não tem uma conta? <a href="#" id="showRegister">Cadastre-se</a></p>
+            </form>
 
-    <!-- Seção de Destaque (Hero) -->
-    <section class="hero">
-        <div class="hero-content">
-            <h2>Filmes Incríveis para Assistir Agora</h2>
-            <p>Explore os melhores títulos, lançamentos e clássicos na palma da sua mão.</p>
-            <button class="btn-primary" id="btnCatalog">Ver Catálogo</button>
+            <!-- Formulário de Cadastro (Oculto inicialmente) -->
+            <form id="registerForm" class="auth-form" style="display: none;">
+                <h3>Criar nova conta</h3>
+                <input type="text" id="regName" placeholder="Seu Nome" required>
+                <input type="email" id="regEmail" placeholder="E-mail" required>
+                <input type="password" id="regPassword" placeholder="Senha" required>
+                <button type="submit" class="btn-primary">Cadastrar</button>
+                <p class="auth-switch">Já tem uma conta? <a href="#" id="showLogin">Entrar</a></p>
+            </form>
         </div>
-    </section>
+    </div>
 
-    <!-- Seção de Categorias / Filtros Rápidos -->
-    <nav class="categories-nav">
-        <button class="cat-btn active" data-category="all">Todos</button>
-        <button class="cat-btn" data-category="Ação">Ação</button>
-        <button class="cat-btn" data-category="Terror">Terror</button>
-        <button class="cat-btn" data-category="Ficção">Ficção</button>
-        <button class="cat-btn" data-category="Romance">Romance</button>
-    </nav>
+    <!-- Conteúdo Principal do Site (Oculto até logar, por enquanto estruturado) -->
+    <div id="mainSite" style="display: none;">
+        <!-- Cabeçalho Principal -->
+        <header class="main-header">
+            <div class="logo">
+                <h1>Play<span>Cine</span></h1>
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Pesquisar filme ou gênero...">
+            </div>
+        </header>
 
-    <!-- Seção Principal do Catálogo de Filmes -->
-    <main class="container">
-        <h2>Catálogo de Filmes</h2>
-        <div class="movie-grid" id="movieGrid">
-            <!-- Os cards dos filmes serão injetados aqui pelo JavaScript -->
-        </div>
-    </main>
+        <!-- Seção de Destaque (Hero) -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Filmes Incríveis para Assistir Agora</h2>
+                <p>Explore os melhores títulos, lançamentos e clássicos na palma da sua mão.</p>
+                <button class="btn-primary" id="btnCatalog">Ver Catálogo</button>
+            </div>
+        </section>
 
-    <!-- Rodapé -->
-    <footer>
-        <p>&copy; 2026 Play Cine. Todos os direitos reservados.</p>
-    </footer>
+        <!-- Seção de Categorias / Filtros Rápidos -->
+        <nav class="categories-nav">
+            <button class="cat-btn active" data-category="all">Todos</button>
+            <button class="cat-btn" data-category="Ação">Ação</button>
+            <button class="cat-btn" data-category="Terror">Terror</button>
+            <button class="cat-btn" data-category="Ficção">Ficção</button>
+            <button class="cat-btn" data-category="Romance">Romance</button>
+        </nav>
+
+        <!-- Seção Principal do Catálogo de Filmes -->
+        <main class="container">
+            <h2>Catálogo de Filmes</h2>
+            <div class="movie-grid" id="movieGrid">
+                <!-- Os cards dos filmes serão injetados aqui pelo JavaScript depois -->
+            </div>
+        </main>
+
+        <!-- Rodapé -->
+        <footer>
+            <p>&copy; 2026 Play Cine. Todos os direitos reservados.</p>
+        </footer>
+    </div>
 
     <!-- Arquivo de Lógica -->
     <script src="script.js"></script>
