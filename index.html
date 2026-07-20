@@ -12,8 +12,7 @@
     :root {
       --bg-color: #0b0f19;
       --card-bg: #151c2c;
-      --accent-blue: #6366f1; /* Tom roxo/azul igual ao da imagem */
-      --accent-hover: #4f46e5;
+      --accent-blue: #6366f1;
       --text-color: #ffffff;
       --text-secondary: #94a3b8;
       --input-bg: #131927;
@@ -45,9 +44,7 @@
       flex-direction: column;
     }
 
-    /* ----------------------------------
-       1. TELA DE LOGIN (ESTILO APP GOCINE)
-    ----------------------------------- */
+    /* TELA 1: LOGIN */
     #screen-login {
       min-height: 100vh;
       justify-content: space-between;
@@ -78,7 +75,6 @@
       max-width: 360px;
     }
 
-    /* TABS ENTRAR / CRIAR CONTA */
     .tabs-container {
       display: flex;
       background-color: var(--input-bg);
@@ -105,7 +101,6 @@
       color: #fff;
     }
 
-    /* INPUTS */
     .input-group {
       margin-bottom: 15px;
     }
@@ -147,9 +142,7 @@
       opacity: 0.6;
     }
 
-    /* ----------------------------------
-       2. TELA QUEM ESTÁ ASSISTINDO
-    ----------------------------------- */
+    /* TELA 2: QUEM ESTÁ ASSISTINDO */
     #screen-profiles {
       min-height: 100vh;
       justify-content: center;
@@ -196,9 +189,7 @@
       color: var(--text-color);
     }
 
-    /* ----------------------------------
-       3. TELA DO CATÁLOGO DE FILMES
-    ----------------------------------- */
+    /* TELA 3: CATÁLOGO DE FILMES */
     header {
       display: flex;
       justify-content: space-between;
@@ -254,7 +245,7 @@
     .dropdown-menu.show { display: block; }
 
     .hero {
-      height: 50vh;
+      height: 45vh;
       margin-top: 55px;
       background: linear-gradient(to top, var(--bg-color), transparent),
                   radial-gradient(circle, rgba(99,102,241,0.2) 0%, rgba(11,15,25,0.8) 100%),
@@ -314,9 +305,7 @@
 </head>
 <body>
 
-  <!-- ==========================================
-       1. TELA DE LOGIN (INICIAL)
-  =========================================== -->
+  <!-- 1. TELA DE LOGIN -->
   <div id="screen-login" class="screen active">
     <div class="login-header">
       <div class="login-logo">PLAY CINE</div>
@@ -330,7 +319,7 @@
       </div>
 
       <div class="input-group">
-        <input type="email" id="auth-email" class="input-field" placeholder="Seu e-mail" required>
+        <input type="email" id="auth-email" class="input-field" placeholder="Seu e-mail (ex: marcelo@gmail.com)" required>
       </div>
       <div class="input-group">
         <input type="password" id="auth-password" class="input-field" placeholder="Sua senha" required>
@@ -345,28 +334,23 @@
     </div>
   </div>
 
-  <!-- ==========================================
-       2. TELA QUEM ESTÁ ASSISTINDO
-  =========================================== -->
+  <!-- 2. TELA QUEM ESTÁ ASSISTINDO -->
   <div id="screen-profiles" class="screen">
     <h2>Quem está assistindo?</h2>
     <div class="profiles-grid">
-      <div class="profile-card" onclick="selecionarPerfil('Principal')">
+      <div class="profile-card" onclick="selecionarPerfil('Marcelo')">
         <div class="profile-avatar">👤</div>
-        <div class="profile-name">Principal</div>
+        <div class="profile-name">Marcelo</div>
       </div>
-      <div class="profile-card" onclick="selecionarPerfil('Kids/Premium')">
+      <div class="profile-card" onclick="selecionarPerfil('Premium')">
         <div class="profile-avatar" style="background:#00c6ff">👑</div>
         <div class="profile-name">Premium</div>
       </div>
     </div>
   </div>
 
-  <!-- ==========================================
-       3. TELA DO CATÁLOGOS / PRINCIPAL
-  =========================================== -->
+  <!-- 3. TELA CATÁLOGO DE FILMES -->
   <div id="screen-main" class="screen">
-    <!-- HEADER -->
     <header>
       <div class="logo">Play Cine</div>
       <div style="display:flex; align-items:center; gap:10px;">
@@ -382,39 +366,31 @@
       </div>
     </header>
 
-    <!-- BANNER DESTAQUE -->
     <section class="hero">
       <div class="hero-tag">DESTAQUE EM BREVE</div>
       <h1>Lançamentos em Destaque</h1>
       <p style="color:var(--text-secondary); font-size:13px;">Aproveite os melhores filmes e séries.</p>
     </section>
 
-    <!-- FILMES E SÉRIES -->
     <main class="catalog">
       <h2 class="section-title">Filmes Populares Recentes</h2>
       <div class="cards-row">
-        <div class="card"><img src="https://picsum.photos/200/300?random=1" alt="Filme"><div class="card-info">Filme 1</div></div>
-        <div class="card"><img src="https://picsum.photos/200/300?random=2" alt="Filme"><div class="card-info">Filme 2</div></div>
-        <div class="card"><img src="https://picsum.photos/200/300?random=3" alt="Filme"><div class="card-info">Filme 3</div></div>
+        <div class="card"><img src="https://picsum.photos/200/300?random=1" alt="Filme"><div class="card-info">Filme Popular 1</div></div>
+        <div class="card"><img src="https://picsum.photos/200/300?random=2" alt="Filme"><div class="card-info">Filme Popular 2</div></div>
+        <div class="card"><img src="https://picsum.photos/200/300?random=3" alt="Filme"><div class="card-info">Filme Popular 3</div></div>
       </div>
 
       <h2 class="section-title">Séries Recentes</h2>
       <div class="cards-row">
-        <div class="card"><img src="https://picsum.photos/200/300?random=4" alt="Série"><div class="card-info">Série 1</div></div>
-        <div class="card"><img src="https://picsum.photos/200/300?random=5" alt="Série"><div class="card-info">Série 2</div></div>
+        <div class="card"><img src="https://picsum.photos/200/300?random=4" alt="Série"><div class="card-info">Série Recente 1</div></div>
+        <div class="card"><img src="https://picsum.photos/200/300?random=5" alt="Série"><div class="card-info">Série Recente 2</div></div>
       </div>
     </main>
   </div>
 
   <script>
-    // CONFIGURAÇÃO SUPABASE
-    const SUPABASE_URL = "https://yatgognkwvydlnzjgkmb.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_6-l97TZOBwGOFSmn2nOrZg_O4KeinU1";
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
     let isLoginMode = true;
 
-    // LÓGICA DE TROCA DE TELAS
     function mostrarTela(screenId) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(screenId).classList.add('active');
@@ -427,7 +403,7 @@
       document.getElementById('btn-submit-text').innerText = modo ? "Entrar" : "Criar conta";
     }
 
-    async function processarAutenticacao() {
+    function processarAutenticacao() {
       const email = document.getElementById('auth-email').value;
       const password = document.getElementById('auth-password').value;
 
@@ -436,23 +412,13 @@
         return;
       }
 
-      if (isLoginMode) {
-        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) {
-          alert("Erro ao entrar: " + error.message);
-        } else {
-          // Vai para a tela Quem está assistindo
-          mostrarTela('screen-profiles');
-        }
-      } else {
-        const { data, error } = await supabase.auth.signUp({ email, password });
-        if (error) {
-          alert("Erro ao cadastrar: " + error.message);
-        } else {
-          alert("Conta criada com sucesso! Clique em Entrar.");
-          definirModoAuth(true);
-        }
+      if (!email.includes('@')) {
+        alert("Digite um e-mail válido com '@' (exemplo: marcelo@gmail.com)");
+        return;
       }
+
+      // Avança para a tela "Quem está assistindo?"
+      mostrarTela('screen-profiles');
     }
 
     function selecionarPerfil(nome) {
@@ -470,27 +436,16 @@
     }
 
     function removerAnuncios() {
-      alert("Para remover anúncios e virar Premium, entre em contato para ativar o plano!");
+      alert("Opção Premium: Para remover anúncios, entre em contato para ativar seu plano!");
       document.getElementById('dropdown').classList.remove('show');
     }
 
-    async function logout() {
-      await supabase.auth.signOut();
+    function logout() {
       document.getElementById('dropdown').classList.remove('show');
+      document.getElementById('auth-email').value = '';
+      document.getElementById('auth-password').value = '';
       mostrarTela('screen-login');
     }
-
-    // VERIFICA SESSÃO AO CARREGAR
-    async function checarSessao() {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        mostrarTela('screen-profiles');
-      } else {
-        mostrarTela('screen-login');
-      }
-    }
-
-    checarSessao();
   </script>
 </body>
 </html>
