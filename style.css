@@ -1,0 +1,238 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0b0f19;
+    color: #ffffff;
+    padding-bottom: 40px;
+    overflow-x: hidden;
+}
+
+/* --- TELA DE ANIMAÇÃO DE ABERTURA (Estilo Netflix em Azul) --- */
+.intro-splash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #05070c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeOutSplash 0.8s ease 2.2s forwards;
+}
+
+.intro-logo {
+    display: flex;
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.intro-logo .letter {
+    opacity: 0;
+    transform: scale(0.5);
+    animation: zoomInLetter 0.4s ease forwards;
+    color: #ffffff;
+}
+
+.intro-logo .letter.highlight {
+    color: #00a8ff;
+    text-shadow: 0 0 15px rgba(0, 168, 255, 0.7);
+}
+
+/* Sequência de aparecimento das letras na animação */
+.intro-logo .letter:nth-child(1) { animation-delay: 0.1s; }
+.intro-logo .letter:nth-child(2) { animation-delay: 0.2s; }
+.intro-logo .letter:nth-child(3) { animation-delay: 0.3s; }
+.intro-logo .letter:nth-child(4) { animation-delay: 0.4s; }
+.intro-logo .letter:nth-child(5) { animation-delay: 0.5s; }
+.intro-logo .letter:nth-child(6) { animation-delay: 0.6s; }
+.intro-logo .letter:nth-child(7) { animation-delay: 0.7s; }
+.intro-logo .letter:nth-child(8) { animation-delay: 0.8s; }
+
+@keyframes zoomInLetter {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeOutSplash {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* --- CABEÇALHO --- */
+.main-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background-color: #101624;
+    border-bottom: 2px solid #00a8ff;
+}
+
+.logo h1 {
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+
+.logo span {
+    color: #00a8ff;
+}
+
+.search-box input {
+    width: 100%;
+    max-width: 320px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: none;
+    background-color: #1a2234;
+    color: #fff;
+    outline: none;
+    font-size: 14px;
+}
+
+.search-box input::placeholder {
+    color: #8b9bb4;
+}
+
+/* --- SEÇÃO HERO (DESTAQUE) --- */
+.hero {
+    padding: 40px 20px;
+    text-align: center;
+    background: linear-gradient(rgba(11,15,25,0.8), rgba(11,15,25,0.9)), url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=600&q=80') no-repeat center center/cover;
+}
+
+.hero-content h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.hero-content p {
+    font-size: 14px;
+    color: #8b9bb4;
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background-color: #00a8ff;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 168, 255, 0.3);
+}
+
+/* --- CATEGORIAS --- */
+.categories-nav {
+    display: flex;
+    gap: 10px;
+    padding: 15px 20px;
+    overflow-x: auto;
+    background-color: #0b0f19;
+    white-space: nowrap;
+}
+
+.categories-nav::-webkit-scrollbar {
+    display: none; /* Esconde a barra de rolagem no celular para ficar limpo */
+}
+
+.cat-btn {
+    background-color: #1a2234;
+    color: #8b9bb4;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.cat-btn.active, .cat-btn:hover {
+    background-color: #00a8ff;
+    color: white;
+}
+
+/* --- CONTAINER DE FILMES --- */
+.container {
+    padding: 20px;
+}
+
+.container h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    border-left: 4px solid #00a8ff;
+    padding-left: 8px;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.movie-card {
+    background-color: #101624;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+    border: 1px solid #1a2234;
+}
+
+.movie-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.movie-info {
+    padding: 10px;
+}
+
+.movie-info h3 {
+    font-size: 14px;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fff;
+}
+
+.movie-info span {
+    font-size: 12px;
+    color: #8b9bb4;
+}
+
+/* --- RODAPÉ --- */
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    color: #55627a;
+    margin-top: 20px;
+    border-top: 1px solid #1a2234;
+  }
