@@ -1,11 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Play Cine - Login</title>
+  <!-- SDK do Supabase obrigatório -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body { 
+        margin: 0; background: #0a0a0a; color: white; 
+        font-family: 'Segoe UI', sans-serif; 
+        display: flex; justify-content: center; align-items: center; 
+        height: 100vh; 
+        background: radial-gradient(circle, #1a0b2e 0%, #0a0a0a 100%); 
+    }
+    .container { text-align: center; padding: 20px; width: 90%; max-width: 400px; }
+    .logo { 
+        font-size: 3rem; font-weight: bold; color: #00f2ff; 
+        margin-bottom: 10px; text-shadow: 0 0 20px #00f2ff; 
+    }
+    p { margin-bottom: 40px; color: #aaa; }
+    button { 
+        display: block; width: 100%; padding: 15px; margin: 15px auto; 
+        border-radius: 30px; border: 2px solid #00f2ff; background: transparent; 
+        color: #00f2ff; font-weight: bold; cursor: pointer; transition: 0.3s;
+        text-transform: uppercase; letter-spacing: 1px; font-size: 14px;
+    }
+    button:nth-child(4) { border-color: #39ff14; color: #39ff14; }
+    button:hover { box-shadow: 0 0 20px #00f2ff; background: rgba(0, 242, 255, 0.1); }
+    button:nth-child(4):hover { box-shadow: 0 0 20px #39ff14; background: rgba(57, 255, 20, 0.1); }
+  </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo">PLAY CINE</div>
+    <p>Bem-vindo de volta<br>Entre para continuar assistindo</p>
+    
+    <!-- Botões que chamam a função de login -->
+    <button onclick="login('google')">Entrar com o Google</button>
+    <button onclick="login('github')">Entrar com o GitHub</button>
+</div>
+
 <script>
-  // 1. Inicialização segura
-  const supabase = supabase.createClient(
+  // Inicialização segura do Supabase
+  const supabase = window.supabase.createClient(
     "https://yatgognkwvydlnzjgkmb.supabase.co", 
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlhdGdvZ25rd3Z5ZGxuempna21iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ1NTk3MTksImV4cCI6MjEwMDEzNTcxOX0.YyCjZEgT14o79GpbGP8QQrV_OZGVJ28Xt460VPo2Zt8"
   );
 
-  // 2. Função de login com verificação
+  // Função de login com tratamento de erros
   async function login(provedor) {
     try {
       console.log("Tentando logar com: " + provedor);
@@ -25,3 +69,6 @@
     }
   }
 </script>
+
+</body>
+</html>
