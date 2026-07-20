@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <!-- Pop-up Personalizado (Substitui o alerta feio do navegador) -->
+    <!-- Pop-up Personalizado -->
     <div id="customModal" class="modal-overlay" style="display: none;">
         <div class="modal-box">
             <p id="modalMessage">Mensagem aqui</p>
@@ -69,11 +69,40 @@
         </div>
     </div>
 
+    <!-- Tela "Quem está assistindo?" (Seleção de Perfis) -->
+    <div id="profileScreen" class="profile-container" style="display: none;">
+        <div class="profile-backdrop"></div>
+        <div class="profile-content">
+            <h2>Quem está assistindo?</h2>
+            <div class="profiles-grid" id="profilesGrid">
+                <!-- Perfis inseridos dinamicamente via JS -->
+            </div>
+            <button id="btnAddProfileModal" class="btn-secondary">+ Adicionar Perfil</button>
+        </div>
+    </div>
+
+    <!-- Modal para Criar Novo Perfil -->
+    <div id="profileModal" class="modal-overlay" style="display: none;">
+        <div class="modal-box">
+            <h3>Novo Perfil</h3>
+            <div class="input-group" style="margin: 15px 0;">
+                <input type="text" id="newProfileName" placeholder="Nome do perfil" style="width:100%; padding:12px; border-radius:8px; border:1px solid #1a2234; background:#1a2234; color:#fff; outline:none;">
+            </div>
+            <button id="saveProfileBtn" class="btn-primary" style="margin-bottom: 10px;">Salvar Perfil</button>
+            <button id="cancelProfileBtn" class="btn-secondary" style="width:100%; padding:12px; border-radius:8px; background:transparent; border:1px solid #8b9bb4; color:#8b9bb4; cursor:pointer;">Cancelar</button>
+        </div>
+    </div>
+
     <!-- Conteúdo Principal do Site -->
     <div id="mainSite" style="display: none;">
         <header class="main-header">
-            <div class="logo">
-                <h1>PLAY<span>CINE</span></h1>
+            <div class="header-left">
+                <div class="logo">
+                    <h1>PLAY<span>CINE</span></h1>
+                </div>
+                <div class="active-profile-badge" id="activeProfileBadge">
+                    <span id="currentProfileNameText">Perfil</span>
+                </div>
             </div>
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="Pesquisar filme ou gênero...">
