@@ -6,9 +6,18 @@
   <title>Play Cine - Login</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-    body { margin: 0; background: #0a0a0a; color: white; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: radial-gradient(circle, #1a0b2e 0%, #0a0a0a 100%); }
-    .container { text-align: center; padding: 20px; width: 100%; max-width: 400px; }
-    .logo { font-size: 3rem; font-weight: bold; color: #00f2ff; margin-bottom: 10px; text-shadow: 0 0 20px #00f2ff; }
+    body { 
+        margin: 0; background: #0a0a0a; color: white; 
+        font-family: 'Segoe UI', sans-serif; 
+        display: flex; justify-content: center; align-items: center; 
+        height: 100vh; 
+        background: radial-gradient(circle, #1a0b2e 0%, #0a0a0a 100%); 
+    }
+    .container { text-align: center; padding: 20px; width: 90%; max-width: 400px; }
+    .logo { 
+        font-size: 3rem; font-weight: bold; color: #00f2ff; 
+        margin-bottom: 10px; text-shadow: 0 0 20px #00f2ff; 
+    }
     p { margin-bottom: 40px; color: #aaa; }
     button { 
         display: block; width: 100%; padding: 15px; margin: 15px auto; 
@@ -42,10 +51,14 @@
         const { error } = await supabase.auth.signInWithOAuth({
             provider: provedor,
             options: {
-                redirectTo: window.location.origin
+                // redirectTo aponta para a URL do seu site no GitHub Pages
+                redirectTo: window.location.href
             }
         });
-        if (error) alert("Erro ao logar: " + error.message);
+        if (error) {
+            alert("Erro ao logar: " + error.message);
+            console.error(error);
+        }
     }
 </script>
 
