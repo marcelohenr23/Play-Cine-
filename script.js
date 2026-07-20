@@ -6,6 +6,14 @@ const movies = [
     { title: "Velocidade Máxima", genre: "Ação", year: "2023", image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=300&q=80" }
 ];
 
+// URLs dos seus avatares personalizados enviados
+const availableAvatars = [
+    "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=300&q=80", // Exemplo padrão 1
+    "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=300&q=80", // Exemplo padrão 2
+    // Links gerados/simulados para os seus personagens incríveis:
+    "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=300&q=80"
+];
+
 // Elementos da Tela
 const authScreen = document.getElementById('authScreen');
 const profileScreen = document.getElementById('profileScreen');
@@ -19,10 +27,16 @@ const showLoginBtn = document.getElementById('showLogin');
 const profilesGrid = document.getElementById('profilesGrid');
 const btnAddProfileModal = document.getElementById('btnAddProfileModal');
 const profileModal = document.getElementById('profileModal');
+const modalProfileTitle = document.getElementById('modalProfileTitle');
 const newProfileName = document.getElementById('newProfileName');
 const saveProfileBtn = document.getElementById('saveProfileBtn');
 const cancelProfileBtn = document.getElementById('cancelProfileBtn');
 const currentProfileNameText = document.getElementById('currentProfileNameText');
+const activeProfileBadge = document.getElementById('activeProfileBadge');
+const avatarSelectorGrid = document.getElementById('avatarSelectorGrid');
+
+let selectedAvatarUrl = "";
+let editingProfileIndex = null; // null = criando novo, número = editando perfil existente
 
 // Elementos do Modal Personalizado de Alerta
 const customModal = document.getElementById('customModal');
@@ -67,8 +81,7 @@ registerForm.addEventListener('submit', (e) => {
     localStorage.setItem('playCine_email', email);
     localStorage.setItem('playCine_password', password);
 
-    // Cria um perfil inicial com o nome do usuário cadastrado se não houver perfis
-    const defaultProfiles = [{ name: name }];
+    const defaultProfiles = [{ name: name, avatar: availableAvatars[0] }];
     localStorage.setItem('playCine_profiles', JSON.stringify(defaultProfiles));
 
     showModal('Conta criada com sucesso! Faça login para entrar.');
@@ -77,7 +90,7 @@ registerForm.addEventListener('submit', (e) => {
     loginForm.style.display = 'flex';
 });
 
-// Ação de Entrar -> Vai para a tela de Seleção de Perfis
+// Ação de Entrar
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const emailInput = document.getElementById('loginEmail').value;
@@ -94,11 +107,10 @@ loginForm.addEventListener('submit', (e) => {
     if (emailInput === savedEmail && passwordInput === savedPassword) {
         authScreen.style.display = 'none';
         
-        // Garante que exista pelo menos um perfil padrão baseado no nome salvo
         let profiles = JSON.parse(localStorage.getItem('playCine_profiles'));
         if (!profiles || profiles.length === 0) {
             const userName = localStorage.getItem('playCine_name') || 'Convidado';
-            profiles = [{ name: userName }];
+            profiles = [{ name: userName, avatar: availableAvatars[0] }];
             localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
         }
 
@@ -109,24 +121,38 @@ loginForm.addEventListener('submit', (e) => {
     }
 });
 
-// Renderizar os perfis na tela "Quem está assistindo?"
+// Renderizar os perfis com o ícone do lápis
 function renderProfiles() {
     profilesGrid.innerHTML = '';
     const profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
 
-    profiles.forEach(profile => {
+    profiles.forEach((profile, index) => {
         const card = document.createElement('div');
         card.classList.add('profile-card');
         
-        // Pega a primeira letra do nome para o avatar
-        const initial = profile.name.charAt(0).toUpperCase();
+        const avatarImg = profile.avatar || availableAvatars[0];
 
         card.innerHTML = `
-            <div class="profile-avatar">${initial}</div>
+            <div class="profile-avatar-wrapper">
+                <div class="profile-avatar">
+                    <img src="${avatarImg}" alt="${profile.name}">
+                </div>
+                <div class="edit-pencil-badge" title="Editar Perfil">
+                    <i class="fa-solid fa-pen"></i>
+                </div>
+            </div>
             <span class="profile-name">${profile.name}</span>
         `;
 
-        card.addEventListener('click', () => {
+        // Ao clicar no perfil, entra no site
+        card.addEventListener('click', (e) => {
+            // Se clicou especificamente no lápis, abre o modal de edição
+            if (e.target.closest('.edit-pencil-badge')) {
+                e.stopPropagation();
+                openEditProfileModal(index);
+                return;
+            }
+
             currentProfileNameText.textContent = profile.name;
             profileScreen.style.display = 'none';
             mainSite.style.display = 'block';
@@ -137,16 +163,62 @@ function renderProfiles() {
     });
 }
 
-// Botões para adicionar novo perfil
+// Botão para voltar à seleção de perfil pelo cabeçalho
+activeProfileBadge.addEventListener('click', () => {
+    mainSite.style.display = 'none';
+    renderProfiles();
+    profileScreen.style.display = 'flex';
+});
+
+// Renderiza a grade de seleção de avatares no modal
+function renderAvatarSelector(currentSelectedUrl) {
+    avatarSelectorGrid.innerHTML = '';
+    availableAvatars.forEach(url => {
+        const item = document.createElement('div');
+        item.classList.add('avatar-selector-item');
+        if (url === currentSelectedUrl) {
+            item.classList.add('selected');
+            selectedAvatarUrl = url;
+        }
+
+        item.innerHTML = `<img src="${url}" alt="Avatar">`;
+        
+        item.addEventListener('click', () => {
+            document.querySelectorAll('.avatar-selector-item').forEach(el => el.classList.remove('selected'));
+            item.classList.add('selected');
+            selectedAvatarUrl = url;
+        });
+
+        avatarSelectorGrid.appendChild(item);
+    });
+}
+
+// Abrir modal para Adicionar Novo Perfil
 btnAddProfileModal.addEventListener('click', () => {
+    editingProfileIndex = null;
+    modalProfileTitle.textContent = "Novo Perfil";
     newProfileName.value = '';
+    renderAvatarSelector(availableAvatars[0]);
     profileModal.style.display = 'flex';
 });
+
+// Abrir modal para Editar Perfil existente (clique no lápis)
+function openEditProfileModal(index) {
+    editingProfileIndex = index;
+    modalProfileTitle.textContent = "Editar Perfil";
+    const profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
+    const profile = profiles[index];
+
+    newProfileName.value = profile.name;
+    renderAvatarSelector(profile.avatar || availableAvatars[0]);
+    profileModal.style.display = 'flex';
+}
 
 cancelProfileBtn.addEventListener('click', () => {
     profileModal.style.display = 'none';
 });
 
+// Salvar Perfil (Novo ou Editado)
 saveProfileBtn.addEventListener('click', () => {
     const nameVal = newProfileName.value.trim();
     if (!nameVal) {
@@ -155,9 +227,17 @@ saveProfileBtn.addEventListener('click', () => {
     }
 
     let profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
-    profiles.push({ name: nameVal });
-    localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
 
+    if (editingProfileIndex === null) {
+        // Criando novo
+        profiles.push({ name: nameVal, avatar: selectedAvatarUrl });
+    } else {
+        // Editando existente
+        profiles[editingProfileIndex].name = nameVal;
+        profiles[editingProfileIndex].avatar = selectedAvatarUrl;
+    }
+
+    localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
     profileModal.style.display = 'none';
     renderProfiles();
 });
@@ -211,3 +291,4 @@ catButtons.forEach(button => {
         }
     });
 });
+    
