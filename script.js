@@ -14,6 +14,20 @@ const registerForm = document.getElementById('registerForm');
 const showRegisterBtn = document.getElementById('showRegister');
 const showLoginBtn = document.getElementById('showLogin');
 
+// Elementos do Modal Personalizado
+const customModal = document.getElementById('customModal');
+const modalMessage = document.getElementById('modalMessage');
+const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+function showModal(message) {
+    modalMessage.textContent = message;
+    customModal.style.display = 'flex';
+}
+
+modalCloseBtn.addEventListener('click', () => {
+    customModal.style.display = 'none';
+});
+
 // Elementos do Catálogo
 const movieGrid = document.getElementById('movieGrid');
 const searchInput = document.getElementById('searchInput');
@@ -32,7 +46,7 @@ showLoginBtn.addEventListener('click', (e) => {
     loginForm.style.display = 'flex';
 });
 
-// Ação de Cadastrar Conta (Salva no navegador do celular)
+// Ação de Cadastrar Conta
 registerForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const name = document.getElementById('regName').value;
@@ -43,13 +57,13 @@ registerForm.addEventListener('submit', (e) => {
     localStorage.setItem('playCine_email', email);
     localStorage.setItem('playCine_password', password);
 
-    alert('Conta criada com sucesso! Faça login para entrar.');
+    showModal('Conta criada com sucesso! Faça login para entrar.');
     registerForm.reset();
     registerForm.style.display = 'none';
     loginForm.style.display = 'flex';
 });
 
-// Ação de Entrar (Valida se a conta existe e se a senha está correta)
+// Ação de Entrar
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const emailInput = document.getElementById('loginEmail').value;
@@ -58,19 +72,17 @@ loginForm.addEventListener('submit', (e) => {
     const savedEmail = localStorage.getItem('playCine_email');
     const savedPassword = localStorage.getItem('playCine_password');
 
-    // Se não houver cadastro prévio no celular, avisa o usuário
     if (!savedEmail) {
-        alert('Nenhuma conta encontrada! Por favor, clique em "Cadastre-se" primeiro.');
+        showModal('Nenhuma conta encontrada! Por favor, cadastre-se primeiro.');
         return;
     }
 
-    // Validação de segurança: se errar o e-mail ou a senha, bloqueia o acesso
     if (emailInput === savedEmail && passwordInput === savedPassword) {
         authScreen.style.display = 'none';
         mainSite.style.display = 'block';
         displayMovies(movies);
     } else {
-        alert('E-mail ou senha incorretos! Acesso negado.');
+        showModal('E-mail ou senha incorretos! Acesso negado.');
     }
 });
 
