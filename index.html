@@ -314,19 +314,19 @@
 
     <div class="login-box">
       <div class="tabs-container">
-        <button class="tab-btn active" id="tab-entrar" onclick="definirModoAuth(true)">Entrar</button>
-        <button class="tab-btn" id="tab-criar" onclick="definirModoAuth(false)">Criar conta</button>
+        <button type="button" class="tab-btn active" id="tab-entrar" onclick="definirModoAuth(true)">Entrar</button>
+        <button type="button" class="tab-btn" id="tab-criar" onclick="definirModoAuth(false)">Criar conta</button>
       </div>
 
       <div class="input-group">
-        <input type="email" id="auth-email" class="input-field" placeholder="Seu e-mail" required>
+        <input type="email" id="auth-email" class="input-field" placeholder="Seu e-mail">
       </div>
       <div class="input-group">
-        <input type="password" id="auth-password" class="input-field" placeholder="Sua senha (mín. 6 caracteres)" required>
+        <input type="password" id="auth-password" class="input-field" placeholder="Sua senha (mín. 6 caracteres)">
         <div class="forgot-pass">Esqueceu a senha?</div>
       </div>
 
-      <button class="btn-submit" id="btn-submit-text" onclick="processarAutenticacao()">Entrar</button>
+      <button type="button" class="btn-submit" id="btn-submit-text" onclick="processarAutenticacao()">Entrar</button>
     </div>
 
     <div class="login-footer">
@@ -390,11 +390,15 @@
 
   <script>
     const SUPABASE_URL = "https://yatgognkwvydlnzjgkmb.supabase.co";
-    const SUPABASE_KEY = "EyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlhdGdvZ25rd3Z5ZGxuempna21iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ1NTk3MTksImV4cCI6MjEwMDEzNTcxOX0.YyCjZEgT14o79GpbGP8QQrV_OZGVJ28Xt460VPo2Zt8";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlhdGdvZ25rd3Z5ZGxuempna21iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ1NTk3MTksImV4cCI6MjEwMDEzNTcxOX0.YyCjZEgT14o79GpbGP8QQrV_OZGVJ28Xt460VPo2Zt8";
 
     let supabase = null;
-    if (window.supabase) {
-      supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    function obterSupabase() {
+      if (!supabase && window.supabase) {
+        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+      }
+      return supabase;
     }
 
     let isLoginMode = true;
@@ -412,44 +416,55 @@
     }
 
     async function processarAutenticacao() {
-      const email = document.getElementById('auth-email').value.trim();
-      const password = document.getElementById('auth-password').value.trim();
+      const emailInput = document.getElementById('auth-email');
+      const passwordInput = document.getElementById('auth-password');
+      
+      const email = emailInput ? emailInput.value.trim() : '';
+      const password = passwordInput ? passwordInput.value.trim() : '';
 
       if (!email || !password) {
-        alert("Preencha o e-mail e a senha!");
+        alert("Por favor, preencha o e-mail e a senha!");
+        return;
+      }
+
+      if (password.length < 6) {
+        alert("A senha precisa ter pelo menos 6 caracteres!");
+        return;
+      }
+
+      const client = obterSupabase();
+      if (!client) {
+        alert("Aguarde alguns segundos e tente novamente. Conectando ao servidor...");
         return;
       }
 
       const btn = document.getElementById('btn-submit-text');
-      btn.innerText = "Verificando...";
+      btn.innerText = "Aguarde...";
 
       try {
         if (isLoginMode) {
-          // VALIDA O LOGIN REAL
-          const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+          const { data, error } = await client.auth.signInWithPassword({ email, password });
 
           if (error) {
-            alert("Acesso negado!\n\nE-mail ou senha incorretos, ou a conta ainda não foi criada.");
+            alert("Acesso Negado!\n\nE-mail ou senha incorretos, ou você ainda não criou uma conta.");
             btn.innerText = "Entrar";
           } else {
-            // LOGIN SUCESSO
             mostrarTela('screen-profiles');
             btn.innerText = "Entrar";
           }
         } else {
-          // CRIA A CONTA NO SUPABASE
-          const { data, error } = await supabase.auth.signUp({ email, password });
+          const { data, error } = await client.auth.signUp({ email, password });
 
           if (error) {
             alert("Erro ao criar conta: " + error.message);
             btn.innerText = "Criar conta";
           } else {
-            alert("Conta criada com sucesso!\nClique na aba 'Entrar' para fazer seu login.");
+            alert("Conta criada com sucesso!\n\nAgora clique na aba 'Entrar' para acessar seu aplicativo.");
             definirModoAuth(true);
           }
         }
-      } catch (e) {
-        alert("Erro de conexão: " + e.message);
+      } catch (err) {
+        alert("Erro de conexão: " + err.message);
         btn.innerText = isLoginMode ? "Entrar" : "Criar conta";
       }
     }
@@ -474,7 +489,8 @@
     }
 
     function logout() {
-      if (supabase) supabase.auth.signOut();
+      const client = obterSupabase();
+      if (client) client.auth.signOut();
       document.getElementById('dropdown').classList.remove('show');
       document.getElementById('auth-email').value = '';
       document.getElementById('auth-password').value = '';
@@ -482,4 +498,5 @@
     }
   </script>
 </body>
-</html>
+  </html>
+  
