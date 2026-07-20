@@ -8,13 +8,23 @@ const movies = [
 
 // Elementos da Tela
 const authScreen = document.getElementById('authScreen');
+const profileScreen = document.getElementById('profileScreen');
 const mainSite = document.getElementById('mainSite');
 const loginForm = document.getElementById('loginForm');
 const registerForm = document.getElementById('registerForm');
 const showRegisterBtn = document.getElementById('showRegister');
 const showLoginBtn = document.getElementById('showLogin');
 
-// Elementos do Modal Personalizado
+// Elementos de Perfis
+const profilesGrid = document.getElementById('profilesGrid');
+const btnAddProfileModal = document.getElementById('btnAddProfileModal');
+const profileModal = document.getElementById('profileModal');
+const newProfileName = document.getElementById('newProfileName');
+const saveProfileBtn = document.getElementById('saveProfileBtn');
+const cancelProfileBtn = document.getElementById('cancelProfileBtn');
+const currentProfileNameText = document.getElementById('currentProfileNameText');
+
+// Elementos do Modal Personalizado de Alerta
 const customModal = document.getElementById('customModal');
 const modalMessage = document.getElementById('modalMessage');
 const modalCloseBtn = document.getElementById('modalCloseBtn');
@@ -57,13 +67,17 @@ registerForm.addEventListener('submit', (e) => {
     localStorage.setItem('playCine_email', email);
     localStorage.setItem('playCine_password', password);
 
+    // Cria um perfil inicial com o nome do usuário cadastrado se não houver perfis
+    const defaultProfiles = [{ name: name }];
+    localStorage.setItem('playCine_profiles', JSON.stringify(defaultProfiles));
+
     showModal('Conta criada com sucesso! Faça login para entrar.');
     registerForm.reset();
     registerForm.style.display = 'none';
     loginForm.style.display = 'flex';
 });
 
-// Ação de Entrar
+// Ação de Entrar -> Vai para a tela de Seleção de Perfis
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const emailInput = document.getElementById('loginEmail').value;
@@ -79,11 +93,73 @@ loginForm.addEventListener('submit', (e) => {
 
     if (emailInput === savedEmail && passwordInput === savedPassword) {
         authScreen.style.display = 'none';
-        mainSite.style.display = 'block';
-        displayMovies(movies);
+        
+        // Garante que exista pelo menos um perfil padrão baseado no nome salvo
+        let profiles = JSON.parse(localStorage.getItem('playCine_profiles'));
+        if (!profiles || profiles.length === 0) {
+            const userName = localStorage.getItem('playCine_name') || 'Convidado';
+            profiles = [{ name: userName }];
+            localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
+        }
+
+        renderProfiles();
+        profileScreen.style.display = 'flex';
     } else {
         showModal('E-mail ou senha incorretos! Acesso negado.');
     }
+});
+
+// Renderizar os perfis na tela "Quem está assistindo?"
+function renderProfiles() {
+    profilesGrid.innerHTML = '';
+    const profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
+
+    profiles.forEach(profile => {
+        const card = document.createElement('div');
+        card.classList.add('profile-card');
+        
+        // Pega a primeira letra do nome para o avatar
+        const initial = profile.name.charAt(0).toUpperCase();
+
+        card.innerHTML = `
+            <div class="profile-avatar">${initial}</div>
+            <span class="profile-name">${profile.name}</span>
+        `;
+
+        card.addEventListener('click', () => {
+            currentProfileNameText.textContent = profile.name;
+            profileScreen.style.display = 'none';
+            mainSite.style.display = 'block';
+            displayMovies(movies);
+        });
+
+        profilesGrid.appendChild(card);
+    });
+}
+
+// Botões para adicionar novo perfil
+btnAddProfileModal.addEventListener('click', () => {
+    newProfileName.value = '';
+    profileModal.style.display = 'flex';
+});
+
+cancelProfileBtn.addEventListener('click', () => {
+    profileModal.style.display = 'none';
+});
+
+saveProfileBtn.addEventListener('click', () => {
+    const nameVal = newProfileName.value.trim();
+    if (!nameVal) {
+        showModal('Digite um nome para o perfil.');
+        return;
+    }
+
+    let profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
+    profiles.push({ name: nameVal });
+    localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
+
+    profileModal.style.display = 'none';
+    renderProfiles();
 });
 
 // Função para exibir os filmes no catálogo
