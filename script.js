@@ -123,4 +123,3 @@ catButtons.forEach(button => {
         }
     });
 });
-              
