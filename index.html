@@ -128,11 +128,6 @@
       margin-top: 10px;
     }
 
-    .btn-submit:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
     .forgot-pass {
       text-align: right;
       font-size: 12px;
@@ -394,11 +389,10 @@
   </div>
 
   <script>
-    // Inicialização do Supabase
     const SUPABASE_URL = "https://yatgognkwvydlnzjgkmb.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_6-l97TZOBwGOFSmn2nOrZg_O4KeinU1";
-    let supabase = null;
+    const SUPABASE_KEY = "EyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlhdGdvZ25rd3Z5ZGxuempna21iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ1NTk3MTksImV4cCI6MjEwMDEzNTcxOX0.YyCjZEgT14o79GpbGP8QQrV_OZGVJ28Xt460VPo2Zt8";
 
+    let supabase = null;
     if (window.supabase) {
       supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     }
@@ -427,46 +421,36 @@
       }
 
       const btn = document.getElementById('btn-submit-text');
-      btn.innerText = "Carregando...";
-      btn.disabled = true;
+      btn.innerText = "Verificando...";
 
       try {
         if (isLoginMode) {
-          // TENTA FAZER LOGIN REAL NO SUPABASE
+          // VALIDA O LOGIN REAL
           const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
           if (error) {
-            alert("Erro no login: " + error.message + "\n\nSe ainda não tem conta, selecione 'Criar conta'!");
+            alert("Acesso negado!\n\nE-mail ou senha incorretos, ou a conta ainda não foi criada.");
             btn.innerText = "Entrar";
-            btn.disabled = false;
           } else {
-            // LOGIN APROVADO! AVANÇA PARA OS PERFIS
+            // LOGIN SUCESSO
             mostrarTela('screen-profiles');
             btn.innerText = "Entrar";
-            btn.disabled = false;
           }
         } else {
-          // TENTA CRIAR CONTA NO SUPABASE
-          const { data, error } = await supabase.auth.signUp({ 
-            email, 
-            password,
-            options: { emailRedirectTo: null }
-          });
+          // CRIA A CONTA NO SUPABASE
+          const { data, error } = await supabase.auth.signUp({ email, password });
 
           if (error) {
             alert("Erro ao criar conta: " + error.message);
             btn.innerText = "Criar conta";
-            btn.disabled = false;
           } else {
-            alert("Conta criada com sucesso!\nAgora faça seu login.");
+            alert("Conta criada com sucesso!\nClique na aba 'Entrar' para fazer seu login.");
             definirModoAuth(true);
-            btn.disabled = false;
           }
         }
       } catch (e) {
-        alert("Ocorreu um erro: " + e.message);
+        alert("Erro de conexão: " + e.message);
         btn.innerText = isLoginMode ? "Entrar" : "Criar conta";
-        btn.disabled = false;
       }
     }
 
