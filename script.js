@@ -1,5 +1,12 @@
-const movies = [];
+// Base de dados de filmes
+const movies = [
+    { title: "Aventura no Espaço", genre: "Ficção", year: "2025", image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=300&q=80" },
+    { title: "Sombras da Noite", genre: "Terror", year: "2024", image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=300&q=80" },
+    { title: "Amor Improvável", genre: "Romance", year: "2026", image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80" },
+    { title: "Velocidade Máxima", genre: "Ação", year: "2023", image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=300&q=80" }
+];
 
+// Avatares oficiais disponíveis
 const availableAvatars = [
     "https://i.ibb.co/CpdwWKKj/44121.jpg", 
     "https://i.ibb.co/ks41CQmb/44120.jpg", 
@@ -8,39 +15,47 @@ const availableAvatars = [
     "https://i.ibb.co/pvs3T14g/44122.jpg"  
 ];
 
-const authScreen = document.getElementById('authScreen');
-const profileScreen = document.getElementById('profileScreen');
-const mainSite = document.getElementById('mainSite');
+// Seletores de Seções (Telas)
+const authSection = document.getElementById('authSection');
+const profileSection = document.getElementById('profileSection');
+const mainAppSection = document.getElementById('mainAppSection');
+
+// Elementos de Autenticação
 const loginForm = document.getElementById('loginForm');
 const registerForm = document.getElementById('registerForm');
-const showRegisterBtn = document.getElementById('showRegister');
-const showLoginBtn = document.getElementById('showLogin');
+const toRegisterBtn = document.getElementById('toRegister');
+const toLoginBtn = document.getElementById('toLogin');
 
+// Elementos de Perfis
 const profilesGrid = document.getElementById('profilesGrid');
-const btnAddProfileModal = document.getElementById('btnAddProfileModal');
+const openAddProfileModalBtn = document.getElementById('openAddProfileModal');
 const profileModal = document.getElementById('profileModal');
 const modalProfileTitle = document.getElementById('modalProfileTitle');
-const newProfileName = document.getElementById('newProfileName');
+const profileNameInput = document.getElementById('profileNameInput');
+const avatarGrid = document.getElementById('avatarGrid');
 const saveProfileBtn = document.getElementById('saveProfileBtn');
 const cancelProfileBtn = document.getElementById('cancelProfileBtn');
-const currentProfileNameText = document.getElementById('currentProfileNameText');
-const activeProfileBadge = document.getElementById('activeProfileBadge');
-const avatarSelectorGrid = document.getElementById('avatarSelectorGrid');
+const activeProfileAvatarImg = document.getElementById('activeProfileAvatarImg');
+const activeProfileNameText = document.getElementById('activeProfileNameText');
+const profileSwitcher = document.getElementById('profileSwitcher');
 
-let selectedAvatarUrl = availableAvatars[0];
-let editingProfileIndex = null; 
-
+// Modal de Alerta
 const customModal = document.getElementById('customModal');
 const modalMessage = document.getElementById('modalMessage');
 const modalCloseBtn = document.getElementById('modalCloseBtn');
 
-function showModal(message) {
-    if (modalMessage && customModal) {
-        modalMessage.textContent = message;
-        customModal.style.display = 'flex';
-    } else {
-        alert(message);
-    }
+// Elementos do Catálogo
+const movieGrid = document.getElementById('movieGrid');
+const searchInput = document.getElementById('searchInput');
+const filterBtns = document.querySelectorAll('.filter-btn');
+
+let selectedAvatarUrl = availableAvatars[0];
+let editingProfileIndex = null;
+
+// Função utilitária para exibir alertas modernos
+function showAlert(message) {
+    modalMessage.textContent = message;
+    customModal.style.display = 'flex';
 }
 
 if (modalCloseBtn) {
@@ -49,29 +64,36 @@ if (modalCloseBtn) {
     });
 }
 
-const movieGrid = document.getElementById('movieGrid');
-const searchInput = document.getElementById('searchInput');
-const catButtons = document.querySelectorAll('.cat-btn');
+// Alternar entre Telas Principais
+function switchView(targetSection) {
+    authSection.style.display = 'none';
+    profileSection.style.display = 'none';
+    mainAppSection.style.display = 'none';
 
-if (showRegisterBtn && showLoginBtn) {
-    showRegisterBtn.addEventListener('click', (e) => {
+    targetSection.style.display = 'block';
+}
+
+// Alternar visibilidade Login <-> Cadastro
+if (toRegisterBtn && toLoginBtn) {
+    toRegisterBtn.addEventListener('click', (e) => {
         e.preventDefault();
         loginForm.style.display = 'none';
-        registerForm.style.display = 'flex';
+        registerForm.style.display = 'block';
     });
 
-    showLoginBtn.addEventListener('click', (e) => {
+    toLoginBtn.addEventListener('click', (e) => {
         e.preventDefault();
         registerForm.style.display = 'none';
-        loginForm.style.display = 'flex';
+        loginForm.style.display = 'block';
     });
 }
 
+// Lógica de Cadastro
 if (registerForm) {
     registerForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const name = document.getElementById('regName').value;
-        const email = document.getElementById('regEmail').value;
+        const name = document.getElementById('regName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
         const password = document.getElementById('regPassword').value;
 
         localStorage.setItem('playCine_name', name);
@@ -81,30 +103,29 @@ if (registerForm) {
         const defaultProfiles = [{ name: name, avatar: availableAvatars[0] }];
         localStorage.setItem('playCine_profiles', JSON.stringify(defaultProfiles));
 
-        showModal('Conta criada com sucesso! Faça login para entrar.');
+        showAlert('Conta criada com sucesso! Faça login.');
         registerForm.reset();
         registerForm.style.display = 'none';
-        loginForm.style.display = 'flex';
+        loginForm.style.display = 'block';
     });
 }
 
+// Lógica de Login
 if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const emailInput = document.getElementById('loginEmail').value;
+        const emailInput = document.getElementById('loginEmail').value.trim();
         const passwordInput = document.getElementById('loginPassword').value;
 
         const savedEmail = localStorage.getItem('playCine_email');
         const savedPassword = localStorage.getItem('playCine_password');
 
         if (!savedEmail) {
-            showModal('Nenhuma conta encontrada! Por favor, cadastre-se primeiro.');
+            showAlert('Nenhuma conta encontrada. Cadastre-se primeiro!');
             return;
         }
 
         if (emailInput === savedEmail && passwordInput === savedPassword) {
-            authScreen.style.display = 'none';
-            
             let profiles = JSON.parse(localStorage.getItem('playCine_profiles'));
             if (!profiles || profiles.length === 0) {
                 const userName = localStorage.getItem('playCine_name') || 'Convidado';
@@ -113,13 +134,14 @@ if (loginForm) {
             }
 
             renderProfiles();
-            profileScreen.style.display = 'flex';
+            switchView(profileSection);
         } else {
-            showModal('E-mail ou senha incorretos! Acesso negado.');
+            showAlert('E-mail ou senha incorretos.');
         }
     });
 }
 
+// Renderizar Grade de Perfis
 function renderProfiles() {
     if (!profilesGrid) return;
     profilesGrid.innerHTML = '';
@@ -128,88 +150,91 @@ function renderProfiles() {
     profiles.forEach((profile, index) => {
         const card = document.createElement('div');
         card.classList.add('profile-card');
-        
         const avatarImg = profile.avatar || availableAvatars[0];
 
         card.innerHTML = `
-            <div class="profile-avatar-wrapper">
-                <div class="profile-avatar">
-                    <img src="${avatarImg}" alt="${profile.name}">
-                </div>
-                <div class="edit-pencil-badge" title="Editar Perfil">
+            <div class="profile-avatar-box">
+                <img src="${avatarImg}" alt="${profile.name}">
+                <div class="profile-edit-badge" title="Editar Perfil">
                     <i class="fa-solid fa-pen"></i>
                 </div>
             </div>
-            <span class="profile-name">${profile.name}</span>
+            <span>${profile.name}</span>
         `;
 
         card.addEventListener('click', (e) => {
-            if (e.target.closest('.edit-pencil-badge')) {
+            if (e.target.closest('.profile-edit-badge')) {
                 e.stopPropagation();
-                openEditProfileModal(index);
+                openProfileModalForEdit(index);
                 return;
             }
 
-            if (currentProfileNameText) currentProfileNameText.textContent = profile.name;
-            profileScreen.style.display = 'none';
-            mainSite.style.display = 'block';
-            displayMovies(movies);
+            // Entrar no sistema com este perfil
+            if (activeProfileNameText) activeProfileNameText.textContent = profile.name;
+            if (activeProfileAvatarImg) activeProfileAvatarImg.src = avatarImg;
+            
+            switchView(mainAppSection);
+            renderMovies(movies);
         });
 
         profilesGrid.appendChild(card);
     });
 }
 
-if (activeProfileBadge) {
-    activeProfileBadge.addEventListener('click', () => {
-        mainSite.style.display = 'none';
+// Botão para Trocar de Perfil a partir do cabeçalho
+if (profileSwitcher) {
+    profileSwitcher.addEventListener('click', () => {
         renderProfiles();
-        profileScreen.style.display = 'flex';
+        switchView(profileSection);
     });
 }
 
-function renderAvatarSelector(currentSelectedUrl) {
-    if (!avatarSelectorGrid) return;
-    avatarSelectorGrid.innerHTML = '';
+// Renderização do seletor de avatares dentro do modal
+function renderAvatarSelector(activeUrl) {
+    if (!avatarGrid) return;
+    avatarGrid.innerHTML = '';
+    
     availableAvatars.forEach(url => {
-        const item = document.createElement('div');
-        item.classList.add('avatar-selector-item');
-        if (url === currentSelectedUrl) {
-            item.classList.add('selected');
+        const option = document.createElement('div');
+        option.classList.add('avatar-option');
+        if (url === activeUrl) {
+            option.classList.add('selected');
             selectedAvatarUrl = url;
         }
 
-        item.innerHTML = `<img src="${url}" alt="Avatar">`;
+        option.innerHTML = `<img src="${url}" alt="Avatar">`;
         
-        item.addEventListener('click', () => {
-            document.querySelectorAll('.avatar-selector-item').forEach(el => el.classList.remove('selected'));
-            item.classList.add('selected');
+        option.addEventListener('click', () => {
+            document.querySelectorAll('.avatar-option').forEach(el => el.classList.remove('selected'));
+            option.classList.add('selected');
             selectedAvatarUrl = url;
         });
 
-        avatarSelectorGrid.appendChild(item);
+        avatarGrid.appendChild(option);
     });
 }
 
-if (btnAddProfileModal) {
-    btnAddProfileModal.addEventListener('click', () => {
+// Abrir Modal para Novo Perfil
+if (openAddProfileModalBtn) {
+    openAddProfileModalBtn.addEventListener('click', () => {
         editingProfileIndex = null;
         if (modalProfileTitle) modalProfileTitle.textContent = "Novo Perfil";
-        if (newProfileName) newProfileName.value = '';
+        if (profileNameInput) profileNameInput.value = '';
         renderAvatarSelector(availableAvatars[0]);
-        if (profileModal) profileModal.style.display = 'flex';
+        profileModal.style.display = 'flex';
     });
 }
 
-function openEditProfileModal(index) {
+// Abrir Modal para Editar Perfil
+function openProfileModalForEdit(index) {
     editingProfileIndex = index;
     if (modalProfileTitle) modalProfileTitle.textContent = "Editar Perfil";
     const profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
     const profile = profiles[index];
 
-    if (newProfileName) newProfileName.value = profile.name;
+    if (profileNameInput) profileNameInput.value = profile.name;
     renderAvatarSelector(profile.avatar || availableAvatars[0]);
-    if (profileModal) profileModal.style.display = 'flex';
+    profileModal.style.display = 'flex';
 }
 
 if (cancelProfileBtn) {
@@ -218,11 +243,12 @@ if (cancelProfileBtn) {
     });
 }
 
+// Salvar Perfil (Adicionar ou Editar)
 if (saveProfileBtn) {
     saveProfileBtn.addEventListener('click', () => {
-        const nameVal = newProfileName.value.trim();
+        const nameVal = profileNameInput.value.trim();
         if (!nameVal) {
-            showModal('Digite um nome para o perfil.');
+            showAlert('Por favor, informe o nome do perfil.');
             return;
         }
 
@@ -241,52 +267,55 @@ if (saveProfileBtn) {
     });
 }
 
-function displayMovies(movieArray) {
+// Renderizar Filmes no Catálogo
+function renderMovies(movieList) {
     if (!movieGrid) return;
-    movieGrid.innerHTML = "";
-    
-    if (movieArray.length === 0) {
-        movieGrid.innerHTML = "<p style='grid-column: span 2; text-align: center; color: #8b9bb4;'>Nenhum filme encontrado.</p>";
+    movieGrid.innerHTML = '';
+
+    if (movieList.length === 0) {
+        movieGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nenhum filme encontrado.</p>';
         return;
     }
 
-    movieArray.forEach(movie => {
+    movieList.forEach(movie => {
         const card = document.createElement('div');
         card.classList.add('movie-card');
-        
+
         card.innerHTML = `
             <img src="${movie.image}" alt="${movie.title}">
             <div class="movie-info">
-                <h3>${movie.title}</h3>
+                <h4>${movie.title}</h4>
                 <span>${movie.genre} • ${movie.year}</span>
             </div>
         `;
-        
         movieGrid.appendChild(card);
     });
 }
 
+// Sistema de Busca em Tempo Real
 if (searchInput) {
     searchInput.addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase();
-        const filteredMovies = movies.filter(movie => 
-            movie.title.toLowerCase().includes(term) || movie.genre.toLowerCase().includes(term)
+        const term = e.target.value.toLowerCase().trim();
+        const filtered = movies.filter(m => 
+            m.title.toLowerCase().includes(term) || m.genre.toLowerCase().includes(term)
         );
-        displayMovies(filteredMovies);
+        renderMovies(filtered);
     });
 }
 
-catButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        catButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
+// Filtros por Categoria
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
 
-        const category = button.getAttribute('data-category');
+        const category = btn.getAttribute('data-category');
         if (category === 'all') {
-            displayMovies(movies);
+            renderMovies(movies);
         } else {
             const filtered = movies.filter(m => m.genre === category);
-            displayMovies(filtered);
+            renderMovies(filtered);
         }
     });
 });
+    
