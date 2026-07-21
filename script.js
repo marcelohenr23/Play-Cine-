@@ -1,7 +1,7 @@
-// Banco de dados de filmes de exemplo
+// Banco de dados de filmes com os seus filmes e capas
 const movies = [
-    { title: "Filme 1", genre: "Ficção", year: "2025", image: "https://i.ibb.co/4gPwH2c7/image.jpg" },
-    { title: "Filme 2", genre: "Ação", year: "2026", image: "https://i.ibb.co/qLVprg6c/image.jpg" },
+    { title: "Megatubarão", genre: "Ação", year: "2018", image: "https://i.ibb.co/4gPwH2c7/image.jpg" },
+    { title: "Megatubarão 2", genre: "Ação", year: "2023", image: "https://i.ibb.co/qLVprg6c/image.jpg" },
     { title: "Amor Improvável", genre: "Romance", year: "2026", image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80" },
     { title: "Velocidade Máxima", genre: "Ação", year: "2023", image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=300&q=80" }
 ];
@@ -37,7 +37,7 @@ const activeProfileBadge = document.getElementById('activeProfileBadge');
 const avatarSelectorGrid = document.getElementById('avatarSelectorGrid');
 
 let selectedAvatarUrl = availableAvatars[0];
-let editingProfileIndex = null; // null = criando novo, número = editando perfil existente
+let editingProfileIndex = null; 
 
 // Elementos do Modal Personalizado de Alerta
 const customModal = document.getElementById('customModal');
@@ -145,7 +145,6 @@ function renderProfiles() {
             <span class="profile-name">${profile.name}</span>
         `;
 
-        // Ao clicar no perfil
         card.addEventListener('click', (e) => {
             if (e.target.closest('.edit-pencil-badge')) {
                 e.stopPropagation();
@@ -163,14 +162,12 @@ function renderProfiles() {
     });
 }
 
-// Botão para voltar à seleção de perfil pelo cabeçalho
 activeProfileBadge.addEventListener('click', () => {
     mainSite.style.display = 'none';
     renderProfiles();
     profileScreen.style.display = 'flex';
 });
 
-// Renderiza a grade de seleção de avatares no modal
 function renderAvatarSelector(currentSelectedUrl) {
     avatarSelectorGrid.innerHTML = '';
     availableAvatars.forEach(url => {
@@ -193,7 +190,6 @@ function renderAvatarSelector(currentSelectedUrl) {
     });
 }
 
-// Abrir modal para Adicionar Novo Perfil
 btnAddProfileModal.addEventListener('click', () => {
     editingProfileIndex = null;
     modalProfileTitle.textContent = "Novo Perfil";
@@ -202,7 +198,6 @@ btnAddProfileModal.addEventListener('click', () => {
     profileModal.style.display = 'flex';
 });
 
-// Abrir modal para Editar Perfil existente (clique no lápis)
 function openEditProfileModal(index) {
     editingProfileIndex = index;
     modalProfileTitle.textContent = "Editar Perfil";
@@ -218,7 +213,6 @@ cancelProfileBtn.addEventListener('click', () => {
     profileModal.style.display = 'none';
 });
 
-// Salvar Perfil (Novo ou Editado)
 saveProfileBtn.addEventListener('click', () => {
     const nameVal = newProfileName.value.trim();
     if (!nameVal) {
@@ -240,7 +234,6 @@ saveProfileBtn.addEventListener('click', () => {
     renderProfiles();
 });
 
-// Função para exibir os filmes no catálogo
 function displayMovies(movieArray) {
     movieGrid.innerHTML = "";
     
@@ -265,7 +258,6 @@ function displayMovies(movieArray) {
     });
 }
 
-// Filtro da barra de pesquisa em tempo real
 searchInput.addEventListener('input', (e) => {
     const term = e.target.value.toLowerCase();
     const filteredMovies = movies.filter(movie => 
@@ -274,7 +266,6 @@ searchInput.addEventListener('input', (e) => {
     displayMovies(filteredMovies);
 });
 
-// Filtros por Categoria de Filmes
 catButtons.forEach(button => {
     button.addEventListener('click', () => {
         catButtons.forEach(btn => btn.classList.remove('active'));
@@ -289,4 +280,4 @@ catButtons.forEach(button => {
         }
     });
 });
-        
+                                  
