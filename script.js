@@ -1,7 +1,5 @@
-// Banco de dados de filmes vazio (pronto para você adicionar os seus com calma)
 const movies = [];
 
-// URLs dos Avatares
 const availableAvatars = [
     "https://i.ibb.co/CpdwWKKj/44121.jpg", 
     "https://i.ibb.co/ks41CQmb/44120.jpg", 
@@ -10,7 +8,6 @@ const availableAvatars = [
     "https://i.ibb.co/pvs3T14g/44122.jpg"  
 ];
 
-// Elementos da Tela
 const authScreen = document.getElementById('authScreen');
 const profileScreen = document.getElementById('profileScreen');
 const mainSite = document.getElementById('mainSite');
@@ -19,7 +16,6 @@ const registerForm = document.getElementById('registerForm');
 const showRegisterBtn = document.getElementById('showRegister');
 const showLoginBtn = document.getElementById('showLogin');
 
-// Elementos de Perfis
 const profilesGrid = document.getElementById('profilesGrid');
 const btnAddProfileModal = document.getElementById('btnAddProfileModal');
 const profileModal = document.getElementById('profileModal');
@@ -34,7 +30,6 @@ const avatarSelectorGrid = document.getElementById('avatarSelectorGrid');
 let selectedAvatarUrl = availableAvatars[0];
 let editingProfileIndex = null; 
 
-// Elementos de Alerta
 const customModal = document.getElementById('customModal');
 const modalMessage = document.getElementById('modalMessage');
 const modalCloseBtn = document.getElementById('modalCloseBtn');
@@ -54,12 +49,10 @@ if (modalCloseBtn) {
     });
 }
 
-// Elementos do Catálogo
 const movieGrid = document.getElementById('movieGrid');
 const searchInput = document.getElementById('searchInput');
 const catButtons = document.querySelectorAll('.cat-btn');
 
-// Alternar entre tela de Login e Cadastro com animação/estilo padrão
 if (showRegisterBtn && showLoginBtn) {
     showRegisterBtn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -74,7 +67,6 @@ if (showRegisterBtn && showLoginBtn) {
     });
 }
 
-// Cadastro
 if (registerForm) {
     registerForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -96,7 +88,6 @@ if (registerForm) {
     });
 }
 
-// Login
 if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -129,7 +120,6 @@ if (loginForm) {
     });
 }
 
-// Renderizar Perfis
 function renderProfiles() {
     if (!profilesGrid) return;
     profilesGrid.innerHTML = '';
@@ -251,7 +241,6 @@ if (saveProfileBtn) {
     });
 }
 
-// Exibir Filmes
 function displayMovies(movieArray) {
     if (!movieGrid) return;
     movieGrid.innerHTML = "";
