@@ -1,18 +1,13 @@
-// Banco de dados de filmes original
-const movies = [
-    { title: "Stranger Things", genre: "Séries", year: "2022", image: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?auto=format&fit=crop&w=300&q=80" },
-    { title: "A Origem", genre: "Ação", year: "2010", image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=300&q=80" },
-    { title: "Amor Improvável", genre: "Romance", year: "2026", image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80" },
-    { title: "Velocidade Máxima", genre: "Ação", year: "2023", image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=300&q=80" }
-];
+// Banco de dados de filmes vazio (pronto para você adicionar os seus com calma)
+const movies = [];
 
-// URLs diretas dos seus avatares
+// URLs dos Avatares
 const availableAvatars = [
-    "https://i.ibb.co/CpdwWKKj/44121.jpg", // Maçã Noir
-    "https://i.ibb.co/ks41CQmb/44120.jpg", // Abacaxi Estiloso
-    "https://i.ibb.co/Vch7PHsr/44118.jpg", // Melancia Chefão
-    "https://i.ibb.co/VY9D3n1r/44119.jpg", // Morango de terno
-    "https://i.ibb.co/pvs3T14g/44122.jpg"  // Banana Jaqueta Amarela
+    "https://i.ibb.co/CpdwWKKj/44121.jpg", 
+    "https://i.ibb.co/ks41CQmb/44120.jpg", 
+    "https://i.ibb.co/Vch7PHsr/44118.jpg", 
+    "https://i.ibb.co/VY9D3n1r/44119.jpg", 
+    "https://i.ibb.co/pvs3T14g/44122.jpg"  
 ];
 
 // Elementos da Tela
@@ -39,91 +34,104 @@ const avatarSelectorGrid = document.getElementById('avatarSelectorGrid');
 let selectedAvatarUrl = availableAvatars[0];
 let editingProfileIndex = null; 
 
-// Elementos do Modal Personalizado de Alerta
+// Elementos de Alerta
 const customModal = document.getElementById('customModal');
 const modalMessage = document.getElementById('modalMessage');
 const modalCloseBtn = document.getElementById('modalCloseBtn');
 
 function showModal(message) {
-    modalMessage.textContent = message;
-    customModal.style.display = 'flex';
+    if (modalMessage && customModal) {
+        modalMessage.textContent = message;
+        customModal.style.display = 'flex';
+    } else {
+        alert(message);
+    }
 }
 
-modalCloseBtn.addEventListener('click', () => {
-    customModal.style.display = 'none';
-});
+if (modalCloseBtn) {
+    modalCloseBtn.addEventListener('click', () => {
+        customModal.style.display = 'none';
+    });
+}
 
 // Elementos do Catálogo
 const movieGrid = document.getElementById('movieGrid');
 const searchInput = document.getElementById('searchInput');
 const catButtons = document.querySelectorAll('.cat-btn');
 
-// Alternar entre tela de Login e Cadastro
-showRegisterBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    loginForm.style.display = 'none';
-    registerForm.style.display = 'flex';
-});
+// Alternar entre tela de Login e Cadastro com animação/estilo padrão
+if (showRegisterBtn && showLoginBtn) {
+    showRegisterBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'flex';
+    });
 
-showLoginBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    registerForm.style.display = 'none';
-    loginForm.style.display = 'flex';
-});
+    showLoginBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        registerForm.style.display = 'none';
+        loginForm.style.display = 'flex';
+    });
+}
 
-// Ação de Cadastrar Conta
-registerForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = document.getElementById('regName').value;
-    const email = document.getElementById('regEmail').value;
-    const password = document.getElementById('regPassword').value;
+// Cadastro
+if (registerForm) {
+    registerForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('regName').value;
+        const email = document.getElementById('regEmail').value;
+        const password = document.getElementById('regPassword').value;
 
-    localStorage.setItem('playCine_name', name);
-    localStorage.setItem('playCine_email', email);
-    localStorage.setItem('playCine_password', password);
+        localStorage.setItem('playCine_name', name);
+        localStorage.setItem('playCine_email', email);
+        localStorage.setItem('playCine_password', password);
 
-    const defaultProfiles = [{ name: name, avatar: availableAvatars[0] }];
-    localStorage.setItem('playCine_profiles', JSON.stringify(defaultProfiles));
+        const defaultProfiles = [{ name: name, avatar: availableAvatars[0] }];
+        localStorage.setItem('playCine_profiles', JSON.stringify(defaultProfiles));
 
-    showModal('Conta criada com sucesso! Faça login para entrar.');
-    registerForm.reset();
-    registerForm.style.display = 'none';
-    loginForm.style.display = 'flex';
-});
+        showModal('Conta criada com sucesso! Faça login para entrar.');
+        registerForm.reset();
+        registerForm.style.display = 'none';
+        loginForm.style.display = 'flex';
+    });
+}
 
-// Ação de Entrar
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const emailInput = document.getElementById('loginEmail').value;
-    const passwordInput = document.getElementById('loginPassword').value;
+// Login
+if (loginForm) {
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const emailInput = document.getElementById('loginEmail').value;
+        const passwordInput = document.getElementById('loginPassword').value;
 
-    const savedEmail = localStorage.getItem('playCine_email');
-    const savedPassword = localStorage.getItem('playCine_password');
+        const savedEmail = localStorage.getItem('playCine_email');
+        const savedPassword = localStorage.getItem('playCine_password');
 
-    if (!savedEmail) {
-        showModal('Nenhuma conta encontrada! Por favor, cadastre-se primeiro.');
-        return;
-    }
-
-    if (emailInput === savedEmail && passwordInput === savedPassword) {
-        authScreen.style.display = 'none';
-        
-        let profiles = JSON.parse(localStorage.getItem('playCine_profiles'));
-        if (!profiles || profiles.length === 0) {
-            const userName = localStorage.getItem('playCine_name') || 'Convidado';
-            profiles = [{ name: userName, avatar: availableAvatars[0] }];
-            localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
+        if (!savedEmail) {
+            showModal('Nenhuma conta encontrada! Por favor, cadastre-se primeiro.');
+            return;
         }
 
-        renderProfiles();
-        profileScreen.style.display = 'flex';
-    } else {
-        showModal('E-mail ou senha incorretos! Acesso negado.');
-    }
-});
+        if (emailInput === savedEmail && passwordInput === savedPassword) {
+            authScreen.style.display = 'none';
+            
+            let profiles = JSON.parse(localStorage.getItem('playCine_profiles'));
+            if (!profiles || profiles.length === 0) {
+                const userName = localStorage.getItem('playCine_name') || 'Convidado';
+                profiles = [{ name: userName, avatar: availableAvatars[0] }];
+                localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
+            }
 
-// Renderizar os perfis com o ícone do lápis
+            renderProfiles();
+            profileScreen.style.display = 'flex';
+        } else {
+            showModal('E-mail ou senha incorretos! Acesso negado.');
+        }
+    });
+}
+
+// Renderizar Perfis
 function renderProfiles() {
+    if (!profilesGrid) return;
     profilesGrid.innerHTML = '';
     const profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
 
@@ -152,7 +160,7 @@ function renderProfiles() {
                 return;
             }
 
-            currentProfileNameText.textContent = profile.name;
+            if (currentProfileNameText) currentProfileNameText.textContent = profile.name;
             profileScreen.style.display = 'none';
             mainSite.style.display = 'block';
             displayMovies(movies);
@@ -162,13 +170,16 @@ function renderProfiles() {
     });
 }
 
-activeProfileBadge.addEventListener('click', () => {
-    mainSite.style.display = 'none';
-    renderProfiles();
-    profileScreen.style.display = 'flex';
-});
+if (activeProfileBadge) {
+    activeProfileBadge.addEventListener('click', () => {
+        mainSite.style.display = 'none';
+        renderProfiles();
+        profileScreen.style.display = 'flex';
+    });
+}
 
 function renderAvatarSelector(currentSelectedUrl) {
+    if (!avatarSelectorGrid) return;
     avatarSelectorGrid.innerHTML = '';
     availableAvatars.forEach(url => {
         const item = document.createElement('div');
@@ -190,51 +201,59 @@ function renderAvatarSelector(currentSelectedUrl) {
     });
 }
 
-btnAddProfileModal.addEventListener('click', () => {
-    editingProfileIndex = null;
-    modalProfileTitle.textContent = "Novo Perfil";
-    newProfileName.value = '';
-    renderAvatarSelector(availableAvatars[0]);
-    profileModal.style.display = 'flex';
-});
+if (btnAddProfileModal) {
+    btnAddProfileModal.addEventListener('click', () => {
+        editingProfileIndex = null;
+        if (modalProfileTitle) modalProfileTitle.textContent = "Novo Perfil";
+        if (newProfileName) newProfileName.value = '';
+        renderAvatarSelector(availableAvatars[0]);
+        if (profileModal) profileModal.style.display = 'flex';
+    });
+}
 
 function openEditProfileModal(index) {
     editingProfileIndex = index;
-    modalProfileTitle.textContent = "Editar Perfil";
+    if (modalProfileTitle) modalProfileTitle.textContent = "Editar Perfil";
     const profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
     const profile = profiles[index];
 
-    newProfileName.value = profile.name;
+    if (newProfileName) newProfileName.value = profile.name;
     renderAvatarSelector(profile.avatar || availableAvatars[0]);
-    profileModal.style.display = 'flex';
+    if (profileModal) profileModal.style.display = 'flex';
 }
 
-cancelProfileBtn.addEventListener('click', () => {
-    profileModal.style.display = 'none';
-});
+if (cancelProfileBtn) {
+    cancelProfileBtn.addEventListener('click', () => {
+        profileModal.style.display = 'none';
+    });
+}
 
-saveProfileBtn.addEventListener('click', () => {
-    const nameVal = newProfileName.value.trim();
-    if (!nameVal) {
-        showModal('Digite um nome para o perfil.');
-        return;
-    }
+if (saveProfileBtn) {
+    saveProfileBtn.addEventListener('click', () => {
+        const nameVal = newProfileName.value.trim();
+        if (!nameVal) {
+            showModal('Digite um nome para o perfil.');
+            return;
+        }
 
-    let profiles = JSON.parse(localStorage.getItem('playCicne_profiles')) || JSON.parse(localStorage.getItem('playCine_profiles')) || [];
+        let profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
 
-    if (editingProfileIndex === null) {
-        profiles.push({ name: nameVal, avatar: selectedAvatarUrl });
-    } else {
-        profiles[editingProfileIndex].name = nameVal;
-        profiles[editingProfileIndex].avatar = selectedAvatarUrl;
-    }
+        if (editingProfileIndex === null) {
+            profiles.push({ name: nameVal, avatar: selectedAvatarUrl });
+        } else {
+            profiles[editingProfileIndex].name = nameVal;
+            profiles[editingProfileIndex].avatar = selectedAvatarUrl;
+        }
 
-    localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
-    profileModal.style.display = 'none';
-    renderProfiles();
-});
+        localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
+        profileModal.style.display = 'none';
+        renderProfiles();
+    });
+}
 
+// Exibir Filmes
 function displayMovies(movieArray) {
+    if (!movieGrid) return;
     movieGrid.innerHTML = "";
     
     if (movieArray.length === 0) {
@@ -258,13 +277,15 @@ function displayMovies(movieArray) {
     });
 }
 
-searchInput.addEventListener('input', (e) => {
-    const term = e.target.value.toLowerCase();
-    const filteredMovies = movies.filter(movie => 
-        movie.title.toLowerCase().includes(term) || movie.genre.toLowerCase().includes(term)
-    );
-    displayMovies(filteredMovies);
-});
+if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        const filteredMovies = movies.filter(movie => 
+            movie.title.toLowerCase().includes(term) || movie.genre.toLowerCase().includes(term)
+        );
+        displayMovies(filteredMovies);
+    });
+}
 
 catButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -280,4 +301,3 @@ catButtons.forEach(button => {
         }
     });
 });
-                                                                                                             
