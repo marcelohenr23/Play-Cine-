@@ -6,13 +6,13 @@ const movies = [
     { title: "Velocidade Máxima", genre: "Ação", year: "2023", image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=300&q=80" }
 ];
 
-// URLs dos avatares dos personagens que você enviou
+// URLs diretas dos seus avatares prontas e configuradas
 const availableAvatars = [
-    "44121.jpg", // Maçã Noir
-    "44120.jpg", // Abacaxi Estiloso
-    "44118.jpg", // Melancia Chefão
-    "44119.jpg", // Morango de terno
-    "44122.jpg"  // Banana Jaqueta Amarela
+    "https://i.ibb.co/CpdwWKKj/44121.jpg", // Maçã Noir
+    "https://i.ibb.co/ks41CQmb/44120.jpg", // Abacaxi Estiloso
+    "https://i.ibb.co/Vch7PHsr/44118.jpg", // Melancia Chefão
+    "https://i.ibb.co/VY9D3n1r/44119.jpg", // Morango de terno
+    "https://i.ibb.co/pvs3T14g/44122.jpg"  // Banana Jaqueta Amarela
 ];
 
 // Elementos da Tela
@@ -289,4 +289,3 @@ catButtons.forEach(button => {
         }
     });
 });
-                     
