@@ -133,7 +133,20 @@
         </footer>
     </section>
 
+    <!-- MODAL DE REPRODUÇÃO DO FILME -->
+    <div id="videoModal" class="modal" style="display: none;">
+        <div class="modal-content video-modal-content">
+            <button id="closeVideoModal" class="close-video-btn"><i class="fa-solid fa-xmark"></i></button>
+            <div class="video-container">
+                <iframe id="moviePlayer" src="" title="Player de Vídeo" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-details">
+                <h3 id="modalMovieTitle">Título do Filme</h3>
+                <p id="modalMovieDesc">Gênero • Ano</p>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
-                </html>
-                
+</html>
