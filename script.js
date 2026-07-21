@@ -1,9 +1,9 @@
-// Banco de dados de filmes original
+// Banco de dados de filmes atualizado com a imagem de teste
 const movies = [
+    { title: "Megatubarão", genre: "Ação", year: "2018", image: "megatubarao.jpg" },
     { title: "Stranger Things", genre: "Séries", year: "2022", image: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?auto=format&fit=crop&w=300&q=80" },
     { title: "A Origem", genre: "Ação", year: "2010", image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=300&q=80" },
-    { title: "Amor Improvável", genre: "Romance", year: "2026", image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80" },
-    { title: "Velocidade Máxima", genre: "Ação", year: "2023", image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=300&q=80" }
+    { title: "Amor Improvável", genre: "Romance", year: "2026", image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80" }
 ];
 
 // URLs diretas dos seus avatares
@@ -220,7 +220,7 @@ saveProfileBtn.addEventListener('click', () => {
         return;
     }
 
-    let profiles = JSON.parse(localStorage.getItem('playCicne_profiles')) || JSON.parse(localStorage.getItem('playCine_profiles')) || [];
+    let profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
 
     if (editingProfileIndex === null) {
         profiles.push({ name: nameVal, avatar: selectedAvatarUrl });
@@ -280,4 +280,3 @@ catButtons.forEach(button => {
         }
     });
 });
-        
