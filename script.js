@@ -1,291 +1,448 @@
-// Banco de dados de filmes de exemplo
-const movies = [
-    { title: "Aventura no Espaço", genre: "Ficção", year: "2025", image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=300&q=80" },
-    { title: "Sombras da Noite", genre: "Terror", year: "2024", image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=300&q=80" },
-    { title: "Amor Improvável", genre: "Romance", year: "2026", image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80" },
-    { title: "Velocidade Máxima", genre: "Ação", year: "2023", image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=300&q=80" }
-];
-
-// URLs diretas dos seus avatares prontas e configuradas
-const availableAvatars = [
-    "https://i.ibb.co/CpdwWKKj/44121.jpg", // Maçã Noir
-    "https://i.ibb.co/ks41CQmb/44120.jpg", // Abacaxi Estiloso
-    "https://i.ibb.co/Vch7PHsr/44118.jpg", // Melancia Chefão
-    "https://i.ibb.co/VY9D3n1r/44119.jpg", // Morango de terno
-    "https://i.ibb.co/pvs3T14g/44122.jpg"  // Banana Jaqueta Amarela
-];
-
-// Elementos da Tela
-const authScreen = document.getElementById('authScreen');
-const profileScreen = document.getElementById('profileScreen');
-const mainSite = document.getElementById('mainSite');
-const loginForm = document.getElementById('loginForm');
-const registerForm = document.getElementById('registerForm');
-const showRegisterBtn = document.getElementById('showRegister');
-const showLoginBtn = document.getElementById('showLogin');
-
-// Elementos de Perfis
-const profilesGrid = document.getElementById('profilesGrid');
-const btnAddProfileModal = document.getElementById('btnAddProfileModal');
-const profileModal = document.getElementById('profileModal');
-const modalProfileTitle = document.getElementById('modalProfileTitle');
-const newProfileName = document.getElementById('newProfileName');
-const saveProfileBtn = document.getElementById('saveProfileBtn');
-const cancelProfileBtn = document.getElementById('cancelProfileBtn');
-const currentProfileNameText = document.getElementById('currentProfileNameText');
-const activeProfileBadge = document.getElementById('activeProfileBadge');
-const avatarSelectorGrid = document.getElementById('avatarSelectorGrid');
-
-let selectedAvatarUrl = availableAvatars[0];
-let editingProfileIndex = null; // null = criando novo, número = editando perfil existente
-
-// Elementos do Modal Personalizado de Alerta
-const customModal = document.getElementById('customModal');
-const modalMessage = document.getElementById('modalMessage');
-const modalCloseBtn = document.getElementById('modalCloseBtn');
-
-function showModal(message) {
-    modalMessage.textContent = message;
-    customModal.style.display = 'flex';
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-modalCloseBtn.addEventListener('click', () => {
-    customModal.style.display = 'none';
-});
+body {
+    background-color: #0b0f19;
+    color: #ffffff;
+    min-height: 100vh;
+}
 
-// Elementos do Catálogo
-const movieGrid = document.getElementById('movieGrid');
-const searchInput = document.getElementById('searchInput');
-const catButtons = document.querySelectorAll('.cat-btn');
+/* Animação de Abertura */
+.intro-splash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0b0f19;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeOutSplash 0.5s ease 1.5s forwards;
+}
 
-// Alternar entre tela de Login e Cadastro
-showRegisterBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    loginForm.style.display = 'none';
-    registerForm.style.display = 'flex';
-});
+.intro-logo {
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
 
-showLoginBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    registerForm.style.display = 'none';
-    loginForm.style.display = 'flex';
-});
+.intro-logo .letter {
+    color: #ffffff;
+    opacity: 0;
+    animation: fadeInLetter 0.4s ease forwards;
+}
 
-// Ação de Cadastrar Conta
-registerForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = document.getElementById('regName').value;
-    const email = document.getElementById('regEmail').value;
-    const password = document.getElementById('regPassword').value;
+.intro-logo .letter:nth-child(1) { animation-delay: 0.1s; }
+.intro-logo .letter:nth-child(2) { animation-delay: 0.2s; }
+.intro-logo .letter:nth-child(3) { animation-delay: 0.3s; }
+.intro-logo .letter:nth-child(4) { animation-delay: 0.4s; }
+.intro-logo .letter:nth-child(5) { animation-delay: 0.5s; }
+.intro-logo .letter:nth-child(6) { animation-delay: 0.6s; }
+.intro-logo .letter:nth-child(7) { animation-delay: 0.7s; }
+.intro-logo .letter:nth-child(8) { animation-delay: 0.8s; }
 
-    localStorage.setItem('playCine_name', name);
-    localStorage.setItem('playCine_email', email);
-    localStorage.setItem('playCine_password', password);
+.intro-logo .highlight {
+    color: #3b82f6;
+}
 
-    const defaultProfiles = [{ name: name, avatar: availableAvatars[0] }];
-    localStorage.setItem('playCine_profiles', JSON.stringify(defaultProfiles));
-
-    showModal('Conta criada com sucesso! Faça login para entrar.');
-    registerForm.reset();
-    registerForm.style.display = 'none';
-    loginForm.style.display = 'flex';
-});
-
-// Ação de Entrar
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const emailInput = document.getElementById('loginEmail').value;
-    const passwordInput = document.getElementById('loginPassword').value;
-
-    const savedEmail = localStorage.getItem('playCine_email');
-    const savedPassword = localStorage.getItem('playCine_password');
-
-    if (!savedEmail) {
-        showModal('Nenhuma conta encontrada! Por favor, cadastre-se primeiro.');
-        return;
+@keyframes fadeInLetter {
+    to {
+        opacity: 1;
     }
+}
 
-    if (emailInput === savedEmail && passwordInput === savedPassword) {
-        authScreen.style.display = 'none';
-        
-        let profiles = JSON.parse(localStorage.getItem('playCine_profiles'));
-        if (!profiles || profiles.length === 0) {
-            const userName = localStorage.getItem('playCine_name') || 'Convidado';
-            profiles = [{ name: userName, avatar: availableAvatars[0] }];
-            localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
+@keyframes fadeOutSplash {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* Telas de Autenticação e Perfis */
+.auth-container, .profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: #0b0f19;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.auth-box, .profile-content {
+    background-color: #141c2c;
+    padding: 30px 20px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+    text-align: center;
+    border: 1px solid #1a2234;
+}
+
+.brand-logo {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+}
+
+.brand-play { color: #ffffff; }
+.brand-cine { color: #3b82f6; }
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.auth-form h3, .profile-content h2 {
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    color: #fff;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+    width: 100%;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 14px;
+    background-color: #0b0f19;
+    border: 1px solid #253349;
+    border-radius: 6px;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: #3b82f6;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-secondary {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px dashed #3b82f6;
+    color: #3b82f6;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 15px;
+}
+
+.auth-switch {
+    margin-top: 20px;
+    color: #8b9bb4;
+    font-size: 0.85rem;
+}
+
+.auth-switch a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Perfis */
+.profiles-grid {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.profile-card {
+    cursor: pointer;
+    text-align: center;
+}
+
+.profile-avatar-wrapper {
+    position: relative;
+    width: 85px;
+    height: 85px;
+    margin-bottom: 8px;
+}
+
+.profile-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+
+.profile-card:hover .profile-avatar {
+    border-color: #3b82f6;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.edit-pencil-badge {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    background-color: rgba(11, 15, 25, 0.9);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    border: 1px solid #3b82f6;
+}
+
+.profile-name {
+    color: #8b9bb4;
+    font-size: 0.9rem;
+}
+
+/* Modais Extras */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 300;
+    padding: 16px;
+}
+
+.modal-box {
+    background: #141c2c;
+    padding: 22px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+    border: 1px solid #1a2234;
+}
+
+.avatar-selector-grid {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 15px 0;
+}
+
+.avatar-selector-item {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.avatar-selector-item.selected {
+    border-color: #3b82f6;
+}
+
+.avatar-selector-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Site Principal & Header */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background-color: rgba(11, 15, 25, 0.95);
+    border-bottom: 1px solid #1a2234;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo h1 {
+    color: #fff;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+}
+
+.logo h1 span {
+    color: #3b82f6;
+}
+
+.active-profile-badge {
+    background: #141c2c;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #8b9bb4;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #253349;
+}
+
+.search-box input {
+    padding: 8px 14px;
+    background: #141c2c;
+    border: 1px solid #253349;
+    color: white;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    width: 160px;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+/* Hero Banner */
+.hero {
+    background: linear-gradient(to top, #0b0f19 0%, rgba(11,15,25,0.7) 100%), 
+                url('https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1000&q=80') center/cover;
+    padding: 50px 18px;
+    border-bottom: 1px solid #1a2234;
+}
+
+.hero-content h2 {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.hero-content p {
+    color: #8b9bb4;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+}
+
+.hero-content .btn-primary {
+    width: auto;
+    padding: 8px 16px;
+}
+
+/* Categorias */
+.categories-nav {
+    display: flex;
+    gap: 10px;
+    padding: 15px 18px;
+    overflow-x: auto;
+}
+
+.cat-btn {
+    background: #141c2c;
+    border: 1px solid #253349;
+    color: #8b9bb4;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 0.9rem;
+}
+
+.cat-btn.active, .cat-btn:hover {
+    background: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+}
+
+/* Catálogo */
+.container {
+    padding: 20px 18px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.container h2 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.movie-card {
+    background: #141c2c;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #1a2234;
+}
+
+.movie-card img {
+    width: 100%;
+    height: 260px; /* Altura ideal ajustada para capas de filmes verticais */
+    object-fit: cover;
+    display: block;
+}
+
+.movie-info {
+    padding: 10px;
+}
+
+.movie-info h3 {
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fff;
+}
+
+.movie-info span {
+    color: #8b9bb4;
+    font-size: 0.8rem;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #64748b;
+    font-size: 0.8rem;
+    border-top: 1px solid #1a2234;
         }
-
-        renderProfiles();
-        profileScreen.style.display = 'flex';
-    } else {
-        showModal('E-mail ou senha incorretos! Acesso negado.');
-    }
-});
-
-// Renderizar os perfis com o ícone do lápis
-function renderProfiles() {
-    profilesGrid.innerHTML = '';
-    const profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
-
-    profiles.forEach((profile, index) => {
-        const card = document.createElement('div');
-        card.classList.add('profile-card');
-        
-        const avatarImg = profile.avatar || availableAvatars[0];
-
-        card.innerHTML = `
-            <div class="profile-avatar-wrapper">
-                <div class="profile-avatar">
-                    <img src="${avatarImg}" alt="${profile.name}">
-                </div>
-                <div class="edit-pencil-badge" title="Editar Perfil">
-                    <i class="fa-solid fa-pen"></i>
-                </div>
-            </div>
-            <span class="profile-name">${profile.name}</span>
-        `;
-
-        // Ao clicar no perfil
-        card.addEventListener('click', (e) => {
-            if (e.target.closest('.edit-pencil-badge')) {
-                e.stopPropagation();
-                openEditProfileModal(index);
-                return;
-            }
-
-            currentProfileNameText.textContent = profile.name;
-            profileScreen.style.display = 'none';
-            mainSite.style.display = 'block';
-            displayMovies(movies);
-        });
-
-        profilesGrid.appendChild(card);
-    });
-}
-
-// Botão para voltar à seleção de perfil pelo cabeçalho
-activeProfileBadge.addEventListener('click', () => {
-    mainSite.style.display = 'none';
-    renderProfiles();
-    profileScreen.style.display = 'flex';
-});
-
-// Renderiza a grade de seleção de avatares no modal
-function renderAvatarSelector(currentSelectedUrl) {
-    avatarSelectorGrid.innerHTML = '';
-    availableAvatars.forEach(url => {
-        const item = document.createElement('div');
-        item.classList.add('avatar-selector-item');
-        if (url === currentSelectedUrl) {
-            item.classList.add('selected');
-            selectedAvatarUrl = url;
-        }
-
-        item.innerHTML = `<img src="${url}" alt="Avatar">`;
-        
-        item.addEventListener('click', () => {
-            document.querySelectorAll('.avatar-selector-item').forEach(el => el.classList.remove('selected'));
-            item.classList.add('selected');
-            selectedAvatarUrl = url;
-        });
-
-        avatarSelectorGrid.appendChild(item);
-    });
-}
-
-// Abrir modal para Adicionar Novo Perfil
-btnAddProfileModal.addEventListener('click', () => {
-    editingProfileIndex = null;
-    modalProfileTitle.textContent = "Novo Perfil";
-    newProfileName.value = '';
-    renderAvatarSelector(availableAvatars[0]);
-    profileModal.style.display = 'flex';
-});
-
-// Abrir modal para Editar Perfil existente (clique no lápis)
-function openEditProfileModal(index) {
-    editingProfileIndex = index;
-    modalProfileTitle.textContent = "Editar Perfil";
-    const profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
-    const profile = profiles[index];
-
-    newProfileName.value = profile.name;
-    renderAvatarSelector(profile.avatar || availableAvatars[0]);
-    profileModal.style.display = 'flex';
-}
-
-cancelProfileBtn.addEventListener('click', () => {
-    profileModal.style.display = 'none';
-});
-
-// Salvar Perfil (Novo ou Editado)
-saveProfileBtn.addEventListener('click', () => {
-    const nameVal = newProfileName.value.trim();
-    if (!nameVal) {
-        showModal('Digite um nome para o perfil.');
-        return;
-    }
-
-    let profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
-
-    if (editingProfileIndex === null) {
-        profiles.push({ name: nameVal, avatar: selectedAvatarUrl });
-    } else {
-        profiles[editingProfileIndex].name = nameVal;
-        profiles[editingProfileIndex].avatar = selectedAvatarUrl;
-    }
-
-    localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
-    profileModal.style.display = 'none';
-    renderProfiles();
-});
-
-// Função para exibir os filmes no catálogo
-function displayMovies(movieArray) {
-    movieGrid.innerHTML = "";
-    
-    if (movieArray.length === 0) {
-        movieGrid.innerHTML = "<p style='grid-column: span 2; text-align: center; color: #8b9bb4;'>Nenhum filme encontrado.</p>";
-        return;
-    }
-
-    movieArray.forEach(movie => {
-        const card = document.createElement('div');
-        card.classList.add('movie-card');
-        
-        card.innerHTML = `
-            <img src="${movie.image}" alt="${movie.title}">
-            <div class="movie-info">
-                <h3>${movie.title}</h3>
-                <span>${movie.genre} • ${movie.year}</span>
-            </div>
-        `;
-        
-        movieGrid.appendChild(card);
-    });
-}
-
-// Filtro da barra de pesquisa em tempo real
-searchInput.addEventListener('input', (e) => {
-    const term = e.target.value.toLowerCase();
-    const filteredMovies = movies.filter(movie => 
-        movie.title.toLowerCase().includes(term) || movie.genre.toLowerCase().includes(term)
-    );
-    displayMovies(filteredMovies);
-});
-
-// Filtros por Categoria de Filmes
-catButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        catButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-
-        const category = button.getAttribute('data-category');
-        if (category === 'all') {
-            displayMovies(movies);
-        } else {
-            const filtered = movies.filter(m => m.genre === category);
-            displayMovies(filtered);
-        }
-    });
-});
