@@ -1,4 +1,4 @@
-// Banco de dados simulado de filmes com capas oficiais e formato padrão
+// Banco de dados de filmes atualizado com capas oficiais verticais
 const movies = [
     { 
         title: "Interestelar", 
@@ -38,12 +38,12 @@ const movies = [
     }
 ];
 
-// Função para exibir os filmes no catálogo
+// Função para renderizar os filmes na tela
 function renderMovies(movieArray) {
-    const grid = document.getElementById('movieGrid');
-    if (!grid) return;
+    const movieGrid = document.getElementById('movieGrid');
+    if (!movieGrid) return;
     
-    grid.innerHTML = '';
+    movieGrid.innerHTML = '';
     
     movieArray.forEach(movie => {
         const card = document.createElement('div');
@@ -55,60 +55,42 @@ function renderMovies(movieArray) {
                 <span>${movie.genre} • ${movie.year}</span>
             </div>
         `;
-        grid.appendChild(card);
+        movieGrid.appendChild(card);
     });
 }
 
-// Inicialização completa ao carregar a página
+// Inicializador principal do site
 document.addEventListener('DOMContentLoaded', () => {
-    // Renderiza o catálogo inicial de filmes
+    // Carrega os filmes inicialmente
     renderMovies(movies);
 
-    // Sistema de busca por nome
+    // Sistema de busca no catálogo
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            const filtered = movies.filter(m => m.title.toLowerCase().includes(term));
-            renderMovies(filtered);
+            const query = e.target.value.toLowerCase();
+            const filteredMovies = movies.filter(movie => 
+                movie.title.toLowerCase().includes(query) || 
+                movie.genre.toLowerCase().includes(query)
+            );
+            renderMovies(filteredMovies);
         });
     }
 
-    // Sistema de categorias
+    // Sistema de navegação por categorias
     const catButtons = document.querySelectorAll('.cat-btn');
-    catButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            catButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+    catButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            catButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
             
-            const category = btn.getAttribute('data-category');
-            if (!category || category === 'Todos') {
+            const category = button.textContent.trim();
+            if (category === 'Todos') {
                 renderMovies(movies);
             } else {
-                const filtered = movies.filter(m => m.genre === category);
-                renderMovies(filtered);
+                const filteredMovies = movies.filter(movie => movie.genre === category);
+                renderMovies(filteredMovies);
             }
         });
     });
-
-    // Controle básico de transição de telas (Login / Cadastro / Perfis / Início)
-    const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
-    
-    if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            // Esconde a tela de login e avança (ajuste conforme os IDs do seu HTML)
-            const authContainer = document.querySelector('.auth-container');
-            if (authContainer) authContainer.style.display = 'none';
-        });
-    }
-
-    if (registerForm) {
-        registerForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const authContainer = document.querySelector('.auth-container');
-            if (authContainer) authContainer.style.display = 'none';
-        });
-    }
 });
