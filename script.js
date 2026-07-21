@@ -1,5 +1,6 @@
 // Base de dados de filmes
 const movies = [
+    { title: "Velozes e Furiosos", genre: "Ação", year: "2001", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes.png" },
     { title: "Aventura no Espaço", genre: "Ficção", year: "2025", image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=300&q=80" },
     { title: "Sombras da Noite", genre: "Terror", year: "2024", image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=300&q=80" },
     { title: "Amor Improvável", genre: "Romance", year: "2026", image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80" },
@@ -52,7 +53,6 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 let selectedAvatarUrl = availableAvatars[0];
 let editingProfileIndex = null;
 
-// Função utilitária para exibir alertas modernos
 function showAlert(message) {
     modalMessage.textContent = message;
     customModal.style.display = 'flex';
@@ -64,16 +64,13 @@ if (modalCloseBtn) {
     });
 }
 
-// Alternar entre Telas Principais
 function switchView(targetSection) {
     authSection.style.display = 'none';
     profileSection.style.display = 'none';
     mainAppSection.style.display = 'none';
-
     targetSection.style.display = 'block';
 }
 
-// Alternar visibilidade Login <-> Cadastro
 if (toRegisterBtn && toLoginBtn) {
     toRegisterBtn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -88,7 +85,6 @@ if (toRegisterBtn && toLoginBtn) {
     });
 }
 
-// Lógica de Cadastro
 if (registerForm) {
     registerForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -110,7 +106,6 @@ if (registerForm) {
     });
 }
 
-// Lógica de Login
 if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -141,7 +136,6 @@ if (loginForm) {
     });
 }
 
-// Renderizar Grade de Perfis
 function renderProfiles() {
     if (!profilesGrid) return;
     profilesGrid.innerHTML = '';
@@ -169,7 +163,6 @@ function renderProfiles() {
                 return;
             }
 
-            // Entrar no sistema com este perfil
             if (activeProfileNameText) activeProfileNameText.textContent = profile.name;
             if (activeProfileAvatarImg) activeProfileAvatarImg.src = avatarImg;
             
@@ -181,7 +174,6 @@ function renderProfiles() {
     });
 }
 
-// Botão para Trocar de Perfil a partir do cabeçalho
 if (profileSwitcher) {
     profileSwitcher.addEventListener('click', () => {
         renderProfiles();
@@ -189,7 +181,6 @@ if (profileSwitcher) {
     });
 }
 
-// Renderização do seletor de avatares dentro do modal
 function renderAvatarSelector(activeUrl) {
     if (!avatarGrid) return;
     avatarGrid.innerHTML = '';
@@ -214,7 +205,6 @@ function renderAvatarSelector(activeUrl) {
     });
 }
 
-// Abrir Modal para Novo Perfil
 if (openAddProfileModalBtn) {
     openAddProfileModalBtn.addEventListener('click', () => {
         editingProfileIndex = null;
@@ -225,7 +215,6 @@ if (openAddProfileModalBtn) {
     });
 }
 
-// Abrir Modal para Editar Perfil
 function openProfileModalForEdit(index) {
     editingProfileIndex = index;
     if (modalProfileTitle) modalProfileTitle.textContent = "Editar Perfil";
@@ -243,7 +232,6 @@ if (cancelProfileBtn) {
     });
 }
 
-// Salvar Perfil (Adicionar ou Editar)
 if (saveProfileBtn) {
     saveProfileBtn.addEventListener('click', () => {
         const nameVal = profileNameInput.value.trim();
@@ -267,7 +255,6 @@ if (saveProfileBtn) {
     });
 }
 
-// Renderizar Filmes no Catálogo
 function renderMovies(movieList) {
     if (!movieGrid) return;
     movieGrid.innerHTML = '';
@@ -292,7 +279,6 @@ function renderMovies(movieList) {
     });
 }
 
-// Sistema de Busca em Tempo Real
 if (searchInput) {
     searchInput.addEventListener('input', (e) => {
         const term = e.target.value.toLowerCase().trim();
@@ -303,7 +289,6 @@ if (searchInput) {
     });
 }
 
-// Filtros por Categoria
 filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         filterBtns.forEach(b => b.classList.remove('active'));
@@ -318,4 +303,4 @@ filterBtns.forEach(btn => {
         }
     });
 });
-    
+        
