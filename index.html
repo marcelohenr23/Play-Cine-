@@ -3,134 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlayCine</title>
-    <!-- FontAwesome para Ícones -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Seu Estilo (CSS) -->
+    <title>Play Cine - Seu Portal de Filmes</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- TELA 1: AUTENTICAÇÃO (Login / Cadastro) -->
-    <section id="authSection" class="auth-section">
-        <div class="auth-container">
-            <h1 class="logo-text">PLAY<span>CINE</span></h1>
-            
-            <!-- Formulário de Login -->
-            <form id="loginForm" class="auth-form">
-                <h2>Entrar</h2>
-                <div class="input-group">
-                    <input type="email" id="loginEmail" placeholder="E-mail" required>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="loginPassword" placeholder="Senha" required>
-                </div>
-                <button type="submit" class="btn-primary">Entrar</button>
-                <p class="switch-auth">Não tem uma conta? <a href="#" id="toRegister">Cadastre-se</a></p>
-            </form>
+    <!-- Animação de Abertura (Splash Screen) -->
+    <div id="introSplash" class="splash-screen">
+        <div class="splash-logo">
+            <span class="highlight">PLAY</span><span>CINE</span>
+        </div>
+    </div>
 
-            <!-- Formulário de Cadastro -->
-            <form id="registerForm" class="auth-form" style="display: none;">
-                <h2>Criar Conta</h2>
-                <div class="input-group">
-                    <input type="text" id="regName" placeholder="Nome" required>
+    <!-- Modal de Alerta / Mensagem Personalizado -->
+    <div id="customModal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-card">
+            <p id="modalMessage">Mensagem do sistema</p>
+            <button id="modalCloseBtn" class="btn-main">OK</button>
+        </div>
+    </div>
+
+    <!-- Seção de Autenticação (Login / Cadastro) -->
+    <section id="authSection" class="view-section active">
+        <div class="auth-wrapper">
+            <div class="auth-card">
+                <div class="brand-header">
+                    <span class="brand-play">PLAY</span><span class="brand-cine">CINE</span>
                 </div>
-                <div class="input-group">
-                    <input type="email" id="regEmail" placeholder="E-mail" required>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="regPassword" placeholder="Senha" required>
-                </div>
-                <button type="submit" class="btn-primary">Cadastrar</button>
-                <p class="switch-auth">Já tem uma conta? <a href="#" id="toLogin">Faça login</a></p>
-            </form>
+
+                <!-- Formulário de Login -->
+                <form id="loginForm" class="auth-form">
+                    <h2>Entrar na Conta</h2>
+                    <div class="input-field">
+                        <input type="email" id="loginEmail" placeholder="E-mail" required autocomplete="email">
+                    </div>
+                    <div class="input-field">
+                        <input type="password" id="loginPassword" placeholder="Senha" required autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="btn-main">Entrar</button>
+                    <p class="auth-switch">Não tem uma conta? <a href="#" id="toRegister">Cadastre-se</a></p>
+                </form>
+
+                <!-- Formulário de Cadastro -->
+                <form id="registerForm" class="auth-form" style="display: none;">
+                    <h2>Criar Conta</h2>
+                    <div class="input-field">
+                        <input type="text" id="regName" placeholder="Seu Nome" required autocomplete="name">
+                    </div>
+                    <div class="input-field">
+                        <input type="email" id="regEmail" placeholder="E-mail" required autocomplete="email">
+                    </div>
+                    <div class="input-field">
+                        <input type="password" id="regPassword" placeholder="Senha" required autocomplete="new-password">
+                    </div>
+                    <button type="submit" class="btn-main">Cadastrar</button>
+                    <p class="auth-switch">Já tem uma conta? <a href="#" id="toLogin">Entrar</a></p>
+                </form>
+            </div>
         </div>
     </section>
 
-    <!-- TELA 2: SELEÇÃO DE PERFIS -->
-    <section id="profileSection" class="profile-section" style="display: none;">
-        <div class="profile-container">
+    <!-- Seção de Seleção de Perfis -->
+    <section id="profileSection" class="view-section" style="display: none;">
+        <div class="profile-wrapper">
             <h2>Quem está assistindo?</h2>
-            <div id="profilesGrid" class="profiles-grid">
-                <!-- Perfis injetados via JS -->
-            </div>
-            <button id="openAddProfileModal" class="btn-secondary"><i class="fa-solid fa-plus"></i> Adicionar Perfil</button>
+            <div id="profilesGrid" class="profiles-grid"></div>
+            <button id="openAddProfileModal" class="btn-outline">+ Adicionar Perfil</button>
         </div>
     </section>
 
-    <!-- TELA 3: APLICATIVO PRINCIPAL (Catálogo) -->
-    <section id="mainAppSection" class="main-app-section" style="display: none;">
-        <!-- Cabeçalho / Navbar -->
-        <header class="navbar">
-            <div class="nav-left">
-                <h2 class="logo-text">PLAY<span>CINE</span></h2>
+    <!-- Modal de Gerenciamento de Perfil (Criar / Editar) -->
+    <div id="profileModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card modal-wide">
+            <h3 id="modalProfileTitle">Novo Perfil</h3>
+            <div class="input-field" style="margin: 20px 0 10px 0;">
+                <input type="text" id="profileNameInput" placeholder="Nome do perfil">
             </div>
-            <div class="nav-right">
-                <div id="profileSwitcher" class="active-profile-display" title="Trocar de Perfil">
+            <p class="avatar-label">Escolha um avatar:</p>
+            <div id="avatarGrid" class="avatar-grid"></div>
+            <div class="modal-actions">
+                <button id="saveProfileBtn" class="btn-main">Salvar</button>
+                <button id="cancelProfileBtn" class="btn-outline">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plataforma Principal (Catálogo) -->
+    <section id="mainAppSection" class="view-section" style="display: none;">
+        <header class="app-header">
+            <div class="header-brand">
+                <h1>PLAY<span>CINE</span></h1>
+                <div id="profileSwitcher" class="profile-badge" title="Trocar Perfil">
                     <img id="activeProfileAvatarImg" src="" alt="Avatar">
-                    <span id="activeProfileNameText"></span>
+                    <span id="activeProfileNameText">Perfil</span>
                     <i class="fa-solid fa-chevron-down"></i>
                 </div>
             </div>
-        </header>
-
-        <!-- Conteúdo Principal -->
-        <main class="content-container">
-            <!-- Barra de Pesquisa -->
-            <div class="search-bar-container">
+            <div class="header-search">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" id="searchInput" placeholder="Pesquisar filme ou gênero...">
             </div>
+        </header>
 
-            <!-- Banner de Destaque -->
+        <main class="app-content">
             <div class="hero-banner">
-                <h1>Filmes Incríveis para Assistir Agora</h1>
-                <p>Explore os melhores títulos, lançamentos e clássicos na palma da sua mão.</p>
+                <div class="hero-text">
+                    <h2>Filmes Incríveis para Assistir Agora</h2>
+                    <p>Explore os melhores títulos, lançamentos e clássicos na palma da sua mão.</p>
+                </div>
             </div>
 
-            <!-- Barra de Filtros Tradicional -->
-            <div class="filter-bar">
+            <nav class="categories-bar">
                 <button class="filter-btn active" data-category="all">Todos</button>
                 <button class="filter-btn" data-category="Ação">Ação</button>
-            </div>
+                <button class="filter-btn" data-category="Terror">Terror</button>
+                <button class="filter-btn" data-category="Ficção">Ficção</button>
+                <button class="filter-btn" data-category="Romance">Romance</button>
+            </nav>
 
-            <!-- Grade de Filmes -->
             <section class="catalog-section">
                 <h3>Catálogo de Filmes</h3>
-                <div id="movieGrid" class="movie-grid">
-                    <!-- Os filmes entram aqui via JavaScript -->
-                </div>
+                <div id="movieGrid" class="movie-grid"></div>
             </section>
         </main>
+
+        <footer class="app-footer">
+            <p>&copy; 2026 Play Cine. Todos os direitos reservados.</p>
+        </footer>
     </section>
 
-    <!-- MODAL DE ADICIONAR / EDITAR PERFIL -->
-    <div id="profileModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <h3 id="modalProfileTitle">Novo Perfil</h3>
-            <input type="text" id="profileNameInput" placeholder="Nome do perfil">
-            <p class="avatar-select-label">Escolha um avatar:</p>
-            <div id="avatarGrid" class="avatar-grid">
-                <!-- Avatares gerados via JS -->
-            </div>
-            <div class="modal-buttons">
-                <button id="cancelProfileBtn" class="btn-secondary">Cancelar</button>
-                <button id="saveProfileBtn" class="btn-primary">Salvar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL DE ALERTA CUSTOMIZADO -->
-    <div id="customModal" class="modal" style="display: none;">
-        <div class="modal-content alert-content">
-            <p id="modalMessage">Mensagem de alerta</p>
-            <button id="modalCloseBtn" class="btn-primary">OK</button>
-        </div>
-    </div>
-
-    <!-- Seu Script (JS) -->
     <script src="script.js"></script>
 </body>
-</html>
+                </html>
+                
