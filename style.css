@@ -1,4 +1,4 @@
-/* Configuração Geral do Site */
+/* Configurações Globais e Variáveis */
 * {
     margin: 0;
     padding: 0;
@@ -8,85 +8,137 @@
 
 body {
     background-color: #0b0f19;
-    color: #fff;
+    color: #ffffff;
     min-height: 100vh;
-}
-
-/* Telas de Autenticação e Perfis */
-.auth-container, .profile-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+}
+
+/* Tela de Autenticação (Login e Cadastro) */
+.auth-container {
+    display: flex;
     justify-content: center;
+    align-items: center;
     min-height: 100vh;
     padding: 20px;
+    background: radial-gradient(circle at center, #1a2238 0%, #0b0f19 100%);
+    animation: fadeIn 0.6s ease-in-out;
 }
 
-.auth-box {
-    background-color: #141c2c;
-    padding: 30px;
-    border-radius: 12px;
+.auth-card {
+    background-color: #131b2e;
+    padding: 40px;
+    border-radius: 16px;
     width: 100%;
     max-width: 400px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.auth-box h2 {
-    margin-bottom: 20px;
-    text-align: center;
+.auth-logo {
+    font-size: 24px;
+    font-weight: bold;
     color: #38bdf8;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
 }
 
-.auth-box form {
+.auth-card h2 {
+    font-size: 22px;
+    margin-bottom: 24px;
+    color: #f8fafc;
+}
+
+.input-group {
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
 }
 
-.auth-box input {
-    padding: 12px;
-    border-radius: 6px;
-    border: 1px solid #1e293b;
-    background-color: #0b0f19;
-    color: #fff;
-    font-size: 1rem;
-}
-
-.auth-box button {
-    padding: 12px;
-    border-radius: 6px;
-    border: none;
-    background-color: #38bdf8;
-    color: #0b0f19;
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.auth-box button:hover {
-    background-color: #0ea5e9;
-}
-
-.switch-auth {
-    margin-top: 15px;
-    text-align: center;
-    font-size: 0.9rem;
+.input-group label {
+    font-size: 14px;
+    margin-bottom: 8px;
     color: #94a3b8;
 }
 
-.switch-auth a {
-    color: #38bdf8;
-    text-decoration: none;
+.input-group input {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #fff;
+    font-size: 16px;
+    transition: border-color 0.3s;
 }
 
-/* Perfis */
+.input-group input:focus {
+    outline: none;
+    border-color: #38bdf8;
+}
+
+.auth-btn {
+    width: 100%;
+    background-color: #0284c7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    margin-top: 10px;
+}
+
+.auth-btn:hover {
+    background-color: #0369a1;
+}
+
+.auth-btn:active {
+    transform: scale(0.98);
+}
+
+.auth-switch {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+.auth-switch a {
+    color: #38bdf8;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+
+/* Tela de Seleção de Perfis */
+.profile-screen-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+.profile-screen-container h1 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: #f8fafc;
+    font-weight: 500;
+}
+
 .profiles-grid {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 20px;
+    margin-bottom: 40px;
 }
 
 .profile-card {
@@ -94,30 +146,31 @@ body {
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.3s;
 }
 
 .profile-card:hover {
-    transform: scale(1.05);
+    transform: translateY(-8px);
 }
 
 .profile-avatar-wrapper {
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: 130px;
+    height: 130px;
+    margin-bottom: 12px;
 }
 
 .profile-avatar {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+    border-radius: 8px;
     overflow: hidden;
     border: 3px solid transparent;
-    transition: border-color 0.2s;
+    transition: border-color 0.3s;
 }
 
 .profile-card:hover .profile-avatar {
-    border-color: #38bdf8;
+    border-color: #fff;
 }
 
 .profile-avatar img {
@@ -128,155 +181,59 @@ body {
 
 .edit-pencil-badge {
     position: absolute;
-    bottom: 0;
-    right: 0;
-    background-color: #38bdf8;
-    color: #0b0f19;
-    width: 28px;
-    height: 28px;
+    bottom: 8px;
+    right: 8px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.8rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    font-size: 14px;
+    border: 2px solid #fff;
+    opacity: 0;
+    transition: opacity 0.3s, background-color 0.3s;
+}
+
+.profile-card:hover .edit-pencil-badge {
+    opacity: 1;
+}
+
+.edit-pencil-badge:hover {
+    background-color: #0284c7;
 }
 
 .profile-name {
-    margin-top: 10px;
-    font-weight: 500;
-    color: #cbd5e1;
-}
-
-/* Site Principal (Catálogo) */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    background-color: #141c2c;
-    border-bottom: 1px solid #1e293b;
-}
-
-header h1 {
-    color: #38bdf8;
-    font-size: 1.5rem;
-}
-
-.user-badge {
-    background-color: #1e293b;
-    padding: 6px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    color: #cbd5e1;
-    transition: background 0.2s;
-}
-
-.user-badge:hover {
-    background-color: #334155;
-}
-
-.hero {
-    padding: 40px;
-    text-align: center;
-    background: linear-gradient(to bottom, #141c2c, #0b0f19);
-}
-
-.hero h2 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-}
-
-.hero p {
     color: #94a3b8;
-    margin-bottom: 20px;
+    font-size: 18px;
+    transition: color 0.3s;
 }
 
-.catalog-section {
-    padding: 30px 40px;
-}
-
-.catalog-section h2 {
-    margin-bottom: 20px;
-    font-size: 1.3rem;
-}
-
-.categories {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
-}
-
-.cat-btn {
-    padding: 8px 16px;
-    border-radius: 20px;
-    border: 1px solid #1e293b;
-    background-color: #141c2c;
-    color: #cbd5e1;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.cat-btn.active, .cat-btn:hover {
-    background-color: #38bdf8;
-    color: #0b0f19;
-    border-color: #38bdf8;
-    font-weight: bold;
-}
-
-/* Grid de Filmes e Correção do Título */
-.movie-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 20px;
-}
-
-.movie-card {
-    background-color: #141c2c;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    transition: transform 0.2s;
-    display: flex;
-    flex-direction: column;
-}
-
-.movie-card:hover {
-    transform: translateY(-5px);
-}
-
-.movie-card img {
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-    display: block;
-}
-
-.movie-info {
-    padding: 12px 10px;
-    background: #141c2c;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
-.movie-info h3 {
-    font-size: 0.95rem;
-    margin-bottom: 6px;
+.profile-card:hover .profile-name {
     color: #fff;
-    white-space: normal; /* Garante quebra de linha se o título for longo */
-    line-height: 1.25;
 }
 
-.movie-info span {
-    font-size: 0.8rem;
+.manage-profiles-btn {
+    background: transparent;
+    border: 1px solid #64748b;
     color: #94a3b8;
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.3s;
 }
 
-/* Modais Gerais */
-.modal {
+.manage-profiles-btn:hover {
+    border-color: #fff;
+    color: #fff;
+}
+
+/* Modais (Geral e Perfis) */
+.modal-overlay {
     display: none;
     position: fixed;
     top: 0;
@@ -287,51 +244,41 @@ header h1 {
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    padding: 20px;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
 .modal-content {
-    background-color: #141c2c;
-    padding: 25px;
+    background-color: #131b2e;
+    padding: 30px;
     border-radius: 12px;
     width: 100%;
-    max-width: 400px;
-    text-align: center;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    max-width: 420px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
 
 .modal-content h3 {
-    margin-bottom: 15px;
-    color: #38bdf8;
-}
-
-.modal-content input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 6px;
-    border: 1px solid #1e293b;
-    background-color: #0b0f19;
+    margin-bottom: 20px;
     color: #fff;
+    font-size: 20px;
 }
 
 .avatar-selector-grid {
     display: flex;
-    gap: 10px;
+    gap: 15px;
+    margin: 20px 0;
     justify-content: center;
-    margin-bottom: 20px;
     flex-wrap: wrap;
 }
 
 .avatar-selector-item {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
     overflow: hidden;
     cursor: pointer;
-    border: 2px solid transparent;
-    opacity: 0.6;
-    transition: all 0.2s;
+    border: 3px solid transparent;
+    transition: transform 0.2s, border-color 0.2s;
 }
 
 .avatar-selector-item img {
@@ -340,33 +287,204 @@ header h1 {
     object-fit: cover;
 }
 
+.avatar-selector-item:hover {
+    transform: scale(1.05);
+}
+
 .avatar-selector-item.selected {
     border-color: #38bdf8;
-    opacity: 1;
-    transform: scale(1.1);
 }
 
 .modal-buttons {
     display: flex;
-    gap: 10px;
-    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
 }
 
-.modal-buttons button {
-    padding: 10px 20px;
+.modal-btn {
+    flex: 1;
+    padding: 10px;
     border-radius: 6px;
     border: none;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
 }
 
-#saveProfileBtn {
+.modal-btn.primary {
+    background-color: #0284c7;
+    color: #fff;
+}
+
+.modal-btn.primary:hover {
+    background-color: #0369a1;
+}
+
+.modal-btn.secondary {
+    background-color: #334155;
+    color: #cbd5e1;
+}
+
+.modal-btn.secondary:hover {
+    background-color: #475569;
+}
+
+/* Site Principal (Catálogo) */
+.main-site {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #0b0f19;
+    border-bottom: 1px solid #1e293b;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #38bdf8;
+    letter-spacing: 1px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.search-box input {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    padding: 8px 16px;
+    border-radius: 20px;
+    color: #fff;
+    outline: none;
+    transition: width 0.3s;
+}
+
+.search-box input:focus {
+    border-color: #38bdf8;
+}
+
+.active-profile-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #1e293b;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: 1px solid #334155;
+    transition: background-color 0.2s;
+}
+
+.active-profile-badge:hover {
+    background-color: #334155;
+}
+
+.active-profile-badge img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.active-profile-badge span {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Categorias */
+.categories {
+    display: flex;
+    gap: 12px;
+    padding: 20px 40px;
+    overflow-x: auto;
+}
+
+.cat-btn {
+    background-color: #1e293b;
+    border: none;
+    color: #94a3b8;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.cat-btn:hover, .cat-btn.active {
     background-color: #38bdf8;
     color: #0b0f19;
 }
 
-#cancelProfileBtn, #modalCloseBtn {
-    background-color: #334155;
-    color: #fff;
+/* Grade de Filmes */
+.catalog {
+    padding: 20px 40px 60px 40px;
+}
+
+.catalog h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #f8fafc;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 24px;
+}
+
+.movie-card {
+    background-color: #131b2e;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+}
+
+.movie-info {
+    padding: 14px;
+}
+
+.movie-info h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+    color: #f8fafc;
+}
+
+.movie-info span {
+    font-size: 13px;
+    color: #64748b;
+}
+
+/* Animação de Entrada padrão */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
     }
-    
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
