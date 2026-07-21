@@ -1,10 +1,10 @@
-// Base de dados com os 5 filmes da saga Velozes e Furiosos
+// Base de dados com os 5 filmes da saga Velozes e Furiosos e seus links de vídeo
 const movies = [
-    { title: "Velozes e Furiosos", genre: "Ação", year: "2001", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes.png" },
-    { title: "+Velozes +Furiosos", genre: "Ação", year: "2003", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/%2BVelozes.png" },
-    { title: "Velozes e Furiosos: Desafio em Tóquio", genre: "Ação", year: "2006", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20desafios.jpg" },
-    { title: "Velozes e Furiosos 4", genre: "Ação", year: "2009", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%204.jpg" },
-    { title: "Velozes e Furiosos 5: Operação Rio", genre: "Ação", year: "2011", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%205.jpg" }
+    { title: "Velozes e Furiosos", genre: "Ação", year: "2001", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes.png", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" },
+    { title: "+Velozes +Furiosos", genre: "Ação", year: "2003", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/%2BVelozes.png", videoUrl: "https://www.youtube.com/embed/2TAOizOnNPo" },
+    { title: "Velozes e Furiosos: Desafio em Tóquio", genre: "Ação", year: "2006", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20desafios.jpg", videoUrl: "https://www.youtube.com/embed/p_InqUtDhuc" },
+    { title: "Velozes e Furiosos 4", genre: "Ação", year: "2009", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%204.jpg", videoUrl: "https://www.youtube.com/embed/kz89hjKmdwg" },
+    { title: "Velozes e Furiosos 5: Operação Rio", genre: "Ação", year: "2011", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%205.jpg", videoUrl: "https://www.youtube.com/embed/olvV4XZ9j90" }
 ];
 
 // Avatares oficiais disponíveis
@@ -49,6 +49,13 @@ const modalCloseBtn = document.getElementById('modalCloseBtn');
 const movieGrid = document.getElementById('movieGrid');
 const searchInput = document.getElementById('searchInput');
 const filterBtns = document.querySelectorAll('.filter-btn');
+
+// Elementos do Modal de Vídeo
+const videoModal = document.getElementById('videoModal');
+const moviePlayer = document.getElementById('moviePlayer');
+const modalMovieTitle = document.getElementById('modalMovieTitle');
+const modalMovieDesc = document.getElementById('modalMovieDesc');
+const closeVideoModalBtn = document.getElementById('closeVideoModal');
 
 let selectedAvatarUrl = availableAvatars[0];
 let editingProfileIndex = null;
@@ -275,9 +282,34 @@ function renderMovies(movieList) {
                 <span>${movie.genre} • ${movie.year}</span>
             </div>
         `;
+
+        // Evento de clique para abrir o player de vídeo do filme
+        card.addEventListener('click', () => {
+            moviePlayer.src = movie.videoUrl;
+            modalMovieTitle.textContent = movie.title;
+            modalMovieDesc.textContent = `${movie.genre} • ${movie.year}`;
+            videoModal.style.display = 'flex';
+        });
+
         movieGrid.appendChild(card);
     });
 }
+
+// Fechar modal de vídeo
+if (closeVideoModalBtn) {
+    closeVideoModalBtn.addEventListener('click', () => {
+        moviePlayer.src = ''; // Interrompe o vídeo ao fechar
+        videoModal.style.display = 'none';
+    });
+}
+
+// Fechar o modal se clicar fora da caixa de conteúdo
+window.addEventListener('click', (e) => {
+    if (e.target === videoModal) {
+        moviePlayer.src = '';
+        videoModal.style.display = 'none';
+    }
+});
 
 if (searchInput) {
     searchInput.addEventListener('input', (e) => {
@@ -303,4 +335,4 @@ filterBtns.forEach(btn => {
         }
     });
 });
-                                       
+        
