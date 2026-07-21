@@ -6,12 +6,13 @@ const movies = [
     { title: "Velocidade Máxima", genre: "Ação", year: "2023", image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=300&q=80" }
 ];
 
-// URLs dos seus avatares personalizados enviados
+// URLs dos avatares dos personagens que você enviou
 const availableAvatars = [
-    "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=300&q=80", // Exemplo padrão 1
-    "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=300&q=80", // Exemplo padrão 2
-    // Links gerados/simulados para os seus personagens incríveis:
-    "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=300&q=80"
+    "44121.jpg", // Maçã Noir
+    "44120.jpg", // Abacaxi Estiloso
+    "44118.jpg", // Melancia Chefão
+    "44119.jpg", // Morango de terno
+    "44122.jpg"  // Banana Jaqueta Amarela
 ];
 
 // Elementos da Tela
@@ -35,7 +36,7 @@ const currentProfileNameText = document.getElementById('currentProfileNameText')
 const activeProfileBadge = document.getElementById('activeProfileBadge');
 const avatarSelectorGrid = document.getElementById('avatarSelectorGrid');
 
-let selectedAvatarUrl = "";
+let selectedAvatarUrl = availableAvatars[0];
 let editingProfileIndex = null; // null = criando novo, número = editando perfil existente
 
 // Elementos do Modal Personalizado de Alerta
@@ -144,9 +145,8 @@ function renderProfiles() {
             <span class="profile-name">${profile.name}</span>
         `;
 
-        // Ao clicar no perfil, entra no site
+        // Ao clicar no perfil
         card.addEventListener('click', (e) => {
-            // Se clicou especificamente no lápis, abre o modal de edição
             if (e.target.closest('.edit-pencil-badge')) {
                 e.stopPropagation();
                 openEditProfileModal(index);
@@ -229,10 +229,8 @@ saveProfileBtn.addEventListener('click', () => {
     let profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
 
     if (editingProfileIndex === null) {
-        // Criando novo
         profiles.push({ name: nameVal, avatar: selectedAvatarUrl });
     } else {
-        // Editando existente
         profiles[editingProfileIndex].name = nameVal;
         profiles[editingProfileIndex].avatar = selectedAvatarUrl;
     }
@@ -291,4 +289,4 @@ catButtons.forEach(button => {
         }
     });
 });
-    
+                     
