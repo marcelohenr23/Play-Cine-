@@ -1,10 +1,10 @@
-// Base de dados com Filmes e Séries (você pode alterar os tipos para 'Filme', 'Série' ou 'Recente')
+// Base de dados com os 5 filmes da saga Velozes e Furiosos
 const movies = [
-    { title: "Velozes e Furiosos", genre: "Ação", type: "Filme", year: "2001", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes.png" },
-    { title: "+Velozes +Furiosos", genre: "Ação", type: "Filme", year: "2003", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/%2BVelozes.png" },
-    { title: "Velozes e Furiosos: Desafio em Tóquio", genre: "Ação", type: "Filme", year: "2006", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20desafios.jpg" },
-    { title: "Velozes e Furiosos 4", genre: "Ação", type: "Filme", year: "2009", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%204.jpg" },
-    { title: "Velozes e Furiosos 5: Operação Rio", genre: "Ação", type: "Recente", year: "2011", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%205.jpg" }
+    { title: "Velozes e Furiosos", genre: "Ação", year: "2001", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes.png" },
+    { title: "+Velozes +Furiosos", genre: "Ação", year: "2003", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/%2BVelozes.png" },
+    { title: "Velozes e Furiosos: Desafio em Tóquio", genre: "Ação", year: "2006", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20desafios.jpg" },
+    { title: "Velozes e Furiosos 4", genre: "Ação", year: "2009", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%204.jpg" },
+    { title: "Velozes e Furiosos 5: Operação Rio", genre: "Ação", year: "2011", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%205.jpg" }
 ];
 
 // Avatares oficiais disponíveis
@@ -260,7 +260,7 @@ function renderMovies(movieList) {
     movieGrid.innerHTML = '';
 
     if (movieList.length === 0) {
-        movieGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nenhum conteúdo encontrado.</p>';
+        movieGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nenhum filme encontrado.</p>';
         return;
     }
 
@@ -298,9 +298,9 @@ filterBtns.forEach(btn => {
         if (category === 'all') {
             renderMovies(movies);
         } else {
-            // Filtra tanto pelo tipo (Filme, Série, Recente) quanto pelo gênero (Ação)
-            const filtered = movies.filter(m => m.type === category || m.genre === category);
+            const filtered = movies.filter(m => m.genre === category);
             renderMovies(filtered);
         }
     });
 });
+                                       
