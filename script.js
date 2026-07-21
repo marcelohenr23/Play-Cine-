@@ -1,7 +1,7 @@
-// Banco de dados de filmes com os seus filmes e capas
+// Banco de dados de filmes com as capas do GitHub e títulos corretos
 const movies = [
-    { title: "Megatubarão", genre: "Ação", year: "2018", image: "https://i.ibb.co/4gPwH2c7/image.jpg" },
-    { title: "Megatubarão 2", genre: "Ação", year: "2023", image: "https://i.ibb.co/qLVprg6c/image.jpg" },
+    { title: "Megatubarão", genre: "Ação", year: "2018", image: "5013486.jpg" },
+    { title: "Megatubarão 2", genre: "Ação", year: "2023", image: "MV5BZDcNDY3ZDYlNmZzZC00ZDUzLWNlMjAlMGMxZTMyOTM0ZDRiXkEyXkFqcGc@._V1_.jpg" },
     { title: "Amor Improvável", genre: "Romance", year: "2026", image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80" },
     { title: "Velocidade Máxima", genre: "Ação", year: "2023", image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=300&q=80" }
 ];
@@ -280,4 +280,3 @@ catButtons.forEach(button => {
         }
     });
 });
-                                  
