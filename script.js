@@ -1,9 +1,10 @@
+// Base de dados com os filmes da saga Velozes e Furiosos e seus links de vídeo
 const movies = [
-    { title: "Velozes e Furiosos", genre: "Ação", year: "2001", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes.png", videoUrl: "https://www.youtube.com/embed/AATGjBGbnqU" },
-    { title: "+Velozes +Furiosos", genre: "Ação", year: "2003", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/%2BVelozes.png", videoUrl: "https://www.youtube.com/embed/JNOISthFaS8" },
-    { title: "Velozes e Furiosos: Desafio em Tóquio", genre: "Ação", year: "2006", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20desafios.jpg", videoUrl: "https://www.youtube.com/embed/mXbfYYX0ZkI" },
-    { title: "Velozes e Furiosos 4", genre: "Ação", year: "2009", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%204.jpg", videoUrl: "https://www.youtube.com/embed/a9--AI3ZGaw" },
-    { title: "Velozes e Furiosos 5: Operação Rio", genre: "Ação", year: "2011", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%205.jpg", videoUrl: "https://www.youtube.com/embed/e4tEwEZYELc" }
+    { title: "Velozes e Furiosos", genre: "Ação", year: "2001", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes.png", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" },
+    { title: "+Velozes +Furiosos", genre: "Ação", year: "2003", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/%2BVelozes.png", videoUrl: "https://www.youtube.com/embed/2TAOizOnNPo" },
+    { title: "Velozes e Furiosos: Desafio em Tóquio", genre: "Ação", year: "2006", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20desafios.jpg", videoUrl: "https://www.youtube.com/embed/p_InqUtDhuc" },
+    { title: "Velozes e Furiosos 4", genre: "Ação", year: "2009", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%204.jpg", videoUrl: "https://www.youtube.com/embed/kz89hjKmdwg" },
+    { title: "Velozes e Furiosos 5: Operação Rio", genre: "Ação", year: "2011", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%205.jpg", videoUrl: "https://www.youtube.com/embed/olvV4XZ9j90" }
 ];
 
 // Avatares oficiais disponíveis
@@ -55,11 +56,9 @@ const moviePlayer = document.getElementById('moviePlayer');
 const modalMovieTitle = document.getElementById('modalMovieTitle');
 const modalMovieDesc = document.getElementById('modalMovieDesc');
 const closeVideoModalBtn = document.getElementById('closeVideoModal');
-const watchFullMovieBtn = document.getElementById('watchFullMovieBtn');
 
 let selectedAvatarUrl = availableAvatars[0];
 let editingProfileIndex = null;
-let currentMovieUrl = '';
 
 function showAlert(message) {
     modalMessage.textContent = message;
@@ -72,11 +71,14 @@ if (modalCloseBtn) {
     });
 }
 
+// Função correta usando classes para exibir apenas a tela desejada
 function switchView(targetSection) {
-    authSection.style.display = 'none';
-    profileSection.style.display = 'none';
-    mainAppSection.style.display = 'none';
-    targetSection.style.display = 'block';
+    authSection.classList.remove('active');
+    profileSection.classList.remove('active');
+    mainAppSection.classList.remove('active');
+
+    targetSection.classList.add('active');
+    window.scrollTo(0, 0); // Garante que a tela abre no topo
 }
 
 if (toRegisterBtn && toLoginBtn) {
@@ -284,10 +286,8 @@ function renderMovies(movieList) {
             </div>
         `;
 
-        // Evento de clique para abrir o player de video do filme
         card.addEventListener('click', () => {
-            currentMovieUrl = movie.videoUrl;
-            moviePlayer.src = currentMovieUrl;
+            moviePlayer.src = movie.videoUrl;
             modalMovieTitle.textContent = movie.title;
             modalMovieDesc.textContent = `${movie.genre} • ${movie.year}`;
             videoModal.style.display = 'flex';
@@ -297,15 +297,13 @@ function renderMovies(movieList) {
     });
 }
 
-// Fechar modal de vídeo
 if (closeVideoModalBtn) {
     closeVideoModalBtn.addEventListener('click', () => {
-        moviePlayer.src = ''; 
+        moviePlayer.src = '';
         videoModal.style.display = 'none';
     });
 }
 
-// Fechar o modal se clicar fora da caixa de conteúdo
 window.addEventListener('click', (e) => {
     if (e.target === videoModal) {
         moviePlayer.src = '';
@@ -337,12 +335,4 @@ filterBtns.forEach(btn => {
         }
     });
 });
-
-// Ação do botão "Assistir Filme"
-if (watchFullMovieBtn) {
-    watchFullMovieBtn.addEventListener('click', () => {
-        if (currentMovieUrl) {
-            moviePlayer.src = currentMovieUrl + "?autoplay=1";
-        }
-    });
-            }
+            
