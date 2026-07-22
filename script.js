@@ -55,9 +55,11 @@ const moviePlayer = document.getElementById('moviePlayer');
 const modalMovieTitle = document.getElementById('modalMovieTitle');
 const modalMovieDesc = document.getElementById('modalMovieDesc');
 const closeVideoModalBtn = document.getElementById('closeVideoModal');
+const watchFullMovieBtn = document.getElementById('watchFullMovieBtn');
 
 let selectedAvatarUrl = availableAvatars[0];
 let editingProfileIndex = null;
+let currentMovieUrl = '';
 
 function showAlert(message) {
     modalMessage.textContent = message;
@@ -282,19 +284,23 @@ function renderMovies(movieList) {
             </div>
         `;
 
-            // Evento de clique para abrir o player de video do filme
-    card.addEventListener('click', () => {
-        currentMovieUrl = movie.videoUrl; // Guarda o link do filme atual
-        moviePlayer.src = currentMovieUrl;
-        modalMovieTitle.textContent = movie.title;
-        modalMovieDesc.textContent = `${movie.genre} • ${movie.year}`;
-        videoModal.style.display = 'flex';
+        // Evento de clique para abrir o player de video do filme
+        card.addEventListener('click', () => {
+            currentMovieUrl = movie.videoUrl;
+            moviePlayer.src = currentMovieUrl;
+            modalMovieTitle.textContent = movie.title;
+            modalMovieDesc.textContent = `${movie.genre} • ${movie.year}`;
+            videoModal.style.display = 'flex';
+        });
+
+        movieGrid.appendChild(card);
     });
-        
+}
+
 // Fechar modal de vídeo
 if (closeVideoModalBtn) {
     closeVideoModalBtn.addEventListener('click', () => {
-        moviePlayer.src = ''; // Interrompe o vídeo ao fechar
+        moviePlayer.src = ''; 
         videoModal.style.display = 'none';
     });
 }
@@ -331,7 +337,7 @@ filterBtns.forEach(btn => {
         }
     });
 });
-        
+
 // Ação do botão "Assistir Filme"
 if (watchFullMovieBtn) {
     watchFullMovieBtn.addEventListener('click', () => {
@@ -339,6 +345,4 @@ if (watchFullMovieBtn) {
             moviePlayer.src = currentMovieUrl + "?autoplay=1";
         }
     });
-}
-        
-        
+            }
