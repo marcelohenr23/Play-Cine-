@@ -17,10 +17,10 @@
     </div>
 
     <!-- Modal de Alerta / Mensagem Personalizado -->
-    <div id="customModal" class="modal-overlay" aria-hidden="true">
-        <div class="modal-card">
-            <p id="modalMessage">Mensagem do sistema</p>
-            <button id="modalCloseBtn" class="btn-main">OK</button>
+    <div id="customModal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 350px; text-align: center;">
+            <p id="modalMessage" style="margin-bottom: 20px; font-size: 1rem;">Mensagem do sistema</p>
+            <button id="modalCloseBtn" class="btn-main" style="width: 100%;">OK</button>
         </div>
     </div>
 
@@ -74,8 +74,8 @@
     </section>
 
     <!-- Modal de Gerenciamento de Perfil (Criar / Editar) -->
-    <div id="profileModal" class="modal-overlay" style="display: none;">
-        <div class="modal-card modal-wide">
+    <div id="profileModal" class="modal" style="display: none;">
+        <div class="modal-content modal-wide">
             <h3 id="modalProfileTitle">Novo Perfil</h3>
             <div class="input-field" style="margin: 20px 0 10px 0;">
                 <input type="text" id="profileNameInput" placeholder="Nome do perfil">
@@ -91,44 +91,38 @@
 
     <!-- Plataforma Principal (Catálogo) -->
     <section id="mainAppSection" class="view-section" style="display: none;">
-        <header class="app-header">
-            <div class="header-brand">
-                <h1>PLAY<span>CINE</span></h1>
-                <div id="profileSwitcher" class="profile-badge" title="Trocar Perfil">
+        <header class="navbar">
+            <div class="header-brand" style="display: flex; align-items: center; gap: 20px;">
+                <h1 class="brand-header"><span class="brand-play">PLAY</span><span class="brand-cine">CINE</span></h1>
+                <div id="profileSwitcher" class="active-profile-display" title="Trocar Perfil">
                     <img id="activeProfileAvatarImg" src="" alt="Avatar">
                     <span id="activeProfileNameText">Perfil</span>
                     <i class="fa-solid fa-chevron-down"></i>
                 </div>
             </div>
-            <div class="header-search">
+        </header>
+
+        <div class="content-container">
+            <div class="search-bar-container">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" id="searchInput" placeholder="Pesquisar filme ou gênero...">
             </div>
-        </header>
 
-        <main class="app-content">
-            <div class="hero-banner">
-                <div class="hero-text">
-                    <h2>Filmes Incríveis para Assistir Agora</h2>
-                    <p>Explore os melhores títulos, lançamentos e clássicos na palma da sua mão.</p>
-                </div>
-            </div>
-
-            <nav class="categories-bar">
+            <div class="filter-bar">
                 <button class="filter-btn active" data-category="all">Todos</button>
                 <button class="filter-btn" data-category="Ação">Ação</button>
                 <button class="filter-btn" data-category="Terror">Terror</button>
                 <button class="filter-btn" data-category="Ficção">Ficção</button>
                 <button class="filter-btn" data-category="Romance">Romance</button>
-            </nav>
+            </div>
 
             <section class="catalog-section">
                 <h3>Catálogo de Filmes</h3>
                 <div id="movieGrid" class="movie-grid"></div>
             </section>
-        </main>
+        </div>
 
-        <footer class="app-footer">
+        <footer style="text-align: center; padding: 20px; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border-color); margin-top: auto;">
             <p>&copy; 2026 Play Cine. Todos os direitos reservados.</p>
         </footer>
     </section>
@@ -140,9 +134,9 @@
             <div class="video-container">
                 <iframe id="moviePlayer" src="" title="Player de Vídeo" frameborder="0" allowfullscreen></iframe>
             </div>
-            <div class="video-details">
-                <h3 id="modalMovieTitle">Título do Filme</h3>
-                <p id="modalMovieDesc">Gênero • Ano</p>
+            <div class="video-details" style="margin-top: 10px;">
+                <h3 id="modalMovieTitle" style="font-size: 1.1rem; margin-bottom: 4px;">Título do Filme</h3>
+                <p id="modalMovieDesc" style="color: var(--text-muted); font-size: 0.85rem;">Gênero • Ano</p>
             </div>
         </div>
     </div>
