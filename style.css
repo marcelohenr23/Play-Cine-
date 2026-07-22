@@ -1,10 +1,10 @@
 :root {
-    --bg-color: #141414;
-    --card-bg: #1f1f1f;
+    --bg-color: #0b0f19;    /* Fundo geral: um preto com tom azulado bem escuro e elegante */
+    --card-bg: #131b2e;   /* Fundo dos cards e caixas: um azul marinho bem escuro */
     --text-color: #ffffff;
-    --text-muted: #b3b3b3;
+    --text-muted: #94a3b8; /* Deixa os textos secundários levemente puxados pro azul acinzentado */
     --accent-color: #0071eb;
-    --border-color: #333333;
+    --border-color: #1e293b; /* Bordas combinando com o novo tom */
 }
 
 * {
