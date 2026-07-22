@@ -2,7 +2,10 @@ const movies = [
     { title: "Em Ritmo de Fuga", genre: "Ação", year: "2017", image: "img/em ritmo de fuga.jpg", videoUrl: "https://www.youtube.com/embed/d96cjJhvlMA" },
     { title: "Implacável", genre: "Ação", year: "2021", image: "img/implacavel.jpg", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" },
     { title: "Sem Limite", genre: "Ação", year: "2011", image: "img/semlimite.jpg", videoUrl: "https://www.youtube.com/embed/jNZsxDUjBc8" },
-    { title: "Vingança", genre: "Ação", year: "2019", image: "img/vinganca.jpg", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" }
+    { title: "Vingança", genre: "Ação", year: "2019", image: "img/vinganca.jpg", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" },
+    { title: "Avatar", genre: "Aventura", year: "2009", image: "img/avata1.jpg", videoUrl: "https://www.youtube.com/embed/5PSNL1qE6VY" },
+    { title: "Avatar: O Caminho da Água", genre: "Aventura", year: "2022", image: "img/avata2.jpg", videoUrl: "https://www.youtube.com/embed/d9MyW72ELq0" },
+    { title: "Avatar 3", genre: "Aventura", year: "2025", image: "img/avata3.jpg", videoUrl: "https://www.youtube.com/embed/5PSNL1qE6VY" }
 ];
 
 // Avatares oficiais disponíveis
