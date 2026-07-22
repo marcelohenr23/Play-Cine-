@@ -460,3 +460,23 @@ body {
     padding: 20px;
     background-color: var(--card-bg);
     }
+.watch-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+.watch-btn:hover {
+    background-color: #005bb5;
+}
