@@ -1,6 +1,6 @@
 const movies = [
     { title: "Assalto ao Poder", genre: "Ação", year: "2016", image: "img/assaltoaopoder.jpg", videoUrl: "https://www.youtube.com/embed/N0W97a9Z3q0" },
-    { title: "Deadpool & Wolverine", genre: "Ação", year: "2024", image: "img/deadvoorine.jpg", videoUrl: "https://www.youtube.com/embed/73_1biulkYk" },
+    { title: "Deadpool & Wolverine", genre: "Ação", year: "2024", image: "img/deadvoreine.jpg", videoUrl: "https://www.youtube.com/embed/73_1biulkYk" },
     { title: "O Livro de Eli", genre: "Ação", year: "2010", image: "img/el.jpg", videoUrl: "https://www.youtube.com/embed/BQq2NZrQbV8" },
     { title: "Em Ritmo de Fuga", genre: "Ação", year: "2017", image: "img/em ritmo de fuga.jpg", videoUrl: "https://www.youtube.com/embed/d96cjJhvlMA" },
     { title: "Implacável", genre: "Ação", year: "2021", image: "img/implacavel.jpg", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" },
