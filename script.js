@@ -56,9 +56,11 @@ const moviePlayer = document.getElementById('moviePlayer');
 const modalMovieTitle = document.getElementById('modalMovieTitle');
 const modalMovieDesc = document.getElementById('modalMovieDesc');
 const closeVideoModalBtn = document.getElementById('closeVideoModal');
+const watchFullMovieBtn = document.getElementById('watchFullMovieBtn');
 
 let selectedAvatarUrl = availableAvatars[0];
 let editingProfileIndex = null;
+let currentMovieUrl = ''; // Variável para armazenar o link do filme atual
 
 function showAlert(message) {
     modalMessage.textContent = message;
@@ -287,7 +289,8 @@ function renderMovies(movieList) {
         `;
 
         card.addEventListener('click', () => {
-            moviePlayer.src = movie.videoUrl;
+            currentMovieUrl = movie.videoUrl; // Salva o link do filme atual
+            moviePlayer.src = currentMovieUrl;
             modalMovieTitle.textContent = movie.title;
             modalMovieDesc.textContent = `${movie.genre} • ${movie.year}`;
             videoModal.style.display = 'flex';
@@ -335,4 +338,12 @@ filterBtns.forEach(btn => {
         }
     });
 });
-            
+
+// Ação do botão "Assistir Filme"
+if (watchFullMovieBtn) {
+    watchFullMovieBtn.addEventListener('click', () => {
+        if (currentMovieUrl) {
+            moviePlayer.src = currentMovieUrl + "?autoplay=1";
+        }
+    });
+}
