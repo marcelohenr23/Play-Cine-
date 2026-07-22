@@ -141,33 +141,43 @@ input:-webkit-autofill:focus {
     text-decoration: underline;
 }
 
-/* TELA DE PERFIS */
-.profile-section {
+/* --- TELA DE SELEÇÃO DE PERFIS (ESTILO NETFLIX PREMIUM) --- */
+#profileSection, .profile-section {
+    background: radial-gradient(circle at center, #131825 0%, #0b0f19 100%) !important;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
     padding: 20px;
 }
 
-.profile-container {
-    text-align: center;
-    max-width: 800px;
+.profile-wrapper, .profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: center;
 }
 
-.profile-container h2 {
-    font-size: 2.5rem;
-    margin-bottom: 40px;
-    font-weight: 600;
+.profile-wrapper h2, .profile-container h2 {
+    font-size: 2.3rem;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 35px;
+    letter-spacing: 0.5px;
 }
 
 .profiles-grid {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 30px;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 35px;
+    width: 100%;
 }
 
 .profile-card {
@@ -175,56 +185,63 @@ input:-webkit-autofill:focus {
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    background: transparent;
+    border: none;
+    padding: 0;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .profile-card:hover {
     transform: scale(1.08);
 }
 
-.profile-avatar-box {
-    width: 120px;
-    height: 120px;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 3px solid transparent;
-    position: relative;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+.profile-avatar-box, .profile-card img {
+    width: 110px !important;
+    height: 110px !important;
+    border-radius: 12px !important;
+    object-fit: cover !important;
+    border: 3px solid transparent !important;
+    margin-bottom: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    transition: border-color 0.3s ease;
 }
 
-.profile-card:hover .profile-avatar-box {
-    border-color: var(--primary-color);
+.profile-card:hover .profile-avatar-box, 
+.profile-card:hover img {
+    border-color: #ffffff !important;
 }
 
-.profile-avatar-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.profile-card span, .profile-card h4 {
+    font-size: 1.05rem !important;
+    color: var(--text-muted) !important;
+    font-weight: 400 !important;
+    transition: color 0.3s ease;
 }
 
-.profile-card span {
-    margin-top: 12px;
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    font-weight: 500;
+.profile-card:hover span, 
+.profile-card:hover h4 {
+    color: #ffffff !important;
 }
 
-.profile-container > button, .add-profile-btn {
-    padding: 12px 25px;
-    background: transparent;
-    color: var(--text-color);
-    border: 2px dashed var(--border-color);
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
+/* Botão de Adicionar Perfil Centralizado e Elegante */
+#openAddProfileModal, .profile-wrapper > button, .profile-container > button, .add-profile-btn {
+    background: transparent !important;
+    border: 2px solid rgba(255, 255, 255, 0.25) !important;
+    color: #ffffff !important;
+    padding: 12px 30px !important;
+    border-radius: 8px !important;
+    font-size: 1rem !important;
+    font-weight: 500 !important;
     cursor: pointer;
+    letter-spacing: 1px;
     transition: all 0.3s ease;
-    margin-top: 20px;
+    margin-top: 10px;
+    box-shadow: none !important;
 }
 
-.profile-container > button:hover, .add-profile-btn:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: var(--primary-color);
+#openAddProfileModal:hover, .profile-wrapper > button:hover, .profile-container > button:hover, .add-profile-btn:hover {
+    border-color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.08) !important;
     transform: translateY(-2px);
 }
 
@@ -304,7 +321,7 @@ input:-webkit-autofill:focus {
     border-color: var(--primary-color);
 }
 
-/* REMOVE O BANNER GRANDE QUE ESTAVA ESTRANHO */
+/* REMOVE O BANNER GRANDE */
 .hero-banner {
     display: none !important;
 }
@@ -512,6 +529,7 @@ input:-webkit-autofill:focus {
 .close-video-btn:hover {
     background: var(--primary-color);
 }
+
 /* Animação Inicial de Splash (Estilo Netflix em Azul) */
 .splash-screen {
     position: fixed;
@@ -564,95 +582,4 @@ input:-webkit-autofill:focus {
         opacity: 0;
         visibility: hidden;
     }
-}
-/* --- MELHORIAS PARA A TELA DE PERFIS --- */
-
-/* Fundo da tela de perfis com leve textura/gradiente */
-#profileSection, .profile-section {
-    background: radial-gradient(circle at center, #131825 0%, #0b0f19 100%) !important;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-/* Título principal "Quem está explorando?" */
-#profileSection h2, .profile-wrapper h2, .profile-container h2 {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 8px;
-    letter-spacing: 0.5px;
-    text-align: center;
-}
-
-/* Subtítulo da tela */
-#profileSection p, .profile-wrapper p {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    margin-bottom: 35px;
-    text-align: center;
-}
-
-/* Cartões dos perfis mais modernos e arredondados */
-.profile-card {
-    background: rgba(19, 24, 37, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 15px;
-    border-radius: 16px;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.profile-card:hover {
-    transform: translateY(-8px);
-    background: rgba(25, 33, 52, 0.9);
-    border-color: rgba(59, 130, 246, 0.4);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-}
-
-/* Foto/Avatar do perfil */
-.profile-avatar-box {
-    width: 110px !important;
-    height: 110px !important;
-    border-radius: 14px !important;
-    border: 2px solid rgba(255, 255, 255, 0.1) !important;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    transition: border-color 0.3s ease;
-}
-
-.profile-card:hover .profile-avatar-box {
-    border-color: var(--primary-color) !important;
-}
-
-/* Nome do perfil embaixo do avatar */
-.profile-card span {
-    font-size: 1rem !important;
-    font-weight: 600 !important;
-    color: #e2e8f0 !important;
-    margin-top: 10px !important;
-}
-
-/* Botões inferiores ("Adicionar perfil" e "Gerenciar") */
-.profile-wrapper button, .profile-container button, .add-profile-btn {
-    border-radius: 10px !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-}
-
-/* Botão principal de adicionar */
-#openAddProfileModal {
-    background-color: var(--primary-color) !important;
-    border: none !important;
-    color: #ffffff !important;
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-}
-
-#openAddProfileModal:hover {
-    background-color: var(--primary-hover) !important;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
-}
+    }
