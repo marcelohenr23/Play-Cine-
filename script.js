@@ -1,9 +1,8 @@
-// Base de dados com os 5 filmes da saga Velozes e Furiosos e seus links de vídeo
 const movies = [
     { title: "Velozes e Furiosos", genre: "Ação", year: "2001", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes.png", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" },
     { title: "+Velozes +Furiosos", genre: "Ação", year: "2003", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/%2BVelozes.png", videoUrl: "https://www.youtube.com/embed/2TAOizOnNPo" },
     { title: "Velozes e Furiosos: Desafio em Tóquio", genre: "Ação", year: "2006", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20desafios.jpg", videoUrl: "https://www.youtube.com/embed/p_InqUtDhuc" },
-    { title: "Velozes e Furiosos 4", genre: "Ação", year: "2009", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%204.jpg", videoUrl: "https://www.youtube.com/embed/kz89hjKmdwg" },
+    { title: "Velozes e Furiosos 4", genre: "Ação", year: "2009", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%204.jpg", videoUrl: "https://www.youtube.com/embed/a9--AI3ZGaw" },
     { title: "Velozes e Furiosos 5: Operação Rio", genre: "Ação", year: "2011", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%205.jpg", videoUrl: "https://www.youtube.com/embed/e4tEwEZYELc" }
 ];
 
