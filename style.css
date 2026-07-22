@@ -23,6 +23,17 @@ body {
     overflow-x: hidden;
 }
 
+/* Controle de Visibilidade das Seções */
+.view-section {
+    display: none;
+}
+
+.view-section.active {
+    display: flex !important;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 /* Animação Global de Aparição */
 @keyframes fadeIn {
     from {
@@ -195,20 +206,47 @@ input:-webkit-autofill:focus {
     transform: scale(1.08);
 }
 
-.profile-avatar-box, .profile-card img {
+.profile-avatar-box {
+    position: relative;
+    width: 110px !important;
+    height: 110px !important;
+    margin-bottom: 12px;
+}
+
+.profile-avatar-box img {
     width: 110px !important;
     height: 110px !important;
     border-radius: 12px !important;
     object-fit: cover !important;
     border: 3px solid transparent !important;
-    margin-bottom: 12px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     transition: border-color 0.3s ease;
 }
 
-.profile-card:hover .profile-avatar-box, 
-.profile-card:hover img {
+.profile-card:hover .profile-avatar-box img {
     border-color: #ffffff !important;
+}
+
+.profile-edit-badge {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: var(--primary-color);
+    color: #fff;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.profile-card:hover .profile-edit-badge {
+    opacity: 1;
 }
 
 .profile-card span, .profile-card h4 {
@@ -257,11 +295,6 @@ input:-webkit-autofill:focus {
     z-index: 100;
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
-}
-
-.navbar h1, .navbar .brand-header {
-    font-size: 1.5rem;
-    margin: 0;
 }
 
 .active-profile-display {
@@ -319,11 +352,6 @@ input:-webkit-autofill:focus {
 
 .search-bar-container input:focus {
     border-color: var(--primary-color);
-}
-
-/* REMOVE O BANNER GRANDE */
-.hero-banner {
-    display: none !important;
 }
 
 .filter-bar {
@@ -419,19 +447,19 @@ input:-webkit-autofill:focus {
     color: var(--text-muted);
 }
 
-/* MODAIS */
+/* MODAIS PADRÃO */
 .modal {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(8px);
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 3000;
     padding: 20px;
 }
 
@@ -445,9 +473,15 @@ input:-webkit-autofill:focus {
     box-shadow: 0 20px 40px rgba(0,0,0,0.6);
 }
 
-.modal-content h3 {
-    margin-bottom: 15px;
-    font-size: 1.2rem;
+.modal-wide {
+    max-width: 450px !important;
+}
+
+.avatar-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    text-align: left;
 }
 
 .avatar-grid {
@@ -478,9 +512,30 @@ input:-webkit-autofill:focus {
     transform: scale(1.1);
 }
 
-.modal-buttons {
+.modal-actions {
     display: flex;
-    gap: 10px;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.modal-actions button {
+    flex: 1;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--primary-color);
 }
 
 /* Player de Vídeo */
@@ -500,7 +555,6 @@ input:-webkit-autofill:focus {
     background: #000;
     border-radius: 8px;
     overflow: hidden;
-    margin-bottom: 10px;
 }
 
 .video-container iframe {
@@ -583,3 +637,4 @@ input:-webkit-autofill:focus {
         visibility: hidden;
     }
     }
+    
