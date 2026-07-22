@@ -23,20 +23,20 @@ body {
     overflow-x: hidden;
 }
 
-/* Animação Global de Aparição */
-@keyframes fadeIn {
-    from {
+/* Animação de Entrada Estilo Play Cine */
+@keyframes introAnim {
+    0% {
         opacity: 0;
-        transform: translateY(10px);
+        transform: scale(0.95) translateY(15px);
     }
-    to {
+    100% {
         opacity: 1;
-        transform: translateY(0);
+        transform: scale(1) translateY(0);
     }
 }
 
-section {
-    animation: fadeIn 0.4s ease-in-out forwards;
+section, .content-container, .auth-card, .profile-container {
+    animation: introAnim 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* TELA DE LOGIN / AUTENTICAÇÃO */
@@ -228,7 +228,7 @@ input:-webkit-autofill:focus {
     transform: translateY(-2px);
 }
 
-/* NAVBAR PRINCIPAL (ORGANIZADA) */
+/* NAVBAR PRINCIPAL (CORRIGIDA E ALINHADA) */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -242,40 +242,60 @@ input:-webkit-autofill:focus {
     border-bottom: 1px solid var(--border-color);
 }
 
+/* Garante que o logo na navbar fique compacto e elegante */
 .navbar h1, .navbar .brand-header {
-    font-size: 1.5rem;
-    margin: 0;
+    font-size: 1.5rem !important;
+    margin: 0 !important;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
+.navbar .brand-play {
+    color: var(--text-color);
+}
+
+.navbar .brand-cine {
+    color: var(--primary-color);
+}
+
+/* Perfil pequeno e alinhado no canto direito da barra superior */
 .active-profile-display {
     display: flex;
     align-items: center;
     gap: 8px;
     cursor: pointer;
     background: rgba(255, 255, 255, 0.05);
-    padding: 4px 10px;
+    padding: 5px 12px;
     border-radius: 20px;
     border: 1px solid var(--border-color);
+    transition: background 0.3s ease;
+}
+
+.active-profile-display:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .active-profile-display img {
-    width: 28px;
-    height: 28px;
+    width: 30px !important;
+    height: 30px !important;
     border-radius: 50%;
     object-fit: cover;
 }
 
 .active-profile-display span {
-    font-size: 0.85rem;
+    font-size: 0.9rem !important;
+    color: var(--text-color);
+    font-weight: 500;
 }
 
 /* CONTEÚDO PRINCIPAL */
 .content-container {
-    padding: 20px 5%;
+    padding: 25px 5%;
     max-width: 1400px;
     margin: 0 auto;
 }
 
+/* BARRA DE PESQUISA ELEGANTE */
 .search-bar-container {
     position: relative;
     margin-bottom: 25px;
@@ -291,20 +311,23 @@ input:-webkit-autofill:focus {
 
 .search-bar-container input {
     width: 100%;
-    padding: 12px 16px 12px 45px;
+    padding: 14px 16px 14px 45px;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 10px;
     color: var(--text-color);
     font-size: 0.95rem;
     outline: none;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
 }
 
 .search-bar-container input:focus {
     border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
-/* REMOVE O BANNER GRANDE QUE ESTAVA ESTRANHO */
+/* REMOVE O BANNER ANTIGO */
 .hero-banner {
     display: none !important;
 }
@@ -318,7 +341,7 @@ input:-webkit-autofill:focus {
 }
 
 .filter-btn {
-    padding: 8px 16px;
+    padding: 8px 18px;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     color: var(--text-muted);
@@ -345,7 +368,7 @@ input:-webkit-autofill:focus {
 .movie-grid {
     display: flex;
     overflow-x: auto;
-    gap: 15px;
+    gap: 16px;
     padding-bottom: 15px;
     scroll-behavior: smooth;
 }
@@ -370,18 +393,18 @@ input:-webkit-autofill:focus {
     border: 1px solid var(--border-color);
     cursor: pointer;
     flex: 0 0 auto;
-    width: 160px;
-    transition: transform 0.3s ease;
+    width: 170px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .movie-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
     border-color: var(--primary-color);
 }
 
 .movie-card img {
     width: 100%;
-    height: 230px;
+    height: 240px;
     object-fit: cover;
 }
 
