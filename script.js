@@ -332,3 +332,13 @@ filterBtns.forEach(btn => {
     });
 });
         
+// Ação do botão "Assistir Filme"
+if (watchFullMovieBtn) {
+    watchFullMovieBtn.addEventListener('click', () => {
+        if (currentMovieUrl) {
+            moviePlayer.src = currentMovieUrl + "?autoplay=1";
+        }
+    });
+}
+        
+        
