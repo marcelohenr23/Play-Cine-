@@ -4,17 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Play Cine - Seu Portal de Filmes</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=3.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
-    <!-- Animação de Abertura (Splash Screen) -->
-    <div id="introSplash" class="splash-screen">
-        <div class="splash-logo">
-            <span class="highlight">PLAY</span><span>CINE</span>
-        </div>
-    </div>
 
     <!-- Modal de Alerta / Mensagem Personalizado -->
     <div id="customModal" class="modal" style="display: none;">
@@ -65,7 +58,7 @@
     </section>
 
     <!-- Seção de Seleção de Perfis -->
-    <section id="profileSection" class="view-section" style="display: none;">
+    <section id="profileSection" class="view-section">
         <div class="profile-wrapper">
             <h2>Quem está assistindo?</h2>
             <div id="profilesGrid" class="profiles-grid"></div>
@@ -90,10 +83,10 @@
     </div>
 
     <!-- Plataforma Principal (Catálogo) -->
-    <section id="mainAppSection" class="view-section" style="display: none;">
+    <section id="mainAppSection" class="view-section">
         <header class="navbar">
             <div class="header-brand" style="display: flex; align-items: center; gap: 20px;">
-                <h1 class="brand-header"><span class="brand-play">PLAY</span><span class="brand-cine">CINE</span></h1>
+                <h1 class="brand-header" style="margin-bottom:0; font-size:1.5rem;"><span class="brand-play">PLAY</span><span class="brand-cine">CINE</span></h1>
                 <div id="profileSwitcher" class="active-profile-display" title="Trocar Perfil">
                     <img id="activeProfileAvatarImg" src="" alt="Avatar">
                     <span id="activeProfileNameText">Perfil</span>
@@ -111,9 +104,6 @@
             <div class="filter-bar">
                 <button class="filter-btn active" data-category="all">Todos</button>
                 <button class="filter-btn" data-category="Ação">Ação</button>
-                <button class="filter-btn" data-category="Terror">Terror</button>
-                <button class="filter-btn" data-category="Ficção">Ficção</button>
-                <button class="filter-btn" data-category="Romance">Romance</button>
             </div>
 
             <section class="catalog-section">
