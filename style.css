@@ -309,6 +309,7 @@ body {
     background: rgba(255,255,255,0.1);
     padding: 5px 12px;
     border-radius: 20px;
+    margin-left: auto; /* Joga o perfil totalmente para o canto direito */
 }
 
 .active-profile-display img {
