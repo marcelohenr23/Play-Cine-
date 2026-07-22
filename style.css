@@ -512,3 +512,56 @@ input:-webkit-autofill:focus {
 .close-video-btn:hover {
     background: var(--primary-color);
 }
+/* Animação Inicial de Splash (Estilo Netflix em Azul) */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0b0f19;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    animation: splashFadeOut 0.8s ease 2s forwards;
+    pointer-events: none;
+}
+
+.splash-logo {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    animation: netflixZoom 1.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+.splash-logo .highlight {
+    color: #ffffff;
+}
+
+.splash-logo span:not(.highlight) {
+    color: #3b82f6;
+}
+
+@keyframes netflixZoom {
+    0% {
+        transform: scale(0.6);
+        opacity: 0;
+        letter-spacing: 1px;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.1);
+        opacity: 1;
+        letter-spacing: 3px;
+    }
+}
+
+@keyframes splashFadeOut {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
