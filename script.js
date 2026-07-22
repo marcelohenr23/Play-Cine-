@@ -4,7 +4,7 @@ const movies = [
     { title: "+Velozes +Furiosos", genre: "Ação", year: "2003", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/%2BVelozes.png", videoUrl: "https://www.youtube.com/embed/2TAOizOnNPo" },
     { title: "Velozes e Furiosos: Desafio em Tóquio", genre: "Ação", year: "2006", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20desafios.jpg", videoUrl: "https://www.youtube.com/embed/p_InqUtDhuc" },
     { title: "Velozes e Furiosos 4", genre: "Ação", year: "2009", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%204.jpg", videoUrl: "https://www.youtube.com/embed/kz89hjKmdwg" },
-    { title: "Velozes e Furiosos 5: Operação Rio", genre: "Ação", year: "2011", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%205.jpg", videoUrl: "https://www.youtube.com/embed/olvV4XZ9j90" }
+    { title: "Velozes e Furiosos 5: Operação Rio", genre: "Ação", year: "2011", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%205.jpg", videoUrl: "https://youtu.be/e4tEwEZYELc?is=uVjJ-T6QgB66PWmV" }
 ];
 
 // Avatares oficiais disponíveis
