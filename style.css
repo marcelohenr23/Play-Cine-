@@ -565,3 +565,94 @@ input:-webkit-autofill:focus {
         visibility: hidden;
     }
 }
+/* --- MELHORIAS PARA A TELA DE PERFIS --- */
+
+/* Fundo da tela de perfis com leve textura/gradiente */
+#profileSection, .profile-section {
+    background: radial-gradient(circle at center, #131825 0%, #0b0f19 100%) !important;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Título principal "Quem está explorando?" */
+#profileSection h2, .profile-wrapper h2, .profile-container h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+/* Subtítulo da tela */
+#profileSection p, .profile-wrapper p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+/* Cartões dos perfis mais modernos e arredondados */
+.profile-card {
+    background: rgba(19, 24, 37, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profile-card:hover {
+    transform: translateY(-8px);
+    background: rgba(25, 33, 52, 0.9);
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Foto/Avatar do perfil */
+.profile-avatar-box {
+    width: 110px !important;
+    height: 110px !important;
+    border-radius: 14px !important;
+    border: 2px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transition: border-color 0.3s ease;
+}
+
+.profile-card:hover .profile-avatar-box {
+    border-color: var(--primary-color) !important;
+}
+
+/* Nome do perfil embaixo do avatar */
+.profile-card span {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    color: #e2e8f0 !important;
+    margin-top: 10px !important;
+}
+
+/* Botões inferiores ("Adicionar perfil" e "Gerenciar") */
+.profile-wrapper button, .profile-container button, .add-profile-btn {
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+/* Botão principal de adicionar */
+#openAddProfileModal {
+    background-color: var(--primary-color) !important;
+    border: none !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+#openAddProfileModal:hover {
+    background-color: var(--primary-hover) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+}
