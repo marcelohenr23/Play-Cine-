@@ -60,7 +60,6 @@ section {
     max-width: 400px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
     text-align: center;
-    animation: fadeIn 0.6s ease-out;
 }
 
 .brand-header {
@@ -94,13 +93,11 @@ section {
     transition: all 0.3s ease;
 }
 
-/* Remove fundo amarelo do autocompletar do navegador */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
     -webkit-text-fill-color: var(--text-color) !important;
     -webkit-box-shadow: 0 0 0px 1000px #131825 inset !important;
-    transition: background-color 5000s ease-in-out 0s;
 }
 
 .auth-form input:focus, .modal-content input:focus {
@@ -157,7 +154,6 @@ input:-webkit-autofill:focus {
     text-align: center;
     max-width: 800px;
     width: 100%;
-    animation: fadeIn 0.5s ease-out;
 }
 
 .profile-container h2 {
@@ -193,7 +189,6 @@ input:-webkit-autofill:focus {
     overflow: hidden;
     border: 3px solid transparent;
     position: relative;
-    transition: border-color 0.3s ease;
     box-shadow: 0 8px 20px rgba(0,0,0,0.4);
 }
 
@@ -214,7 +209,6 @@ input:-webkit-autofill:focus {
     font-weight: 500;
 }
 
-/* Botão Adicionar Perfil */
 .profile-container > button, .add-profile-btn {
     padding: 12px 25px;
     background: transparent;
@@ -234,13 +228,13 @@ input:-webkit-autofill:focus {
     transform: translateY(-2px);
 }
 
-/* NAVBAR PRINCIPAL */
+/* NAVBAR PRINCIPAL (ORGANIZADA) */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 5%;
-    background-color: rgba(11, 15, 25, 0.9);
+    padding: 15px 5%;
+    background-color: rgba(11, 15, 25, 0.95);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -248,40 +242,43 @@ input:-webkit-autofill:focus {
     border-bottom: 1px solid var(--border-color);
 }
 
+.navbar h1, .navbar .brand-header {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
 .active-profile-display {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     cursor: pointer;
     background: rgba(255, 255, 255, 0.05);
-    padding: 6px 12px;
+    padding: 4px 10px;
     border-radius: 20px;
     border: 1px solid var(--border-color);
-    transition: background 0.3s ease;
-}
-
-.active-profile-display:hover {
-    background: rgba(255, 255, 255, 0.1);
 }
 
 .active-profile-display img {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     object-fit: cover;
 }
 
+.active-profile-display span {
+    font-size: 0.85rem;
+}
+
 /* CONTEÚDO PRINCIPAL */
 .content-container {
-    padding: 30px 5%;
+    padding: 20px 5%;
     max-width: 1400px;
     margin: 0 auto;
-    animation: fadeIn 0.5s ease-out;
 }
 
 .search-bar-container {
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .search-bar-container i {
@@ -294,61 +291,42 @@ input:-webkit-autofill:focus {
 
 .search-bar-container input {
     width: 100%;
-    padding: 14px 16px 14px 48px;
+    padding: 12px 16px 12px 45px;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     color: var(--text-color);
     font-size: 0.95rem;
     outline: none;
-    transition: border-color 0.3s ease;
 }
 
 .search-bar-container input:focus {
     border-color: var(--primary-color);
 }
 
+/* REMOVE O BANNER GRANDE QUE ESTAVA ESTRANHO */
 .hero-banner {
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes.png');
-    background-size: cover;
-    background-position: center;
-    padding: 60px 40px;
-    border-radius: 16px;
-    margin-bottom: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    border: 1px solid var(--border-color);
-}
-
-.hero-banner h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    font-weight: 700;
-}
-
-.hero-banner p {
-    color: var(--text-muted);
-    font-size: 1rem;
-    max-width: 600px;
+    display: none !important;
 }
 
 .filter-bar {
     display: flex;
-    gap: 12px;
-    margin-bottom: 30px;
+    gap: 10px;
+    margin-bottom: 25px;
     overflow-x: auto;
     padding-bottom: 5px;
 }
 
 .filter-btn {
-    padding: 8px 18px;
+    padding: 8px 16px;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     color: var(--text-muted);
     border-radius: 20px;
     cursor: pointer;
     font-weight: 500;
-    transition: all 0.3s ease;
     white-space: nowrap;
+    transition: all 0.3s ease;
 }
 
 .filter-btn.active, .filter-btn:hover {
@@ -358,27 +336,26 @@ input:-webkit-autofill:focus {
 }
 
 .catalog-section h3 {
-    font-size: 1.4rem;
-    margin-bottom: 20px;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
     font-weight: 600;
 }
 
-/* CATÁLOGO EM CARROSSEL (Rolando pro lado) */
+/* CATÁLOGO EM CARROSSEL */
 .movie-grid {
     display: flex;
     overflow-x: auto;
-    gap: 20px;
-    padding-bottom: 20px;
+    gap: 15px;
+    padding-bottom: 15px;
     scroll-behavior: smooth;
 }
 
 .movie-grid::-webkit-scrollbar {
-    height: 8px;
+    height: 6px;
 }
 
 .movie-grid::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
 }
 
 .movie-grid::-webkit-scrollbar-thumb {
@@ -388,51 +365,44 @@ input:-webkit-autofill:focus {
 
 .movie-card {
     background: var(--card-bg);
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
     border: 1px solid var(--border-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
     flex: 0 0 auto;
-    width: 200px;
+    width: 160px;
+    transition: transform 0.3s ease;
 }
 
 .movie-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
-    border-color: rgba(59, 130, 246, 0.4);
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
 }
 
 .movie-card img {
     width: 100%;
-    height: 280px;
+    height: 230px;
     object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.movie-card:hover img {
-    transform: scale(1.05);
 }
 
 .movie-info {
-    padding: 12px;
+    padding: 10px;
 }
 
 .movie-info h4 {
-    font-size: 0.95rem;
-    margin-bottom: 4px;
-    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 3px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .movie-info span {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
 }
 
-/* MODAIS (Ocultos por padrão para sumir com o erro no topo) */
+/* MODAIS */
 .modal {
     display: none;
     position: fixed;
@@ -451,35 +421,33 @@ input:-webkit-autofill:focus {
 .modal-content {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    padding: 30px;
+    padding: 25px;
     border-radius: 16px;
     width: 100%;
-    max-width: 420px;
+    max-width: 400px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-    animation: fadeIn 0.3s ease-out;
 }
 
 .modal-content h3 {
-    margin-bottom: 20px;
-    font-size: 1.3rem;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
 }
 
 .avatar-grid {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     justify-content: center;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     flex-wrap: wrap;
 }
 
 .avatar-option {
-    width: 55px;
-    height: 55px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     overflow: hidden;
     cursor: pointer;
     border: 2px solid transparent;
-    transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .avatar-option img {
@@ -495,14 +463,14 @@ input:-webkit-autofill:focus {
 
 .modal-buttons {
     display: flex;
-    gap: 12px;
+    gap: 10px;
 }
 
 /* Player de Vídeo */
 .video-modal-content {
-    max-width: 900px !important;
+    max-width: 850px !important;
     width: 90% !important;
-    padding: 20px !important;
+    padding: 15px !important;
     position: relative;
     background: var(--card-bg) !important;
 }
@@ -515,7 +483,7 @@ input:-webkit-autofill:focus {
     background: #000;
     border-radius: 8px;
     overflow: hidden;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .video-container iframe {
@@ -528,20 +496,20 @@ input:-webkit-autofill:focus {
 
 .close-video-btn {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
     background: rgba(0, 0, 0, 0.6);
     color: #fff;
     border: none;
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    font-size: 1.1rem;
+    font-size: 1rem;
     cursor: pointer;
     z-index: 10;
-    transition: background 0.3s ease;
 }
 
 .close-video-btn:hover {
     background: var(--primary-color);
-}
+    }
+    
