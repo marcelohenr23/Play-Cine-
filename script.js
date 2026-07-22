@@ -56,11 +56,9 @@ const moviePlayer = document.getElementById('moviePlayer');
 const modalMovieTitle = document.getElementById('modalMovieTitle');
 const modalMovieDesc = document.getElementById('modalMovieDesc');
 const closeVideoModalBtn = document.getElementById('closeVideoModal');
-const watchFullMovieBtn = document.getElementById('watchFullMovieBtn');
 
 let selectedAvatarUrl = availableAvatars[0];
 let editingProfileIndex = null;
-let currentMovieUrl = '';
 
 function showAlert(message) {
     modalMessage.textContent = message;
@@ -73,46 +71,36 @@ if (modalCloseBtn) {
     });
 }
 
-// Função segura para alternar as telas principais via estilo direto
+// Função correta usando classes para exibir apenas a tela desejada
 function switchView(targetSection) {
-    if (authSection) authSection.style.display = 'none';
-    if (profileSection) profileSection.style.display = 'none';
-    if (mainAppSection) mainAppSection.style.display = 'none';
+    authSection.classList.remove('active');
+    profileSection.classList.remove('active');
+    mainAppSection.classList.remove('active');
 
-    if (targetSection) {
-        targetSection.style.display = 'block';
-        window.scrollTo(0, 0);
-    }
+    targetSection.classList.add('active');
+    window.scrollTo(0, 0); // Garante que a tela abre no topo
 }
 
-// Alternar entre os formulários de Login e Cadastro de forma correta
 if (toRegisterBtn && toLoginBtn) {
     toRegisterBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        if (loginForm) loginForm.style.display = 'none';
-        if (registerForm) registerForm.style.display = 'block';
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'block';
     });
 
     toLoginBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        if (registerForm) registerForm.style.display = 'none';
-        if (loginForm) loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+        loginForm.style.display = 'block';
     });
 }
 
-// Ação de Cadastro
 if (registerForm) {
     registerForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const nameInputEl = document.getElementById('regName');
-        const emailInputEl = document.getElementById('regEmail');
-        const passInputEl = document.getElementById('regPassword');
-
-        if (!nameInputEl || !emailInputEl || !passInputEl) return;
-
-        const name = nameInputEl.value.trim();
-        const email = emailInputEl.value.trim();
-        const password = passInputEl.value;
+        const name = document.getElementById('regName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const password = document.getElementById('regPassword').value;
 
         localStorage.setItem('playCine_name', name);
         localStorage.setItem('playCine_email', email);
@@ -124,36 +112,37 @@ if (registerForm) {
         showAlert('Conta criada com sucesso! Faça login.');
         registerForm.reset();
         registerForm.style.display = 'none';
-        if (loginForm) loginForm.style.display = 'block';
+        loginForm.style.display = 'block';
     });
 }
 
-// Ação de Login (Garante entrada mesmo se os dados salvos estiverem vazios)
 if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        
-        const emailInputEl = document.getElementById('loginEmail');
-        const passInputEl = document.getElementById('loginPassword');
+        const emailInput = document.getElementById('loginEmail').value.trim();
+        const passwordInput = document.getElementById('loginPassword').value;
 
-        const emailInput = emailInputEl ? emailInputEl.value.trim() : '';
-        const passwordInput = passInputEl ? passInputEl.value : '';
+        const savedEmail = localStorage.getItem('playCine_email');
+        const savedPassword = localStorage.getItem('playCine_password');
 
-        if (!localStorage.getItem('playCine_email')) {
-            localStorage.setItem('playCine_email', emailInput || 'teste@email.com');
-            localStorage.setItem('playCine_password', passwordInput || '123456');
-            localStorage.setItem('playCine_name', 'Marcelo');
-            localStorage.setItem('playCine_profiles', JSON.stringify([{ name: 'Marcelo', avatar: availableAvatars[0] }]));
+        if (!savedEmail) {
+            showAlert('Nenhuma conta encontrada. Cadastre-se primeiro!');
+            return;
         }
 
-        let profiles = JSON.parse(localStorage.getItem('playCine_profiles'));
-        if (!profiles || profiles.length === 0) {
-            profiles = [{ name: 'Marcelo', avatar: availableAvatars[0] }];
-            localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
-        }
+        if (emailInput === savedEmail && passwordInput === savedPassword) {
+            let profiles = JSON.parse(localStorage.getItem('playCine_profiles'));
+            if (!profiles || profiles.length === 0) {
+                const userName = localStorage.getItem('playCine_name') || 'Convidado';
+                profiles = [{ name: userName, avatar: availableAvatars[0] }];
+                localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
+            }
 
-        renderProfiles();
-        switchView(profileSection);
+            renderProfiles();
+            switchView(profileSection);
+        } else {
+            showAlert('E-mail ou senha incorretos.');
+        }
     });
 }
 
@@ -232,7 +221,7 @@ if (openAddProfileModalBtn) {
         if (modalProfileTitle) modalProfileTitle.textContent = "Novo Perfil";
         if (profileNameInput) profileNameInput.value = '';
         renderAvatarSelector(availableAvatars[0]);
-        if (profileModal) profileModal.style.display = 'flex';
+        profileModal.style.display = 'flex';
     });
 }
 
@@ -244,12 +233,12 @@ function openProfileModalForEdit(index) {
 
     if (profileNameInput) profileNameInput.value = profile.name;
     renderAvatarSelector(profile.avatar || availableAvatars[0]);
-    if (profileModal) profileModal.style.display = 'flex';
+    profileModal.style.display = 'flex';
 }
 
 if (cancelProfileBtn) {
     cancelProfileBtn.addEventListener('click', () => {
-        if (profileModal) profileModal.style.display = 'none';
+        profileModal.style.display = 'none';
     });
 }
 
@@ -271,7 +260,7 @@ if (saveProfileBtn) {
         }
 
         localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
-        if (profileModal) profileModal.style.display = 'none';
+        profileModal.style.display = 'none';
         renderProfiles();
     });
 }
@@ -298,11 +287,10 @@ function renderMovies(movieList) {
         `;
 
         card.addEventListener('click', () => {
-            currentMovieUrl = movie.videoUrl;
-            if (moviePlayer) moviePlayer.src = currentMovieUrl;
-            if (modalMovieTitle) modalMovieTitle.textContent = movie.title;
-            if (modalMovieDesc) modalMovieDesc.textContent = `${movie.genre} • ${movie.year}`;
-            if (videoModal) videoModal.style.display = 'flex';
+            moviePlayer.src = movie.videoUrl;
+            modalMovieTitle.textContent = movie.title;
+            modalMovieDesc.textContent = `${movie.genre} • ${movie.year}`;
+            videoModal.style.display = 'flex';
         });
 
         movieGrid.appendChild(card);
@@ -311,15 +299,15 @@ function renderMovies(movieList) {
 
 if (closeVideoModalBtn) {
     closeVideoModalBtn.addEventListener('click', () => {
-        if (moviePlayer) moviePlayer.src = '';
-        if (videoModal) videoModal.style.display = 'none';
+        moviePlayer.src = '';
+        videoModal.style.display = 'none';
     });
 }
 
 window.addEventListener('click', (e) => {
     if (e.target === videoModal) {
-        if (moviePlayer) moviePlayer.src = '';
-        if (videoModal) videoModal.style.display = 'none';
+        moviePlayer.src = '';
+        videoModal.style.display = 'none';
     }
 });
 
@@ -347,12 +335,3 @@ filterBtns.forEach(btn => {
         }
     });
 });
-
-if (watchFullMovieBtn) {
-    watchFullMovieBtn.addEventListener('click', () => {
-        if (currentMovieUrl && moviePlayer) {
-            moviePlayer.src = currentMovieUrl + "?autoplay=1";
-        }
-    });
-        }
-        
