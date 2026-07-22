@@ -282,18 +282,15 @@ function renderMovies(movieList) {
             </div>
         `;
 
-        // Evento de clique para abrir o player de vídeo do filme
-        card.addEventListener('click', () => {
-            moviePlayer.src = movie.videoUrl;
-            modalMovieTitle.textContent = movie.title;
-            modalMovieDesc.textContent = `${movie.genre} • ${movie.year}`;
-            videoModal.style.display = 'flex';
-        });
-
-        movieGrid.appendChild(card);
+            // Evento de clique para abrir o player de video do filme
+    card.addEventListener('click', () => {
+        currentMovieUrl = movie.videoUrl; // Guarda o link do filme atual
+        moviePlayer.src = currentMovieUrl;
+        modalMovieTitle.textContent = movie.title;
+        modalMovieDesc.textContent = `${movie.genre} • ${movie.year}`;
+        videoModal.style.display = 'flex';
     });
-}
-
+        
 // Fechar modal de vídeo
 if (closeVideoModalBtn) {
     closeVideoModalBtn.addEventListener('click', () => {
