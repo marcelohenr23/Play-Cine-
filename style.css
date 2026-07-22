@@ -23,15 +23,15 @@ body {
     overflow-x: hidden;
 }
 
-/* Controle de Visibilidade das Seções */
+/* --- CONTROLE DE VISIBILIDADE DAS SEÇÕES (CORRIGIDO) --- */
 .view-section {
     display: none;
+    width: 100%;
+    min-height: 100vh;
 }
 
 .view-section.active {
-    display: flex !important;
-    flex-direction: column;
-    min-height: 100vh;
+    display: block !important;
 }
 
 /* Animação Global de Aparição */
@@ -637,4 +637,3 @@ input:-webkit-autofill:focus {
         visibility: hidden;
     }
     }
-    
