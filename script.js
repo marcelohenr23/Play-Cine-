@@ -4,11 +4,27 @@ const movies = [
     { title: "Velozes e Furiosos: Desafio em Tóquio", genre: "Ação", year: "2006", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20desafios.jpg", videoUrl: "https://www.youtube.com/embed/p_InqUtDhuc" },
     { title: "Velozes e Furiosos 4", genre: "Ação", year: "2009", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%204.jpg", videoUrl: "https://www.youtube.com/embed/kz89hjKmdwg" },
     { title: "Velozes e Furiosos 5: Operação Rio", genre: "Ação", year: "2011", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/velozes%20e%20furiosos%205.jpg", videoUrl: "https://www.youtube.com/embed/olvV4XZ9j90" },
-    { title: "Velozes e Furiosos 6", genre: "Ação", year: "2013", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/furiosos6.jpg", videoUrl: "https://www.youtube.com/embed/CjVQZyeQ684" },
-    { title: "Velozes e Furiosos 7", genre: "Ação", year: "2015", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/furiosos%207.jpg", videoUrl: "https://www.youtube.com/embed/Skpu5HaVkOc" },
-    { title: "Velozes e Furiosos 8", genre: "Ação", year: "2017", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/furiosos8.jpg", videoUrl: "https://www.youtube.com/embed/JwMKXtacRXc" },
-    { title: "Velozes e Furiosos 9", genre: "Ação", year: "2021", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/furiosos%209.jpg", videoUrl: "https://www.youtube.com/embed/_qHM_MeJxh8" },
-    { title: "Velozes e Furiosos 10", genre: "Ação", year: "2023", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/furiosos%2010.jpg", videoUrl: "https://www.youtube.com/embed/eoOaJnStvBU" }
+    { title: "John Wick", genre: "Ação", year: "2014", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/81-QxCfIDBL._AC_UF894,1000_QL80_.jpg", videoUrl: "https://www.youtube.com/embed/2AUckx_jXj8" },
+    { title: "De Volta ao Jogo", genre: "Ação", year: "2014", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/DeVoltaAoJogo.webp", videoUrl: "https://www.youtube.com/embed/2AUckx_jXj8" },
+    { title: "Homem Aranha", genre: "Ação", year: "2021", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/Homem%20Aranha.jpg", videoUrl: "https://www.youtube.com/embed/JfVOs4VSpmA" },
+    { title: "Jumanji", genre: "Aventura", year: "2017", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/jumanji.jpg", videoUrl: "https://www.youtube.com/embed/2QKg5SZ_TSg" },
+    { title: "Águas Mortais", genre: "Suspense", year: "2016", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/aguasmortais.png", videoUrl: "https://www.youtube.com/embed/647bZX_mwOg" },
+    { title: "A Morte do Demônio", genre: "Terror", year: "2013", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/amortedemonio.png", videoUrl: "https://www.youtube.com/embed/RK1K2bCg4J8" },
+    { title: "A Múmia", genre: "Aventura", year: "2017", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/amumia.jpg", videoUrl: "https://www.youtube.com/embed/IjHggtMvczg" },
+    { title: "Assalto ao Poder", genre: "Ação", year: "2016", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/assaltoaopoder.jpg", videoUrl: "https://www.youtube.com/embed/N0W97a9Z3q0" },
+    { title: "Deadpool", genre: "Ação", year: "2016", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/deadpoolcine.jpg", videoUrl: "https://www.youtube.com/embed/ONHBaC-pfsk" },
+    { title: "Desejo", genre: "Drama", year: "2020", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/desejo.jpg", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" },
+    { title: "El", genre: "Drama", year: "2022", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/el.jpg", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" },
+    { title: "Em Ritmo de Fuga", genre: "Ação", year: "2017", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/em%20ritmo%20de%20fuga.jpg", videoUrl: "https://www.youtube.com/embed/d96cjJhvlMA" },
+    { title: "Implacável", genre: "Ação", year: "2021", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/implacavel.jpg", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" },
+    { title: "Jack", genre: "Ação", year: "2015", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/jack.jpg", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" },
+    { title: "Obsessão", genre: "Suspense", year: "2019", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/obsessao.jpg", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" },
+    { title: "Sem Limite", genre: "Ação", year: "2011", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/semlimite.jpg", videoUrl: "https://www.youtube.com/embed/jNZsxDUjBc8" },
+    { title: "Supergirl", genre: "Ação", year: "2015", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/supergirl.jpg", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" },
+    { title: "Todo Mundo em Pânico", genre: "Comédia", year: "2000", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/todomundoempanico.jpg", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" },
+    { title: "Tomb Raider", genre: "Aventura", year: "2018", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/tombraid.jpg", videoUrl: "https://www.youtube.com/embed/8ndjsKmb4c0" },
+    { title: "Vingadora", genre: "Ação", year: "2020", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/vingadora.jpg", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" },
+    { title: "Vingança", genre: "Ação", year: "2019", image: "https://raw.githubusercontent.com/marcelohenr23/Play-Cine-/main/vinganca.jpg", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" }
 ];
 
 // Avatares oficiais disponíveis
