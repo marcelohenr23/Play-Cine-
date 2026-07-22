@@ -21,19 +21,82 @@ body {
     color: var(--text-color);
     min-height: 100vh;
     overflow-x: hidden;
-    animation: fadeInBody 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Animação de Entrada Global */
-@keyframes fadeInBody {
-    from {
-        opacity: 0;
-        transform: translateY(12px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Animação Global de Entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.view-section.active {
+    animation: fadeIn 0.4s ease-in-out forwards;
+}
+
+/* Splash Screen de Abertura */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.splash-logo {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.splash-logo .highlight {
+    color: var(--text-color);
+}
+
+.splash-logo span:not(.highlight) {
+    color: var(--primary-color);
+}
+
+/* MODAIS E OVERLAYS (Corrigido para sumir com o bug do topo) */
+.modal-overlay, .modal {
+    display: none !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal-overlay.active, .modal.active {
+    display: flex !important;
+}
+
+.modal-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 30px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    text-align: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-card p#modalMessage {
+    margin-bottom: 20px;
+    color: var(--text-muted);
 }
 
 /* TELA DE LOGIN / AUTENTICAÇÃO */
@@ -74,11 +137,11 @@ body {
     color: var(--primary-color);
 }
 
-.auth-form .input-field {
+.input-field {
     margin-bottom: 15px;
 }
 
-.auth-form input, .modal-content input {
+.auth-form input, .modal-card input, .header-search input {
     width: 100%;
     padding: 14px 16px;
     background: rgba(11, 15, 25, 0.9) !important;
@@ -97,7 +160,7 @@ input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0px 1000px #131825 inset !important;
 }
 
-.auth-form input:focus, .modal-content input:focus {
+.auth-form input:focus, .modal-card input:focus, .header-search input:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
@@ -121,6 +184,24 @@ input:-webkit-autofill:focus {
     transform: translateY(-2px);
 }
 
+.btn-outline {
+    padding: 12px 25px;
+    background: transparent;
+    color: var(--text-color);
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.btn-outline:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--primary-color);
+}
+
 .auth-switch {
     margin-top: 20px;
     font-size: 0.9rem;
@@ -139,21 +220,20 @@ input:-webkit-autofill:focus {
 }
 
 /* TELA DE PERFIS */
-.profile-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-}
-
-.profile-container {
+.profile-wrapper {
     text-align: center;
     max-width: 800px;
     width: 100%;
+    margin: auto;
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.profile-container h2 {
+.profile-wrapper h2 {
     font-size: 2.5rem;
     margin-bottom: 40px;
     font-weight: 600;
@@ -167,66 +247,8 @@ input:-webkit-autofill:focus {
     margin-bottom: 20px;
 }
 
-.profile-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.profile-card:hover {
-    transform: scale(1.08);
-}
-
-.profile-avatar-box {
-    width: 120px;
-    height: 120px;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 3px solid transparent;
-    position: relative;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-}
-
-.profile-card:hover .profile-avatar-box {
-    border-color: var(--primary-color);
-}
-
-.profile-avatar-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.profile-card span {
-    margin-top: 12px;
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    font-weight: 500;
-}
-
-.profile-container > button, .add-profile-btn {
-    padding: 12px 25px;
-    background: transparent;
-    color: var(--text-color);
-    border: 2px dashed var(--border-color);
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 20px;
-}
-
-.profile-container > button:hover, .add-profile-btn:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: var(--primary-color);
-    transform: translateY(-2px);
-}
-
 /* NAVBAR PRINCIPAL */
-.navbar {
+.app-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -237,15 +259,26 @@ input:-webkit-autofill:focus {
     z-index: 100;
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-.navbar h1, .navbar .brand-header {
-    font-size: 1.5rem !important;
-    margin: 0 !important;
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-brand h1 {
+    font-size: 1.5rem;
     font-weight: 700;
 }
 
-.active-profile-display {
+.header-brand h1 span {
+    color: var(--primary-color);
+}
+
+.profile-badge {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -256,31 +289,24 @@ input:-webkit-autofill:focus {
     border: 1px solid var(--border-color);
 }
 
-.active-profile-display img {
-    width: 30px !important;
-    height: 30px !important;
+.profile-badge img {
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.active-profile-display span {
-    font-size: 0.9rem !important;
-    color: var(--text-color);
+.profile-badge span {
+    font-size: 0.9rem;
 }
 
-/* CONTEÚDO PRINCIPAL */
-.content-container {
-    padding: 25px 5%;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-.search-bar-container {
+.header-search {
     position: relative;
-    margin-bottom: 25px;
+    flex: 1;
+    max-width: 350px;
 }
 
-.search-bar-container i {
+.header-search i {
     position: absolute;
     left: 16px;
     top: 50%;
@@ -288,26 +314,22 @@ input:-webkit-autofill:focus {
     color: var(--text-muted);
 }
 
-.search-bar-container input {
-    width: 100%;
-    padding: 14px 16px 14px 45px;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    color: var(--text-color);
-    font-size: 0.95rem;
-    outline: none;
+.header-search input {
+    padding-left: 45px !important;
 }
 
-.search-bar-container input:focus {
-    border-color: var(--primary-color);
+/* CONTEÚDO PRINCIPAL */
+.app-content {
+    padding: 25px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .hero-banner {
-    display: none !important;
+    display: none !important; /* Mantém limpo sem aquele banner estranho */
 }
 
-.filter-bar {
+.categories-bar {
     display: flex;
     gap: 10px;
     margin-bottom: 25px;
@@ -400,81 +422,23 @@ input:-webkit-autofill:focus {
     color: var(--text-muted);
 }
 
-/* MODAIS - Garantem que NENHUM modal apareça quebrado no topo */
-.modal {
-    display: none !important; 
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(8px);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+.app-footer {
+    text-align: center;
     padding: 20px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: 40px;
 }
 
-.modal.active {
-    display: flex !important; /* Só aparece quando o JS adicionar a classe active */
-}
-
-.modal-content {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    padding: 25px;
-    border-radius: 16px;
-    width: 100%;
-    max-width: 400px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-}
-
-.modal-content h3 {
-    margin-bottom: 15px;
-    font-size: 1.2rem;
-}
-
-.avatar-grid {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-}
-
-.avatar-option {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    overflow: hidden;
-    cursor: pointer;
-    border: 2px solid transparent;
-}
-
-.avatar-option img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.avatar-option.selected {
-    border-color: var(--primary-color);
-    transform: scale(1.1);
-}
-
-.modal-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-/* Player de Vídeo */
+/* Modal de Vídeo */
 .video-modal-content {
     max-width: 850px !important;
     width: 90% !important;
     padding: 15px !important;
     position: relative;
     background: var(--card-bg) !important;
+    text-align: left !important;
 }
 
 .video-container {
@@ -498,8 +462,8 @@ input:-webkit-autofill:focus {
 
 .close-video-btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
     background: rgba(0, 0, 0, 0.6);
     color: #fff;
     border: none;
@@ -513,4 +477,4 @@ input:-webkit-autofill:focus {
 
 .close-video-btn:hover {
     background: var(--primary-color);
-        }
+    }
