@@ -21,22 +21,19 @@ body {
     color: var(--text-color);
     min-height: 100vh;
     overflow-x: hidden;
+    animation: fadeInBody 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Animação de Entrada Estilo Play Cine */
-@keyframes introAnim {
-    0% {
+/* Animação de Entrada Global */
+@keyframes fadeInBody {
+    from {
         opacity: 0;
-        transform: scale(0.95) translateY(15px);
+        transform: translateY(12px);
     }
-    100% {
+    to {
         opacity: 1;
-        transform: scale(1) translateY(0);
+        transform: translateY(0);
     }
-}
-
-section, .content-container, .auth-card, .profile-container {
-    animation: introAnim 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* TELA DE LOGIN / AUTENTICAÇÃO */
@@ -228,7 +225,7 @@ input:-webkit-autofill:focus {
     transform: translateY(-2px);
 }
 
-/* NAVBAR PRINCIPAL (CORRIGIDA E ALINHADA) */
+/* NAVBAR PRINCIPAL */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -242,23 +239,12 @@ input:-webkit-autofill:focus {
     border-bottom: 1px solid var(--border-color);
 }
 
-/* Garante que o logo na navbar fique compacto e elegante */
 .navbar h1, .navbar .brand-header {
     font-size: 1.5rem !important;
     margin: 0 !important;
     font-weight: 700;
-    letter-spacing: 0.5px;
 }
 
-.navbar .brand-play {
-    color: var(--text-color);
-}
-
-.navbar .brand-cine {
-    color: var(--primary-color);
-}
-
-/* Perfil pequeno e alinhado no canto direito da barra superior */
 .active-profile-display {
     display: flex;
     align-items: center;
@@ -268,11 +254,6 @@ input:-webkit-autofill:focus {
     padding: 5px 12px;
     border-radius: 20px;
     border: 1px solid var(--border-color);
-    transition: background 0.3s ease;
-}
-
-.active-profile-display:hover {
-    background: rgba(255, 255, 255, 0.1);
 }
 
 .active-profile-display img {
@@ -285,7 +266,6 @@ input:-webkit-autofill:focus {
 .active-profile-display span {
     font-size: 0.9rem !important;
     color: var(--text-color);
-    font-weight: 500;
 }
 
 /* CONTEÚDO PRINCIPAL */
@@ -295,7 +275,6 @@ input:-webkit-autofill:focus {
     margin: 0 auto;
 }
 
-/* BARRA DE PESQUISA ELEGANTE */
 .search-bar-container {
     position: relative;
     margin-bottom: 25px;
@@ -318,16 +297,12 @@ input:-webkit-autofill:focus {
     color: var(--text-color);
     font-size: 0.95rem;
     outline: none;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
 }
 
 .search-bar-container input:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
-/* REMOVE O BANNER ANTIGO */
 .hero-banner {
     display: none !important;
 }
@@ -394,7 +369,7 @@ input:-webkit-autofill:focus {
     cursor: pointer;
     flex: 0 0 auto;
     width: 170px;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .movie-card:hover {
@@ -425,9 +400,9 @@ input:-webkit-autofill:focus {
     color: var(--text-muted);
 }
 
-/* MODAIS */
+/* MODAIS - Garantem que NENHUM modal apareça quebrado no topo */
 .modal {
-    display: none;
+    display: none !important; 
     position: fixed;
     top: 0;
     left: 0;
@@ -439,6 +414,10 @@ input:-webkit-autofill:focus {
     align-items: center;
     z-index: 1000;
     padding: 20px;
+}
+
+.modal.active {
+    display: flex !important; /* Só aparece quando o JS adicionar a classe active */
 }
 
 .modal-content {
@@ -534,5 +513,4 @@ input:-webkit-autofill:focus {
 
 .close-video-btn:hover {
     background: var(--primary-color);
-    }
-    
+        }
