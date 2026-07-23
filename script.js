@@ -1,6 +1,6 @@
 const movies = [
     { title: "Ambulância: Um Dia de Crime", genre: "Ação", year: "2022", image: "img/ambulancia.jpg", videoUrl: "https://www.youtube.com/embed/7X_XvhshHXE" },
-    { title: "Beekeeper: Rede de Vingança", genre: "Ação", year: "2024", image: "img/beekeeper.jpg", videoUrl: "https://www.youtube.com/embed/enDoScgqRbg" },
+    { title: "Beekeeper: Rede de Vingança", genre: "Ação", year: "2024", image: "img/beekeeper.jpg", videoUrl: "https://fembed.sx/e/866398" },
     { title: "Code 8: Renegados", genre: "Ficção", year: "2019", image: "img/code8.png", videoUrl: "https://www.youtube.com/embed/Xq4x_v9g138" },
     { title: "iBoy", genre: "Ação", year: "2017", image: "img/iboy.jpg", videoUrl: "https://www.youtube.com/embed/O8WpB5o0M9U" },
     { title: "Legado Explosivo", genre: "Ação", year: "2020", image: "img/legadoexplosivo.webp", videoUrl: "https://www.youtube.com/embed/X3j5k7w2s4A" },
@@ -65,10 +65,10 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 
 // Elementos do Modal de Vídeo
 const videoModal = document.getElementById('videoModal');
-const moviePlayer = document.getElementById('moviePlayer');
 const modalMovieTitle = document.getElementById('modalMovieTitle');
 const modalMovieDesc = document.getElementById('modalMovieDesc');
 const closeVideoModalBtn = document.getElementById('closeVideoModal');
+let moviePlayer = document.getElementById('moviePlayer');
 
 let selectedAvatarUrl = availableAvatars[0];
 let editingProfileIndex = null;
@@ -84,14 +84,13 @@ if (modalCloseBtn) {
     });
 }
 
-// Função correta usando classes para exibir apenas a tela desejada
 function switchView(targetSection) {
     authSection.classList.remove('active');
     profileSection.classList.remove('active');
     mainAppSection.classList.remove('active');
 
     targetSection.classList.add('active');
-    window.scrollTo(0, 0); // Garante que a tela abre no topo
+    window.scrollTo(0, 0);
 }
 
 if (toRegisterBtn && toLoginBtn) {
@@ -300,7 +299,20 @@ function renderMovies(movieList) {
         `;
 
         card.addEventListener('click', () => {
-            moviePlayer.src = movie.videoUrl;
+            let targetUrl = movie.videoUrl;
+            
+            if (!targetUrl) {
+                const query = encodeURIComponent(movie.title + " trailer oficial");
+                targetUrl = `https://www.youtube.com/embed?listType=search&list=${query}`;
+            }
+
+            // Recria o elemento do player para garantir que qualquer link (YouTube ou Fembed) carregue perfeitamente
+            const playerContainer = moviePlayer.parentElement;
+            if (playerContainer) {
+                playerContainer.innerHTML = `<iframe id="moviePlayer" src="${targetUrl}" width="100%" height="100%" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>`;
+                moviePlayer = document.getElementById('moviePlayer');
+            }
+
             modalMovieTitle.textContent = movie.title;
             modalMovieDesc.textContent = `${movie.genre} • ${movie.year}`;
             videoModal.style.display = 'flex';
@@ -312,14 +324,14 @@ function renderMovies(movieList) {
 
 if (closeVideoModalBtn) {
     closeVideoModalBtn.addEventListener('click', () => {
-        moviePlayer.src = '';
+        if (moviePlayer) moviePlayer.src = '';
         videoModal.style.display = 'none';
     });
 }
 
 window.addEventListener('click', (e) => {
     if (e.target === videoModal) {
-        moviePlayer.src = '';
+        if (moviePlayer) moviePlayer.src = '';
         videoModal.style.display = 'none';
     }
 });
