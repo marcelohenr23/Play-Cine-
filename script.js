@@ -2,7 +2,6 @@ const movies = [
     { title: "Ambulância: Um Dia de Crime", genre: "Ação", year: "2022", image: "img/ambulancia.jpg", videoUrl: "https://www.youtube.com/embed/7X_XvhshHXE" },
     { title: "Beekeeper: Rede de Vingança", genre: "Ação", year: "2024", image: "img/beekeeper.jpg", videoUrl: "https://www.youtube.com/embed/enDoScgqRbg" },
     { title: "Code 8: Renegados", genre: "Ficção", year: "2019", image: "img/code8.png", videoUrl: "https://www.youtube.com/embed/Xq4x_v9g138" },
-    { title: "Code 8: Parte II", genre: "Ficção", year: "2024", image: "img/code8parte2.png", videoUrl: "https://www.youtube.com/embed/X4o_Ww28Wuo" },
     { title: "iBoy", genre: "Ação", year: "2017", image: "img/iboy.jpg", videoUrl: "https://www.youtube.com/embed/O8WpB5o0M9U" },
     { title: "Legado Explosivo", genre: "Ação", year: "2020", image: "img/legadoexplosivo.webp", videoUrl: "https://www.youtube.com/embed/X3j5k7w2s4A" },
     { title: "Mãe/Android", genre: "Ficção", year: "2021", image: "img/maexandroid.webp", videoUrl: "https://www.youtube.com/embed/6iW_s2V2m4g" },
