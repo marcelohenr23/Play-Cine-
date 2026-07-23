@@ -8,7 +8,8 @@ const movies = [
     { title: "Avatar 3", genre: "Aventura", year: "2025", image: "img/avata3.jpg", videoUrl: "https://www.youtube.com/embed/5PSNL1qE6VY" },
     { title: "A Chamada", genre: "Ação", year: "2023", image: "img/achamada.jpg", videoUrl: "https://www.youtube.com/embed/N0W97a9Z3q0" },
     { title: "Resgate", genre: "Ação", year: "2020", image: "img/resgate1.jpg", videoUrl: "https://www.youtube.com/embed/L6P3nI6VnlY" },
-    { title: "Resgate 2", genre: "Ação", year: "2023", image: "img/resgate2.jpg", videoUrl: "https://www.youtube.com/embed/Y274jZs5s7s" }
+    { title: "Resgate 2", genre: "Ação", year: "2023", image: "img/resgate2.jpg", videoUrl: "https://www.youtube.com/embed/Y274jZs5s7s" },
+    { title: "Tiro Certo", genre: "Ação", year: "2022", image: "img/tirocerto.webp", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" }
 ];
 
 // Avatares oficiais disponíveis
