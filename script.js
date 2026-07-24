@@ -281,45 +281,58 @@ function renderMovies(movieList) {
     if (!movieGrid) return;
     movieGrid.innerHTML = '';
 
+    const recentMovieGrid = document.getElementById('recentMovieGrid');
+    if (recentMovieGrid) {
+        recentMovieGrid.innerHTML = '';
+        const recentMovies = movieList.filter(m => parseInt(m.year) >= 2024);
+        
+        recentMovies.forEach(movie => {
+            recentMovieGrid.appendChild(createMovieCard(movie));
+        });
+    }
+
     if (movieList.length === 0) {
         movieGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nenhum filme encontrado.</p>';
         return;
     }
 
     movieList.forEach(movie => {
-        const card = document.createElement('div');
-        card.classList.add('movie-card');
-
-        card.innerHTML = `
-            <img src="${movie.image}" alt="${movie.title}">
-            <div class="movie-info">
-                <h4>${movie.title}</h4>
-                <span>${movie.genre} • ${movie.year}</span>
-            </div>
-        `;
-
-        card.addEventListener('click', () => {
-            let targetUrl = movie.videoUrl;
-            
-            if (!targetUrl) {
-                const query = encodeURIComponent(movie.title + " trailer oficial");
-                targetUrl = `https://www.youtube.com/embed?listType=search&list=${query}`;
-            }
-
-            // Recria o elemento do player para garantir que qualquer link (YouTube ou Fembed) carregue perfeitamente
-            const playerContainer = moviePlayer.parentElement;
-            if (playerContainer) {
-                playerContainer.innerHTML = `<iframe id="moviePlayer" src="${targetUrl}" width="100%" height="100%" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>`;
-                moviePlayer = document.getElementById('moviePlayer');
-            }
-
-            modalMovieTitle.textContent = movie.title;
-            modalMovieDesc.textContent = `${movie.genre} • ${movie.year}`;
-            videoModal.style.display = 'flex';
-        });
-
-        movieGrid.appendChild(card);
+        movieGrid.appendChild(createMovieCard(movie));
     });
+}
+
+function createMovieCard(movie) {
+    const card = document.createElement('div');
+    card.classList.add('movie-card');
+
+    card.innerHTML = `
+        <img src="${movie.image}" alt="${movie.title}">
+        <div class="movie-info">
+            <h4>${movie.title}</h4>
+            <span>${movie.genre} • ${movie.year}</span>
+        </div>
+    `;
+
+    card.addEventListener('click', () => {
+        let targetUrl = movie.videoUrl;
+        
+        if (!targetUrl) {
+            const query = encodeURIComponent(movie.title + " trailer oficial");
+            targetUrl = `https://www.youtube.com/embed?listType=search&list=${query}`;
+        }
+
+        const playerContainer = moviePlayer.parentElement;
+        if (playerContainer) {
+            playerContainer.innerHTML = `<iframe id="moviePlayer" src="${targetUrl}" width="100%" height="100%" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>`;
+            moviePlayer = document.getElementById('moviePlayer');
+        }
+
+        modalMovieTitle.textContent = movie.title;
+        modalMovieDesc.textContent = `${movie.genre} • ${movie.year}`;
+        videoModal.style.display = 'flex';
+    });
+
+    return card;
 }
 
 if (closeVideoModalBtn) {
