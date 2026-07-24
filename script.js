@@ -4,9 +4,9 @@ const movies = [
     { title: "Code 8: Renegados", genre: "Ficção", year: "2019", image: "img/code8.png", videoUrl: "https://fembed.sx/e/461130-dub" },
     { title: "iBoy", genre: "Ação", year: "2017", image: "img/iboy.jpg", videoUrl: "https://fembed.sx/e/414190-dub" },
     { title: "Legado Explosivo", genre: "Ação", year: "2020", image: "img/legadoexplosivo.webp", videoUrl: "https://fembed.sx/e/553604-dub" },
-    { title: "Mãe/Android", genre: "Ficção", year: "2021", image: "img/maexandroid.webp", videoUrl: "https://fembed.sx/e/739413" },
+    { title: "Mãe/Android", genre: "Ficção", year: "2021", image: "img/maexandroid.webp", videoUrl: "https://fembed.sx/e/739413", hidden: true },
     { title: "Operação Fronteira", genre: "Ação", year: "2019", image: "img/operacaofroteira.jpg", videoUrl: "https://fembed.sx/e/399361" },
-    { title: "Project Power", genre: "Ação", year: "2020", image: "img/projectpower.jpg", videoUrl: "https://betterflix.lat/api/player?id=605116&type=movie" },
+    { title: "Project Power", genre: "Ação", year: "2020", image: "img/projectpower.jpg", videoUrl: "https://betterflix.lat/api/player?id=605116&type=movie", hidden: true },
     { title: "Em Ritmo de Fuga", genre: "Ação", year: "2017", image: "img/em ritmo de fuga.jpg", videoUrl: "https://fembed.sx/e/339403" },
     { title: "Implacável", genre: "Ação", year: "2021", image: "img/implacavel.jpg", videoUrl: "https://fembed.sx/e/534490-dub" },
     { title: "Sem Limite", genre: "Ação", year: "2011", image: "img/semlimite.jpg", videoUrl: "https://fembed.sx/e/1138749-dub" },
@@ -17,7 +17,7 @@ const movies = [
     { title: "A Chamada", genre: "Ação", year: "2023", image: "img/achamada.jpg", videoUrl: "https://fembed.sx/e/762430-dub" },
     { title: "Resgate", genre: "Ação", year: "2020", image: "img/resgate1.jpg", videoUrl: "https://fembed.sx/e/545609-dub" },
     { title: "Resgate 2", genre: "Ação", year: "2023", image: "img/resgate2.jpg", videoUrl: "https://fembed.sx/e/697843-dub" },
-    { title: "Tiro Certo", genre: "Ação", year: "2022", image: "img/tirocerto.webp", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" }
+    { title: "Tiro Certo", genre: "Ação", year: "2022", image: "img/tirocerto.webp", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4", hidden: true }
 ];
 
 // Avatares oficiais disponíveis
@@ -281,22 +281,25 @@ function renderMovies(movieList) {
     if (!movieGrid) return;
     movieGrid.innerHTML = '';
 
+    // Filtra para ignorar os filmes que possuem hidden: true
+    const visibleMovies = movieList.filter(m => !m.hidden);
+
     const recentMovieGrid = document.getElementById('recentMovieGrid');
     if (recentMovieGrid) {
         recentMovieGrid.innerHTML = '';
-        const recentMovies = movieList.filter(m => parseInt(m.year) >= 2024);
+        const recentMovies = visibleMovies.filter(m => parseInt(m.year) >= 2024);
         
         recentMovies.forEach(movie => {
             recentMovieGrid.appendChild(createMovieCard(movie));
         });
     }
 
-    if (movieList.length === 0) {
+    if (visibleMovies.length === 0) {
         movieGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nenhum filme encontrado.</p>';
         return;
     }
 
-    movieList.forEach(movie => {
+    visibleMovies.forEach(movie => {
         movieGrid.appendChild(createMovieCard(movie));
     });
 }
@@ -352,8 +355,8 @@ window.addEventListener('click', (e) => {
 if (searchInput) {
     searchInput.addEventListener('input', (e) => {
         const term = e.target.value.toLowerCase().trim();
-        const filtered = movies.filter(m => 
-            m.title.toLowerCase().includes(term) || m.genre.toLowerCase().includes(term)
+        const filtered = movies.filter(m => !m.hidden && 
+            (m.title.toLowerCase().includes(term) || m.genre.toLowerCase().includes(term))
         );
         renderMovies(filtered);
     });
@@ -368,8 +371,9 @@ filterBtns.forEach(btn => {
         if (category === 'all') {
             renderMovies(movies);
         } else {
-            const filtered = movies.filter(m => m.genre === category);
+            const filtered = movies.filter(m => !m.hidden && m.genre === category);
             renderMovies(filtered);
         }
     });
 });
+                                                  
