@@ -1,4 +1,7 @@
 const movies = [
+    { title: "Caçada Sangrenta", genre: "Ação", year: "2024", image: "img/cacadasangrenta.jpg", videoUrl: "" },
+    { title: "Cores da Justiça", genre: "Ação", year: "2024", image: "img/coresdajustica.jpg", videoUrl: "" },
+    { title: "Gamer", genre: "Ação", year: "2009", image: "img/gamer.jpg", videoUrl: "" },
     { title: "Ambulância: Um Dia de Crime", genre: "Ação", year: "2022", image: "img/ambulancia.jpg", videoUrl: "https://fembed.sx/e/763285" },
     { title: "Beekeeper: Rede de Vingança", genre: "Ação", year: "2024", image: "img/beekeeper.jpg", videoUrl: "https://fembed.sx/e/866398" },
     { title: "Code 8: Renegados", genre: "Ficção", year: "2019", image: "img/code8.png", videoUrl: "https://fembed.sx/e/461130-dub" },
