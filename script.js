@@ -6,7 +6,7 @@ const movies = [
     { title: "Legado Explosivo", genre: "Ação", year: "2020", image: "img/legadoexplosivo.webp", videoUrl: "https://fembed.sx/e/553604-dub" },
     { title: "Mãe/Android", genre: "Ficção", year: "2021", image: "img/maexandroid.webp", videoUrl: "https://fembed.sx/e/739413" },
     { title: "Operação Fronteira", genre: "Ação", year: "2019", image: "img/operacaofroteira.jpg", videoUrl: "https://fembed.sx/e/399361" },
-    { title: "Project Power", genre: "Ação", year: "2020", image: "img/projectpower.jpg", videoUrl: "https://www.youtube.com/embed/xwvdzUnvcdg" },
+    { title: "Project Power", genre: "Ação", year: "2020", image: "img/projectpower.jpg", videoUrl: "https://betterflix.lat/api/player?id=605116&type=movie" },
     { title: "Em Ritmo de Fuga", genre: "Ação", year: "2017", image: "img/em ritmo de fuga.jpg", videoUrl: "https://www.youtube.com/embed/d96cjJhvlMA" },
     { title: "Implacável", genre: "Ação", year: "2021", image: "img/implacavel.jpg", videoUrl: "https://www.youtube.com/embed/ZsJz2TJAPy4" },
     { title: "Sem Limite", genre: "Ação", year: "2011", image: "img/semlimite.jpg", videoUrl: "https://www.youtube.com/embed/jNZsxDUjBc8" },
