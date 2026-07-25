@@ -63,7 +63,31 @@ const movies = [
     { title: "Toy Story 3", genre: "Animação", year: "2010", image: "img/story3.jpg", videoUrl: "" },
     { title: "Toy Story 4", genre: "Animação", year: "2019", image: "img/story4.jpg", videoUrl: "" },
     { title: "Todo Mundo em Pânico 2", genre: "Comédia", year: "2001", image: "img/tdmundo2.jpg", videoUrl: "" },
-    { title: "Todo Mundo em Pânico 3", genre: "Comédia", year: "2003", image: "img/tdmundo3.jpg", videoUrl: "" }
+    { title: "Todo Mundo em Pânico 3", genre: "Comédia", year: "2003", image: "img/tdmundo3.jpg", videoUrl: "" },
+    
+    // Séries adicionadas
+    { title: "Halo 4: Em Direção ao Amanhecer", genre: "Ficção", year: "2012", image: "img/amanhacer.jpg", videoUrl: "" },
+    { title: "Arcanjo Renegado", genre: "Ação", year: "2020", image: "img/arcanjo.jpg", videoUrl: "" },
+    { title: "Cães de Caça", genre: "Ação", year: "2023", image: "img/caes.jpg", videoUrl: "" },
+    { title: "Cojote: Herói e Fera", genre: "Ação", year: "2024", image: "img/coyote.jpg", videoUrl: "" },
+    { title: "Demolidor: Renascido", genre: "Ação", year: "2025", image: "img/demolidor.jpg", videoUrl: "" },
+    { title: "Emergência Radioativa", genre: "Ficção", year: "2024", image: "img/emergecia.jpg", videoUrl: "" },
+    { title: "Fear the Walking Dead", genre: "Terror", year: "2015", image: "img/fear.jpg", videoUrl: "" },
+    { title: "Impuros", genre: "Ação", year: "2018", image: "img/impuros.jpg", videoUrl: "" },
+    { title: "Luke Cage", genre: "Ação", year: "2016", image: "img/luke.jpg", videoUrl: "" },
+    { title: "Manto e Adaga", genre: "Ficção", year: "2018", image: "img/manto.jpg", videoUrl: "" },
+    { title: "Monarch: Legado de Monstros", genre: "Ficção", year: "2023", image: "img/monarch.jpg", videoUrl: "" },
+    { title: "Olhos de Wakanda", genre: "Animação", year: "2024", image: "img/olhos.jpg", videoUrl: "" },
+    { title: "One Piece: A Série", genre: "Aventura", year: "2023", image: "img/onepice.jpg", videoUrl: "" },
+    { title: "Os 100", genre: "Ficção", year: "2014", image: "img/os100.jpg", videoUrl: "" },
+    { title: "Prison Break", genre: "Ação", year: "2005", image: "img/prison.jpg", videoUrl: "" },
+    { title: "Reacher", genre: "Ação", year: "2022", image: "img/reacher.jpg", videoUrl: "" },
+    { title: "Rick e Morty", genre: "Animação", year: "2013", image: "img/rickenmoney.jpg", videoUrl: "" },
+    { title: "O Ringue", genre: "Ação", year: "2024", image: "img/ringue.jpg", videoUrl: "" },
+    { title: "Supergirl", genre: "Ficção", year: "2015", image: "img/supergil.jpg", videoUrl: "" },
+    { title: "Taxi Driver", genre: "Ação", year: "2021", image: "img/taxidrive.jpg", videoUrl: "" },
+    { title: "The Boys", genre: "Ação", year: "2019", image: "img/theboy.jpg", videoUrl: "" },
+    { title: "Twelve", genre: "Ação", year: "2025", image: "img/twe.jpg", videoUrl: "" }
 ];
 
 // Avatares oficiais disponíveis
@@ -327,7 +351,6 @@ function renderMovies(movieList) {
     if (!movieGrid) return;
     movieGrid.innerHTML = '';
 
-    // Filtra para ignorar os filmes que possuem hidden: true
     const visibleMovies = movieList.filter(m => !m.hidden);
 
     const recentMovieGrid = document.getElementById('recentMovieGrid');
@@ -341,85 +364,10 @@ function renderMovies(movieList) {
     }
 
     if (visibleMovies.length === 0) {
-        movieGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nenhum filme encontrado.</p>';
+        movieGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nenhum item encontrado.</p>';
         return;
     }
 
     visibleMovies.forEach(movie => {
         movieGrid.appendChild(createMovieCard(movie));
-    });
-}
-
-function createMovieCard(movie) {
-    const card = document.createElement('div');
-    card.classList.add('movie-card');
-
-    card.innerHTML = `
-        <img src="${movie.image}" alt="${movie.title}">
-        <div class="movie-info">
-            <h4>${movie.title}</h4>
-            <span>${movie.genre} • ${movie.year}</span>
-        </div>
-    `;
-
-    card.addEventListener('click', () => {
-        let targetUrl = movie.videoUrl;
-        
-        if (!targetUrl) {
-            const query = encodeURIComponent(movie.title + " trailer oficial");
-            targetUrl = `https://www.youtube.com/embed?listType=search&list=${query}`;
-        }
-
-        const playerContainer = moviePlayer.parentElement;
-        if (playerContainer) {
-            playerContainer.innerHTML = `<iframe id="moviePlayer" src="${targetUrl}" width="100%" height="100%" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>`;
-            moviePlayer = document.getElementById('moviePlayer');
-        }
-
-        modalMovieTitle.textContent = movie.title;
-        modalMovieDesc.textContent = `${movie.genre} • ${movie.year}`;
-        videoModal.style.display = 'flex';
-    });
-
-    return card;
-}
-
-if (closeVideoModalBtn) {
-    closeVideoModalBtn.addEventListener('click', () => {
-        if (moviePlayer) moviePlayer.src = '';
-        videoModal.style.display = 'none';
-    });
-}
-
-window.addEventListener('click', (e) => {
-    if (e.target === videoModal) {
-        if (moviePlayer) moviePlayer.src = '';
-        videoModal.style.display = 'none';
-    }
-});
-
-if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase().trim();
-        const filtered = movies.filter(m => !m.hidden && 
-            (m.title.toLowerCase().includes(term) || m.genre.toLowerCase().includes(term))
-        );
-        renderMovies(filtered);
-    });
-}
-
-filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const category = btn.getAttribute('data-category');
-        if (category === 'all') {
-            renderMovies(movies);
-        } else {
-            const filtered = movies.filter(m => !m.hidden && m.genre === category);
-            renderMovies(filtered);
-        }
-    });
-});
-                                                  
+    })
