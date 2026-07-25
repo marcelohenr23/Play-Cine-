@@ -341,89 +341,38 @@ if (saveProfileBtn) {
 }
 
 function renderMovies(movieList) {
-    if (!movieGrid) return;
-    movieGrid.innerHTML = '';
+    const movieGridEl = document.getElementById('movieGrid');
+    const serieGridEl = document.getElementById('serieGrid');
+
+    if (movieGridEl) movieGridEl.innerHTML = '';
+    if (serieGridEl) serieGridEl.innerHTML = '';
 
     const visibleMovies = movieList.filter(m => !m.hidden);
 
     if (visibleMovies.length === 0) {
-        movieGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nenhum item encontrado.</p>';
+        if (movieGridEl) movieGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nenhum item encontrado.</p>';
         return;
     }
 
-    visibleMovies.forEach(movie => {
-        movieGrid.appendChild(createMovieCard(movie));
-    });
-}
-function createMovieCard(movie) {
-    const card = document.createElement('div');
-    card.classList.add('movie-card');
+    // Separando o índice onde terminam os filmes e começam as séries no seu array
+    // Seus filmes vão até "Todo Mundo em Pânico 3", e as séries começam em "Halo 4"
+    visibleMovies.forEach(item => {
+        // Verifica se é série pelo título ou posição, ou você pode ajustar conforme sua preferência
+        const isSeries = [
+            "Halo 4: Em Direção ao Amanhecer", "Arcanjo Renegado", "Cães de Caça", 
+            "Cojote: Herói e Fera", "Demolidor: Renascido", "Emergência Radioativa", 
+            "Fear the Walking Dead", "Impuros", "Luke Cage", "Manto e Adaga", 
+            "Monarch: Legado de Monstros", "Olhos de Wakanda", "One Piece: A Série", 
+            "Os 100", "Prison Break", "Reacher", "Rick e Morty", "O Ringue", 
+            "Supergirl", "Taxi Driver", "The Boys", "Twelve"
+        ].includes(item.title);
 
-    card.innerHTML = `
-        <img src="${movie.image}" alt="${movie.title}">
-        <div class="movie-info">
-            <h4>${movie.title}</h4>
-            <span>${movie.genre} • ${movie.year}</span>
-        </div>
-    `;
+        const card = createMovieCard(item);
 
-    card.addEventListener('click', () => {
-        let targetUrl = movie.videoUrl;
-        
-        if (!targetUrl) {
-            const query = encodeURIComponent(movie.title + " trailer oficial");
-            targetUrl = `https://www.youtube.com/embed?listType=search&list=${query}`;
-        }
-
-        const playerContainer = moviePlayer.parentElement;
-        if (playerContainer) {
-            playerContainer.innerHTML = `<iframe id="moviePlayer" src="${targetUrl}" width="100%" height="100%" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>`;
-            moviePlayer = document.getElementById('moviePlayer');
-        }
-
-        modalMovieTitle.textContent = movie.title;
-        modalMovieDesc.textContent = `${movie.genre} • ${movie.year}`;
-        videoModal.style.display = 'flex';
-    });
-
-    return card;
-}
-
-if (closeVideoModalBtn) {
-    closeVideoModalBtn.addEventListener('click', () => {
-        if (moviePlayer) moviePlayer.src = '';
-        videoModal.style.display = 'none';
-    });
-}
-
-window.addEventListener('click', (e) => {
-    if (e.target === videoModal) {
-        if (moviePlayer) moviePlayer.src = '';
-        videoModal.style.display = 'none';
-    }
-});
-
-if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase().trim();
-        const filtered = movies.filter(m => !m.hidden && 
-            (m.title.toLowerCase().includes(term) || m.genre.toLowerCase().includes(term))
-        );
-        renderMovies(filtered);
-    });
-}
-
-filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const category = btn.getAttribute('data-category');
-        if (category === 'all') {
-            renderMovies(movies);
+        if (isSeries) {
+            if (serieGridEl) serieGridEl.appendChild(card);
         } else {
-            const filtered = movies.filter(m => m.genre.toLowerCase() === category.toLowerCase());
-            renderMovies(filtered);
+            if (movieGridEl) movieGridEl.appendChild(card);
         }
     });
-});
+}
