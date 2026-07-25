@@ -63,8 +63,8 @@ const movies = [
     { title: "Toy Story 3", genre: "Animação", year: "2010", image: "img/story3.jpg", videoUrl: "" },
     { title: "Toy Story 4", genre: "Animação", year: "2019", image: "img/story4.jpg", videoUrl: "" },
     { title: "Todo Mundo em Pânico 2", genre: "Comédia", year: "2001", image: "img/tdmundo2.jpg", videoUrl: "" },
-    { title: "Todo Mundo em Pânico 3", genre: "Comédia", year: "2003", image: "img/tdmundo3.jpg", videoUrl: "" },
-    ];
+    { title: "Todo Mundo em Pânico 3", genre: "Comédia", year: "2003", image: "img/tdmundo3.jpg", videoUrl: "" }
+];
 
 const availableAvatars = [
     "https://i.ibb.co/CpdwWKKj/44121.jpg", 
@@ -99,7 +99,7 @@ const customModal = document.getElementById('customModal');
 const modalMessage = document.getElementById('modalMessage');
 const modalCloseBtn = document.getElementById('modalCloseBtn');
 
-const movieGrid = document.getElementById('serieGrid'); // Atualizado para o ID do seu novo HTML
+const movieGrid = document.getElementById('movieGrid'); // Corrigido para o ID correto dos filmes
 const searchInput = document.getElementById('searchInput');
 const filterBtns = document.querySelectorAll('.filter-btn');
 
@@ -318,33 +318,93 @@ if (saveProfileBtn) {
 
 function renderMovies(movieList) {
     const movieGridEl = document.getElementById('movieGrid');
-    const serieGridEl = document.getElementById('serieGrid');
+    if (!movieGridEl) return;
 
-    if (movieGridEl) movieGridEl.innerHTML = '';
-    if (serieGridEl) serieGridEl.innerHTML = '';
+    movieGridEl.innerHTML = '';
 
     const visibleMovies = movieList.filter(m => !m.hidden);
 
     if (visibleMovies.length === 0) {
-        if (movieGridEl) movieGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nenhum item encontrado.</p>';
+        movieGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nenhum filme encontrado.</p>';
         return;
     }
 
-    visibleMovies.forEach(item => {
-        // Identifica se é série pelo campo de tipo ou categoria se houver, ou separa por uma lista padrão
-        const genreLower = (item.genre || '').toLowerCase();
-        const titleLower = (item.title || '').toLowerCase();
-        
-        // Verifica se é série (pode ajustar conforme os gêneros ou títulos cadastrados)
-        const isSeries = genreLower.includes('série') || genreLower.includes('serie') || 
-                         titleLower.includes('temporada') || titleLower.includes('ep.');
-
-        const card = createMovieCard(item);
-
-        if (isSeries) {
-            if (serieGridEl) serieGridEl.appendChild(card);
-        } else {
-            if (movieGridEl) movieGridEl.appendChild(card);
-        }
+    visibleMovies.forEach(movie => {
+        const card = createMovieCard(movie);
+        movieGridEl.appendChild(card);
     });
 }
+
+function createMovieCard(movie) {
+    const card = document.createElement('div');
+    card.classList.add('movie-card');
+
+    card.innerHTML = `
+        <img src="${movie.image}" alt="${movie.title}">
+        <div class="movie-info">
+            <h4>${movie.title}</h4>
+            <span>${movie.genre} • ${movie.year}</span>
+        </div>
+    `;
+
+    card.addEventListener('click', () => {
+        let targetUrl = movie.videoUrl;
+        
+        if (!targetUrl) {
+            const query = encodeURIComponent(movie.title + " trailer oficial");
+            targetUrl = `https://www.youtube.com/embed?listType=search&list=${query}`;
+        }
+
+        const playerContainer = moviePlayer.parentElement;
+        if (playerContainer) {
+            playerContainer.innerHTML = `<iframe id="moviePlayer" src="${targetUrl}" width="100%" height="100%" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>`;
+            moviePlayer = document.getElementById('moviePlayer');
+        }
+
+        modalMovieTitle.textContent = movie.title;
+        modalMovieDesc.textContent = `${movie.genre} • ${movie.year}`;
+        videoModal.style.display = 'flex';
+    });
+
+    return card;
+}
+
+if (closeVideoModalBtn) {
+    closeVideoModalBtn.addEventListener('click', () => {
+        if (moviePlayer) moviePlayer.src = '';
+        videoModal.style.display = 'none';
+    });
+}
+
+window.addEventListener('click', (e) => {
+    if (e.target === videoModal) {
+        if (moviePlayer) moviePlayer.src = '';
+        videoModal.style.display = 'none';
+    }
+});
+
+if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase().trim();
+        const filtered = movies.filter(m => !m.hidden && 
+            (m.title.toLowerCase().includes(term) || m.genre.toLowerCase().includes(term))
+        );
+        renderMovies(filtered);
+    });
+}
+
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const category = btn.getAttribute('data-category');
+        if (category === 'all') {
+            renderMovies(movies);
+        } else {
+            const filtered = movies.filter(m => m.genre.toLowerCase() === category.toLowerCase());
+            renderMovies(filtered);
+        }
+    });
+});
+    
