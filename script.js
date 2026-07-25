@@ -99,7 +99,7 @@ const customModal = document.getElementById('customModal');
 const modalMessage = document.getElementById('modalMessage');
 const modalCloseBtn = document.getElementById('modalCloseBtn');
 
-const movieGrid = document.getElementById('movieGrid'); // Corrigido para o ID correto dos filmes
+const movieGrid = document.getElementById('movieGrid');
 const searchInput = document.getElementById('searchInput');
 const filterBtns = document.querySelectorAll('.filter-btn');
 
@@ -407,27 +407,11 @@ filterBtns.forEach(btn => {
         }
     });
 });
-    
+
 // Função para exibir a mensagem de humor no modal personalizado do site
 function showMoodMessage(text) {
     const modal = document.getElementById('customModal');
     const messageEl = document.getElementById('modalMessage');
     const closeBtn = document.getElementById('modalCloseBtn');
 
-    if (modal && messageEl) {
-        messageEl.textContent = text;
-        modal.style.display = 'flex';
-
-        // Fechar ao clicar no botão OK
-        closeBtn.onclick = function() {
-            modal.style.display = 'none';
-        };
-
-        // Fechar também se clicar fora da caixinha do modal
-        window.onclick = function(event) {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        };
-    }
-}
+    if (modal && m
