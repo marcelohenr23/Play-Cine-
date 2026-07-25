@@ -318,21 +318,43 @@ if (saveProfileBtn) {
 
 function renderMovies(movieList) {
     const movieGridEl = document.getElementById('movieGrid');
-    if (!movieGridEl) return;
+    const serieGridEl = document.getElementById('serieGrid');
 
-    movieGridEl.innerHTML = '';
+    if (movieGridEl) movieGridEl.innerHTML = '';
+    if (serieGridEl) serieGridEl.innerHTML = '';
 
-    const visibleMovies = movieList.filter(m => !m.hidden);
+    const visibleItems = movieList.filter(m => !m.hidden);
 
-    if (visibleMovies.length === 0) {
-        movieGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nenhum filme encontrado.</p>';
+    if (visibleItems.length === 0) {
+        if (movieGridEl) movieGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nenhum conteúdo encontrado.</p>';
         return;
     }
 
-    visibleMovies.forEach(movie => {
-        const card = createMovieCard(movie);
-        movieGridEl.appendChild(card);
-    });
+    // Separa o que é série dos filmes
+    const moviesOnly = visibleItems.filter(m => m.genre.toLowerCase() !== 'série' && m.genre.toLowerCase() !== 'serie');
+    const seriesOnly = visibleItems.filter(m => m.genre.toLowerCase() === 'série' || m.genre.toLowerCase() === 'serie');
+
+    // Renderiza Filmes
+    if (movieGridEl) {
+        if (moviesOnly.length > 0) {
+            moviesOnly.forEach(movie => {
+                movieGridEl.appendChild(createMovieCard(movie));
+            });
+        } else {
+            movieGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nenhum filme encontrado.</p>';
+        }
+    }
+
+    // Renderiza Séries
+    if (serieGridEl) {
+        if (seriesOnly.length > 0) {
+            seriesOnly.forEach(serie => {
+                serieGridEl.appendChild(createMovieCard(serie));
+            });
+        } else {
+            serieGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nenhuma série encontrada.</p>';
+        }
+    }
 }
 
 function createMovieCard(movie) {
