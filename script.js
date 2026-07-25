@@ -421,6 +421,8 @@ if (searchInput) {
 
 filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
