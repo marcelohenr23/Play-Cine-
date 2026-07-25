@@ -44,7 +44,6 @@ const movies = [
     { title: "A Chamada", genre: "Ação", year: "2023", image: "img/achamada.jpg", videoUrl: "https://fembed.sx/e/762430-dub" },
     { title: "Resgate", genre: "Ação", year: "2020", image: "img/resgate1.jpg", videoUrl: "https://fembed.sx/e/545609-dub" },
     { title: "Resgate 2", genre: "Ação", year: "2023", image: "img/resgate2.jpg", videoUrl: "https://fembed.sx/e/697843-dub" },
-    { title: "Abracadabra 2", genre: "Fantasia", year: "2022", image: "img/abrace2.jpg", videoUrl: "" },
     { title: "Um Panda em Apuros 2", genre: "Animação", year: "2022", image: "img/apuro3.jpg", videoUrl: "" },
     { title: "Baywatch: Marés Vivas", genre: "Ação", year: "2017", image: "img/baywat.jpg", videoUrl: "" },
     { title: "A Barraca do Beijo 3", genre: "Romance", year: "2021", image: "img/beijo3.jpg", videoUrl: "" },
