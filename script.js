@@ -373,3 +373,64 @@ function createMovieCard(movie) {
         
         if (!targetUrl) {
             const query = encodeURIComponent(
+                    card.addEventListener('click', () => {
+        let targetUrl = movie.videoUrl;
+        
+        if (!targetUrl) {
+            const query = encodeURIComponent(movie.title + " trailer oficial");
+            targetUrl = `https://www.youtube.com/embed?listType=search&list=${query}`;
+        }
+
+        const playerContainer = moviePlayer.parentElement;
+        if (playerContainer) {
+            playerContainer.innerHTML = `<iframe id="moviePlayer" src="${targetUrl}" width="100%" height="100%" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>`;
+            moviePlayer = document.getElementById('moviePlayer');
+        }
+
+        modalMovieTitle.textContent = movie.title;
+        modalMovieDesc.textContent = `${movie.genre} • ${movie.year}`;
+        videoModal.style.display = 'flex';
+    });
+
+    return card;
+}
+
+if (closeVideoModalBtn) {
+    closeVideoModalBtn.addEventListener('click', () => {
+        if (moviePlayer) moviePlayer.src = '';
+        videoModal.style.display = 'none';
+    });
+}
+
+window.addEventListener('click', (e) => {
+    if (e.target === videoModal) {
+        if (moviePlayer) moviePlayer.src = '';
+        videoModal.style.display = 'none';
+    }
+});
+
+if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase().trim();
+        const filtered = movies.filter(m => !m.hidden && 
+            (m.title.toLowerCase().includes(term) || m.genre.toLowerCase().includes(term))
+        );
+        renderMovies(filtered);
+    });
+}
+
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const category = btn.getAttribute('data-category');
+        if (category === 'all') {
+            renderMovies(movies);
+        } else {
+            const filtered = movies.filter(m => m.genre.toLowerCase() === category.toLowerCase());
+            renderMovies(filtered);
+        }
+    });
+});
+        
