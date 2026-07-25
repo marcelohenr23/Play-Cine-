@@ -1,5 +1,4 @@
 const movies = [
-    { title: "Ong-Bak: O Guerreiro Sagrado", genre: "Ação", year: "2003", image: "img/ongbak1.jpg", videoUrl: "" },
     { title: "Ong-Bak 2", genre: "Ação", year: "2008", image: "img/ongbak2.jpg", videoUrl: "https://fembed.sx/e/16353-dub" },
     { title: "Ong-Bak 3", genre: "Ação", year: "2010", image: "img/ongbak3 (1).jpg", videoUrl: "https://fembed.sx/e/43209-dub" },
     { title: "Assalto à Casa Blanca", genre: "Ação", year: "2013", image: "img/assaltoacasabranca.jpg", videoUrl: "" },
