@@ -355,7 +355,6 @@ function renderMovies(movieList) {
         movieGrid.appendChild(createMovieCard(movie));
     });
 }
-
 function createMovieCard(movie) {
     const card = document.createElement('div');
     card.classList.add('movie-card');
@@ -369,11 +368,6 @@ function createMovieCard(movie) {
     `;
 
     card.addEventListener('click', () => {
-        let targetUrl = movie.videoUrl;
-        
-        if (!targetUrl) {
-            const query = encodeURIComponent(
-                    card.addEventListener('click', () => {
         let targetUrl = movie.videoUrl;
         
         if (!targetUrl) {
@@ -418,3 +412,18 @@ if (searchInput) {
         renderMovies(filtered);
     });
 }
+
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const category = btn.getAttribute('data-category');
+        if (category === 'all') {
+            renderMovies(movies);
+        } else {
+            const filtered = movies.filter(m => m.genre.toLowerCase() === category.toLowerCase());
+            renderMovies(filtered);
+        }
+    });
+});
