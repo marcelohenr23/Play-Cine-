@@ -43,7 +43,28 @@ const movies = [
     { title: "Avatar 3", genre: "Aventura", year: "2025", image: "img/avata3.jpg", videoUrl: "https://fembed.sx/e/83533-dub" },
     { title: "A Chamada", genre: "Ação", year: "2023", image: "img/achamada.jpg", videoUrl: "https://fembed.sx/e/762430-dub" },
     { title: "Resgate", genre: "Ação", year: "2020", image: "img/resgate1.jpg", videoUrl: "https://fembed.sx/e/545609-dub" },
-    { title: "Resgate 2", genre: "Ação", year: "2023", image: "img/resgate2.jpg", videoUrl: "https://fembed.sx/e/697843-dub" }
+    { title: "Resgate 2", genre: "Ação", year: "2023", image: "img/resgate2.jpg", videoUrl: "https://fembed.sx/e/697843-dub" },
+    { title: "Abracadabra 2", genre: "Fantasia", year: "2022", image: "img/abrace2.jpg", videoUrl: "" },
+    { title: "Um Panda em Apuros 2", genre: "Animação", year: "2022", image: "img/apuro3.jpg", videoUrl: "" },
+    { title: "Baywatch: Marés Vivas", genre: "Ação", year: "2017", image: "img/baywat.jpg", videoUrl: "" },
+    { title: "A Barraca do Beijo 3", genre: "Romance", year: "2021", image: "img/beijo3.jpg", videoUrl: "" },
+    { title: "A Fantástica Fábrica de Chocolate", genre: "Fantasia", year: "1971", image: "img/chocolate1.jpg", videoUrl: "" },
+    { title: "Dora e a Cidade Perdida", genre: "Aventura", year: "2019", image: "img/cidadeperdida.jpg", videoUrl: "" },
+    { title: "A Idade do Gelo 3: O Despertar dos Dinossauros", genre: "Animação", year: "2009", image: "img/eradogelo.jpg", videoUrl: "" },
+    { title: "Charlie e a Fábrica de Chocolate", genre: "Fantasia", year: "2005", image: "img/fabricachocolate.jpg", videoUrl: "" },
+    { title: "A Grande Família: O Filme", genre: "Comédia", year: "2007", image: "img/familia.jpg", videoUrl: "" },
+    { title: "Gru: O Maldisposto", genre: "Animação", year: "2010", image: "img/gru.jpg", videoUrl: "" },
+    { title: "Gru: O Maldisposto 3", genre: "Animação", year: "2017", image: "img/gru3.jpg", videoUrl: "" },
+    { title: "Minions", genre: "Animação", year: "2015", image: "img/minios.jpg", videoUrl: "" },
+    { title: "Ó Paí, Ó", genre: "Comédia", year: "2007", image: "img/opaio.jpg", videoUrl: "" },
+    { title: "O Cão e a Raposa 2", genre: "Animação", year: "2006", image: "img/raposa2.jpg", videoUrl: "" },
+    { title: "R.I.P.D.: Agentes do Além", genre: "Ação", year: "2013", image: "img/rip.jpg", videoUrl: "" },
+    { title: "Soul: Uma Aventura com Alma", genre: "Animação", year: "2020", image: "img/soul.jpg", videoUrl: "" },
+    { title: "Toy Story 2", genre: "Animação", year: "1999", image: "img/story2.jpg", videoUrl: "" },
+    { title: "Toy Story 3", genre: "Animação", year: "2010", image: "img/story3.jpg", videoUrl: "" },
+    { title: "Toy Story 4", genre: "Animação", year: "2019", image: "img/story4.jpg", videoUrl: "" },
+    { title: "Todo Mundo em Pânico 2", genre: "Comédia", year: "2001", image: "img/tdmundo2.jpg", videoUrl: "" },
+    { title: "Todo Mundo em Pânico 3", genre: "Comédia", year: "2003", image: "img/tdmundo3.jpg", videoUrl: "" }
 ];
 
 // Avatares oficiais disponíveis
