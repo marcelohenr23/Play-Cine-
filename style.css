@@ -351,13 +351,29 @@ body {
     color: #fff;
 }
 
+/* BARRA DE FILTROS AJUSTADA (Carrossel independente e sticky) */
 .filter-bar {
     display: flex;
     gap: 10px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 0;
     margin-bottom: 30px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Esconde barra no Firefox */
+    position: sticky;
+    top: 0;
+    background-color: var(--bg-color);
+    z-index: 100;
+}
+
+.filter-bar::-webkit-scrollbar {
+    display: none; /* Esconde barra no Chrome/Safari */
 }
 
 .filter-btn {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
     background-color: rgba(255,255,255,0.1);
     border: none;
     color: #fff;
@@ -376,7 +392,7 @@ body {
     margin-bottom: 15px;
 }
 
-/* CARROSSEL DE FILMES (Modificado aqui) */
+/* CARROSSEL DE FILMES */
 .movie-grid {
     display: flex;
     overflow-x: auto;
@@ -473,4 +489,4 @@ body {
 .video-details {
     padding: 20px;
     background-color: var(--card-bg);
-}
+    }
