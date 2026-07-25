@@ -65,7 +65,7 @@ const movies = [
     { title: "Todo Mundo em Pânico 2", genre: "Comédia", year: "2001", image: "img/tdmundo2.jpg", videoUrl: "" },
     { title: "Todo Mundo em Pânico 3", genre: "Comédia", year: "2003", image: "img/tdmundo3.jpg", videoUrl: "" },
     
-    // Séries adicionadas
+    // Séries
     { title: "Halo 4: Em Direção ao Amanhecer", genre: "Ficção", year: "2012", image: "img/amanhacer.jpg", videoUrl: "" },
     { title: "Arcanjo Renegado", genre: "Ação", year: "2020", image: "img/arcanjo.jpg", videoUrl: "" },
     { title: "Cães de Caça", genre: "Ação", year: "2023", image: "img/caes.jpg", videoUrl: "" },
@@ -90,7 +90,6 @@ const movies = [
     { title: "Twelve", genre: "Ação", year: "2025", image: "img/twe.jpg", videoUrl: "" }
 ];
 
-// Avatares oficiais disponíveis
 const availableAvatars = [
     "https://i.ibb.co/CpdwWKKj/44121.jpg", 
     "https://i.ibb.co/ks41CQmb/44120.jpg", 
@@ -99,18 +98,15 @@ const availableAvatars = [
     "https://i.ibb.co/pvs3T14g/44122.jpg"  
 ];
 
-// Seletores de Seções (Telas)
 const authSection = document.getElementById('authSection');
 const profileSection = document.getElementById('profileSection');
 const mainAppSection = document.getElementById('mainAppSection');
 
-// Elementos de Autenticação
 const loginForm = document.getElementById('loginForm');
 const registerForm = document.getElementById('registerForm');
 const toRegisterBtn = document.getElementById('toRegister');
 const toLoginBtn = document.getElementById('toLogin');
 
-// Elementos de Perfis
 const profilesGrid = document.getElementById('profilesGrid');
 const openAddProfileModalBtn = document.getElementById('openAddProfileModal');
 const profileModal = document.getElementById('profileModal');
@@ -123,17 +119,14 @@ const activeProfileAvatarImg = document.getElementById('activeProfileAvatarImg')
 const activeProfileNameText = document.getElementById('activeProfileNameText');
 const profileSwitcher = document.getElementById('profileSwitcher');
 
-// Modal de Alerta
 const customModal = document.getElementById('customModal');
 const modalMessage = document.getElementById('modalMessage');
 const modalCloseBtn = document.getElementById('modalCloseBtn');
 
-// Elementos do Catálogo
 const movieGrid = document.getElementById('movieGrid');
 const searchInput = document.getElementById('searchInput');
 const filterBtns = document.querySelectorAll('.filter-btn');
 
-// Elementos do Modal de Vídeo
 const videoModal = document.getElementById('videoModal');
 const modalMovieTitle = document.getElementById('modalMovieTitle');
 const modalMovieDesc = document.getElementById('modalMovieDesc');
@@ -370,4 +363,12 @@ function renderMovies(movieList) {
 
     visibleMovies.forEach(movie => {
         movieGrid.appendChild(createMovieCard(movie));
-    })
+    });
+}
+
+function createMovieCard(movie) {
+    const card = document.createElement('div');
+    card.classList.add('movie-card');
+
+    card.innerHTML = `
+        <img src="${movie.image}" alt="${movie.title}"
