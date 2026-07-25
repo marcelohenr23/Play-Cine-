@@ -88,12 +88,6 @@
             <div class="header-brand" style="display: flex; align-items: center; gap: 20px;">
                 <h1 class="brand-header" style="margin-bottom:0; font-size:1.5rem;"><span class="brand-play">PLAY</span><span class="brand-cine">CINE</span></h1>
                 
-                <!-- Navegação entre Filmes e Séries -->
-                <nav class="nav-links" style="display: flex; gap: 15px; margin-left: 20px;">
-                    <button id="navMovies" class="nav-tab-btn active" style="background: none; border: none; color: white; font-weight: bold; cursor: pointer; font-size: 1rem;">Filmes</button>
-                    <button id="navSeries" class="nav-tab-btn" style="background: none; border: none; color: var(--text-muted); font-weight: bold; cursor: pointer; font-size: 1rem;">Séries</button>
-                </nav>
-
                 <div id="profileSwitcher" class="active-profile-display" title="Trocar Perfil" style="margin-left: auto;">
                     <img id="activeProfileAvatarImg" src="" alt="Avatar">
                     <span id="activeProfileNameText">Perfil</span>
@@ -105,7 +99,7 @@
         <div class="content-container">
             <div class="search-bar-container">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Pesquisar título ou gênero...">
+                <input type="text" id="searchInput" placeholder="Pesquisar filme ou gênero...">
             </div>
 
             <div class="filter-bar">
@@ -118,11 +112,14 @@
             </div>
 
             <section class="catalog-section">
-                <h3 id="recentTitleSection">Lançamentos Recentes</h3>
+                <h3>Lançamentos Recentes</h3>
                 <div id="recentMovieGrid" class="movie-grid" style="margin-bottom: 25px;"></div>
 
-                <h3 id="mainCatalogTitle">Filmes</h3>
-                <div id="movieGrid" class="movie-grid"></div>
+                <h3>Filmes</h3>
+                <div id="movieGrid" class="movie-grid" style="margin-bottom: 25px;"></div>
+
+                <h3>Séries</h3>
+                <div id="serieGrid" class="movie-grid"></div>
             </section>
         </div>
 
@@ -131,7 +128,7 @@
         </footer>
     </section>
 
-    <!-- MODAL DE REPRODUÇÃO -->
+    <!-- MODAL DE REPRODUÇÃO DO VÍDEO -->
     <div id="videoModal" class="modal" style="display: none;">
         <div class="modal-content video-modal-content">
             <button id="closeVideoModal" class="close-video-btn"><i class="fa-solid fa-xmark"></i></button>
