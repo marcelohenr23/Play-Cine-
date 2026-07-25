@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Play Cine - Seu Portal de Filmes</title>
+    <title>Play Cine - Seu Portal de Filmes e Séries</title>
     <link rel="stylesheet" href="style.css?v=3.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -87,7 +87,14 @@
         <header class="navbar">
             <div class="header-brand" style="display: flex; align-items: center; gap: 20px;">
                 <h1 class="brand-header" style="margin-bottom:0; font-size:1.5rem;"><span class="brand-play">PLAY</span><span class="brand-cine">CINE</span></h1>
-                <div id="profileSwitcher" class="active-profile-display" title="Trocar Perfil">
+                
+                <!-- Navegação entre Filmes e Séries -->
+                <nav class="nav-links" style="display: flex; gap: 15px; margin-left: 20px;">
+                    <button id="navMovies" class="nav-tab-btn active" style="background: none; border: none; color: white; font-weight: bold; cursor: pointer; font-size: 1rem;">Filmes</button>
+                    <button id="navSeries" class="nav-tab-btn" style="background: none; border: none; color: var(--text-muted); font-weight: bold; cursor: pointer; font-size: 1rem;">Séries</button>
+                </nav>
+
+                <div id="profileSwitcher" class="active-profile-display" title="Trocar Perfil" style="margin-left: auto;">
                     <img id="activeProfileAvatarImg" src="" alt="Avatar">
                     <span id="activeProfileNameText">Perfil</span>
                     <i class="fa-solid fa-chevron-down"></i>
@@ -98,7 +105,7 @@
         <div class="content-container">
             <div class="search-bar-container">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Pesquisar filme ou gênero...">
+                <input type="text" id="searchInput" placeholder="Pesquisar título ou gênero...">
             </div>
 
             <div class="filter-bar">
@@ -111,10 +118,10 @@
             </div>
 
             <section class="catalog-section">
-                <h3>Lançamentos Recentes</h3>
+                <h3 id="recentTitleSection">Lançamentos Recentes</h3>
                 <div id="recentMovieGrid" class="movie-grid" style="margin-bottom: 25px;"></div>
 
-                <h3>Filmes</h3>
+                <h3 id="mainCatalogTitle">Filmes</h3>
                 <div id="movieGrid" class="movie-grid"></div>
             </section>
         </div>
@@ -124,7 +131,7 @@
         </footer>
     </section>
 
-    <!-- MODAL DE REPRODUÇÃO DO FILME -->
+    <!-- MODAL DE REPRODUÇÃO -->
     <div id="videoModal" class="modal" style="display: none;">
         <div class="modal-content video-modal-content">
             <button id="closeVideoModal" class="close-video-btn"><i class="fa-solid fa-xmark"></i></button>
@@ -132,7 +139,7 @@
                 <iframe id="moviePlayer" src="" title="Player de Vídeo" frameborder="0" allowfullscreen></iframe>
             </div>
             <div class="video-details" style="margin-top: 10px;">
-                <h3 id="modalMovieTitle" style="font-size: 1.1rem; margin-bottom: 4px;">Título do Filme</h3>
+                <h3 id="modalMovieTitle" style="font-size: 1.1rem; margin-bottom: 4px;">Título</h3>
                 <p id="modalMovieDesc" style="color: var(--text-muted); font-size: 0.85rem;">Gênero • Ano</p>
             </div>
         </div>
