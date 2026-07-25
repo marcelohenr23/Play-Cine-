@@ -354,18 +354,14 @@ function renderMovies(movieList) {
         return;
     }
 
-    // Separando o índice onde terminam os filmes e começam as séries no seu array
-    // Seus filmes vão até "Todo Mundo em Pânico 3", e as séries começam em "Halo 4"
     visibleMovies.forEach(item => {
-        // Verifica se é série pelo título ou posição, ou você pode ajustar conforme sua preferência
-        const isSeries = [
-            "Halo 4: Em Direção ao Amanhecer", "Arcanjo Renegado", "Cães de Caça", 
-            "Cojote: Herói e Fera", "Demolidor: Renascido", "Emergência Radioativa", 
-            "Fear the Walking Dead", "Impuros", "Luke Cage", "Manto e Adaga", 
-            "Monarch: Legado de Monstros", "Olhos de Wakanda", "One Piece: A Série", 
-            "Os 100", "Prison Break", "Reacher", "Rick e Morty", "O Ringue", 
-            "Supergirl", "Taxi Driver", "The Boys", "Twelve"
-        ].includes(item.title);
+        // Identifica se é série pelo campo de tipo ou categoria se houver, ou separa por uma lista padrão
+        const genreLower = (item.genre || '').toLowerCase();
+        const titleLower = (item.title || '').toLowerCase();
+        
+        // Verifica se é série (pode ajustar conforme os gêneros ou títulos cadastrados)
+        const isSeries = genreLower.includes('série') || genreLower.includes('serie') || 
+                         titleLower.includes('temporada') || titleLower.includes('ep.');
 
         const card = createMovieCard(item);
 
