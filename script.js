@@ -408,10 +408,3 @@ filterBtns.forEach(btn => {
     });
 });
 
-// Função para exibir a mensagem de humor no modal personalizado do site
-function showMoodMessage(text) {
-    const modal = document.getElementById('customModal');
-    const messageEl = document.getElementById('modalMessage');
-    const closeBtn = document.getElementById('modalCloseBtn');
-
-    if (modal && m
