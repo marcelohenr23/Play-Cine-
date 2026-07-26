@@ -3,101 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Play Cine - Seu Portal de Filmes e Séries</title>
-    <link rel="stylesheet" href="style.css?v=3.0">
+    <title>Play Cine - Neon Edition</title>
+    <link rel="stylesheet" href="style.css?v=4.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- Modal de Alerta / Mensagem Personalizado -->
-    <div id="customModal" class="modal" style="display: none;">
-        <div class="modal-content" style="max-width: 350px; text-align: center;">
-            <p id="modalMessage" style="margin-bottom: 20px; font-size: 1rem;">Mensagem do sistema</p>
-            <button id="modalCloseBtn" class="btn-main" style="width: 100%;">OK</button>
+    <!-- ANIMAÇÃO DE ENTRADA ESTILO NETFLIX COM NEON -->
+    <div id="introSplash" class="splash-screen">
+        <div class="neon-logo-box">
+            <span class="neon-play">PLAY</span><span class="neon-cine">CINE</span>
         </div>
     </div>
 
-    <!-- Seção de Autenticação (Login / Cadastro) -->
-    <section id="authSection" class="view-section">
-        <div class="auth-wrapper">
-            <div class="auth-card">
-                <div class="brand-header">
-                    <span class="brand-play">PLAY</span><span class="brand-cine">CINE</span>
-                </div>
-
-                <!-- Formulário de Login -->
-                <form id="loginForm" class="auth-form">
-                    <h2>Entrar na Conta</h2>
-                    <div class="input-field">
-                        <input type="text" id="loginEmail" placeholder="E-mail" required autocomplete="off">
-                    </div>
-                    <div class="input-field">
-                        <input type="password" id="loginPassword" placeholder="Senha" required autocomplete="new-password">
-                    </div>
-                    <button type="submit" class="btn-main">Entrar</button>
-                    <p class="auth-switch">Não tem uma conta? <a href="#" id="toRegister">Cadastre-se</a></p>
-                </form>
-
-                <!-- Formulário de Cadastro -->
-                <form id="registerForm" class="auth-form" style="display: none;">
-                    <h2>Criar Conta</h2>
-                    <div class="input-field">
-                        <input type="text" id="regName" placeholder="Seu Nome" required autocomplete="name">
-                    </div>
-                    <div class="input-field">
-                        <input type="email" id="regEmail" placeholder="E-mail" required autocomplete="email">
-                    </div>
-                    <div class="input-field">
-                        <input type="password" id="regPassword" placeholder="Senha" required autocomplete="new-password">
-                    </div>
-                    <button type="submit" class="btn-main">Cadastrar</button>
-                    <p class="auth-switch">Já tem uma conta? <a href="#" id="toLogin">Entrar</a></p>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção de Seleção de Perfis -->
-    <section id="profileSection" class="view-section active">
-        <div class="profile-wrapper">
-            <h2>Quem está assistindo?</h2>
-            <div id="profilesGrid" class="profiles-grid"></div>
-            <button id="openAddProfileModal" class="btn-outline">+ Adicionar Perfil</button>
-        </div>
-    </section>
-
-    <!-- Modal de Gerenciamento de Perfil (Criar / Editar) -->
-    <div id="profileModal" class="modal" style="display: none;">
-        <div class="modal-content modal-wide">
-            <h3 id="modalProfileTitle">Novo Perfil</h3>
-            <div class="input-field" style="margin: 20px 0 10px 0;">
-                <input type="text" id="profileNameInput" placeholder="Nome do perfil">
-            </div>
-            <p class="avatar-label">Escolha um avatar:</p>
-            <div id="avatarGrid" class="avatar-grid"></div>
-            <div class="modal-actions">
-                <button id="saveProfileBtn" class="btn-main">Salvar</button>
-                <button id="cancelProfileBtn" class="btn-outline">Cancelar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Plataforma Principal (Catálogo) -->
-    <section id="mainAppSection" class="view-section">
+    <!-- Plataforma Principal (Catálogo Direto) -->
+    <section id="mainAppSection" class="view-section active">
         <header class="navbar">
-            <div class="header-brand" style="display: flex; align-items: center; gap: 20px;">
-                <h1 class="brand-header" style="margin-bottom:0; font-size:1.5rem;"><span class="brand-play">PLAY</span><span class="brand-cine">CINE</span></h1>
-                
-                <div id="profileSwitcher" class="active-profile-display" title="Trocar Perfil" style="margin-left: auto;">
-                    <img id="activeProfileAvatarImg" src="" alt="Avatar">
-                    <span id="activeProfileNameText">Perfil</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </div>
+            <div class="header-brand" style="display: flex; align-items: center; width: 100%;">
+                <h1 class="brand-header" style="margin-bottom:0; font-size:1.8rem;">
+                    <span class="neon-play">PLAY</span><span class="neon-cine">CINE</span>
+                </h1>
             </div>
         </header>
 
         <div class="content-container">
-            <div class="search-bar-container">
+            <div class="search-bar-container neon-search">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" id="searchInput" placeholder="Pesquisar filme ou gênero...">
             </div>
@@ -112,16 +42,6 @@
             </div>
 
             <section class="catalog-section">
-                <!-- Seção de Humor / Emojis -->
-                <div class="mood-container">
-                    <p class="mood-title">Como você está hoje?</p>
-                    <div class="mood-emojis">
-                        <span class="mood-item" onclick="showMoodMessage('Que bom que você está bem!')">😁</span>
-                        <span class="mood-item" onclick="showMoodMessage('Mais ou menos? Vai dar tudo certo!')">😐</span>
-                        <span class="mood-item" onclick="showMoodMessage('Dias ruins passam, força aí!')">😞</span>
-                    </div>
-                </div>
-
                 <h3>Lançamentos Recentes</h3>
                 <div id="recentMovieGrid" class="movie-grid" style="margin-bottom: 25px;"></div>
 
