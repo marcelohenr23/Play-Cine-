@@ -66,12 +66,14 @@ const movies = [
     { title: "Todo Mundo em Pânico 3", genre: "Comédia", year: "2003", image: "img/tdmundo3.jpg", videoUrl: "" }
 ];
 
+// Séries configuradas (suporta tanto formato simples quanto com temporadas)
 const series = [
   { 
-    title: "Avatar: O Último Mestre do Ar", 
+    title: "Avatar: O Último Mestre do Air", 
     genre: "Aventura", 
     year: "2024", 
     image: "img/avata.jpg", 
+    videoUrl: "",
     seasons: [
       {
         seasonNumber: 1,
@@ -87,20 +89,14 @@ const series = [
     genre: "Ação", 
     year: "2024", 
     image: "img/capoeiras.jpg", 
-    seasons: [
-      {
-        seasonNumber: 1,
-        episodes: [
-          { number: 1, title: "Episódio 1", videoUrl: "" }
-        ]
-      }
-    ]
+    videoUrl: "" 
   },
   { 
     title: "O Dia do Chacal", 
     genre: "Thriller", 
     year: "2024", 
     image: "img/chacal.jpg", 
+    videoUrl: "https://ww4.embedtv.lat/chacal-ep1",
     seasons: [
       {
         seasonNumber: 1,
@@ -116,19 +112,13 @@ const series = [
     genre: "Ação", 
     year: "2024", 
     image: "img/coragemirmao.jpg", 
-    seasons: [
-      {
-        seasonNumber: 1,
-        episodes: [
-          { number: 1, title: "Episódio 1", videoUrl: "" }
-        ]
-      }
-    ]
+    videoUrl: "" 
   }
 ];
 
+// Dados para Tops Séries e Conteúdo Premium com Cadeados Bloqueados
 const topSeries = [
-  { title: "Avatar: O Último Mestre do Ar", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
+  { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
   { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "" }
 ];
 
@@ -233,74 +223,18 @@ function createMovieCard(item) {
         const modalMovieTitle = document.getElementById('modalMovieTitle');
         const modalMovieDesc = document.getElementById('modalMovieDesc');
         const moviePlayer = document.getElementById('moviePlayer');
-        const episodeContainer = document.getElementById('episodeSelectorContainer');
-        const seasonSelect = document.getElementById('seasonSelect');
-        const episodeSelect = document.getElementById('episodeSelect');
 
         if (videoModal) {
             if (modalMovieTitle) modalMovieTitle.textContent = item.title;
             if (modalMovieDesc) modalMovieDesc.textContent = `${item.genre} • ${item.year}`;
-
-            // Verifica se o item possui temporadas (é série)
-            if (item.seasons && item.seasons.length > 0) {
-                if (episodeContainer) episodeContainer.style.display = 'flex';
-                
-                // Preenche as Temporadas
-                if (seasonSelect) {
-                    seasonSelect.innerHTML = '';
-                    item.seasons.forEach((season, sIndex) => {
-                        const opt = document.createElement('option');
-                        opt.value = sIndex;
-                        opt.textContent = `Temporada ${season.seasonNumber}`;
-                        seasonSelect.appendChild(opt);
-                    });
-                }
-
-                // Função para atualizar os episódios com base na temporada escolhida
-                const updateEpisodes = (seasonIndex) => {
-                    if (episodeSelect) {
-                        episodeSelect.innerHTML = '';
-                        const currentSeason = item.seasons[seasonIndex];
-                        
-                        currentSeason.episodes.forEach((ep, eIndex) => {
-                            const opt = document.createElement('option');
-                            opt.value = eIndex;
-                            opt.textContent = ep.title;
-                            episodeSelect.appendChild(opt);
-                        });
-
-                        // Define o vídeo do primeiro episódio da temporada selecionada
-                        if (currentSeason.episodes.length > 0 && moviePlayer) {
-                            moviePlayer.src = currentSeason.episodes[0].videoUrl;
-                        }
-                    }
-                };
-
-                // Inicializa com a primeira temporada
-                updateEpisodes(0);
-
-                // Evento ao trocar de Temporada
-                if (seasonSelect) {
-                    seasonSelect.onchange = (e) => {
-                        updateEpisodes(e.target.value);
-                    };
-                }
-
-                // Evento ao trocar de Episódio
-                if (episodeSelect) {
-                    episodeSelect.onchange = (e) => {
-                        const selectedSeason = item.seasons[seasonSelect.value];
-                        const selectedEp = selectedSeason.episodes[e.target.value];
-                        if (moviePlayer) moviePlayer.src = selectedEp.videoUrl;
-                    };
-                }
-
-            } else {
-                // Se for filme ou canal normal, esconde os seletores de episódios
-                if (episodeContainer) episodeContainer.style.display = 'none';
-                if (moviePlayer) moviePlayer.src = item.videoUrl || '';
+            
+            // Verifica se a série tem temporadas e pega o primeiro episódio, senão usa o videoUrl normal
+            let finalVideoUrl = item.videoUrl || '';
+            if (item.seasons && item.seasons.length > 0 && item.seasons[0].episodes && item.seasons[0].episodes.length > 0) {
+                finalVideoUrl = item.seasons[0].episodes[0].videoUrl || finalVideoUrl;
             }
 
+            if (moviePlayer) moviePlayer.src = finalVideoUrl;
             videoModal.style.display = 'flex';
         }
     });
@@ -324,4 +258,46 @@ function setupSearchAndFilter() {
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('activ
+            btn.classList.add('active');
+
+            const category = btn.getAttribute('data-category');
+            if (category === 'all') {
+                renderMovies(movies, series);
+            } else {
+                const filteredM = movies.filter(m => m.genre === category);
+                const filteredS = series.filter(s => s.genre === category);
+                renderMovies(filteredM, filteredS);
+            }
+        });
+    });
+}
+
+function setupVideoModal() {
+    const videoModal = document.getElementById('videoModal');
+    const closeVideoModalBtn = document.getElementById('closeVideoModal');
+    const moviePlayer = document.getElementById('moviePlayer');
+
+    if (closeVideoModalBtn && videoModal) {
+        closeVideoModalBtn.addEventListener('click', () => {
+            videoModal.style.display = 'none';
+            if (moviePlayer) moviePlayer.src = '';
+        });
+    }
+
+    window.addEventListener('click', (e) => {
+        if (e.target === videoModal) {
+            videoModal.style.display = 'none';
+            if (moviePlayer) moviePlayer.src = '';
+        }
+    });
+}
+
+function setupMobileMenu() {
+    const menuBtn = document.getElementById('menuBtn');
+    if (menuBtn) {
+        menuBtn.addEventListener('click', () => {
+            alert("Menu de opções clicado!");
+        });
+    }
+   }
+                
