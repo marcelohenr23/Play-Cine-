@@ -66,7 +66,6 @@ const movies = [
     { title: "Todo Mundo em Pânico 3", genre: "Comédia", year: "2003", image: "img/tdmundo3.jpg", videoUrl: "" }
 ];
 
-// Séries configuradas com temporadas e episódios
 const series = [
   { 
     title: "Avatar: O Último Mestre do Ar", 
@@ -324,4 +323,5 @@ function setupSearchAndFilter() {
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remov
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('activ
