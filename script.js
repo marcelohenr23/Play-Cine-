@@ -308,7 +308,6 @@ function createCard(item, isSerie) {
             if (isSerie && item.seasons && item.seasons.length > 0) {
                 if (episodeSelectorContainer) episodeSelectorContainer.style.display = 'flex';
                 
-                // Preencher temporadas
                 if (seasonSelect) {
                     seasonSelect.innerHTML = '';
                     item.seasons.forEach((season, index) => {
@@ -319,7 +318,6 @@ function createCard(item, isSerie) {
                     });
                 }
 
-                // Função para atualizar os episódios baseado na temporada escolhida
                 const updateEpisodes = (seasonIndex) => {
                     if (episodeSelect) {
                         episodeSelect.innerHTML = '';
@@ -331,7 +329,6 @@ function createCard(item, isSerie) {
                                 opt.textContent = ep.title || `Episódio ${ep.number}`;
                                 episodeSelect.appendChild(opt);
                             });
-                            // Atualizar player com o primeiro episódio da temporada
                             if (moviePlayer && currentSeason.episodes[0]) {
                                 moviePlayer.src = currentSeason.episodes[0].videoUrl || item.videoUrl || '';
                             }
@@ -341,7 +338,6 @@ function createCard(item, isSerie) {
 
                 updateEpisodes(0);
 
-                // Eventos de mudança nos selects
                 seasonSelect.onchange = (e) => {
                     updateEpisodes(e.target.value);
                 };
@@ -351,4 +347,10 @@ function createCard(item, isSerie) {
                     const epIndex = e.target.value;
                     const selectedEp = item.seasons[sIndex].episodes[epIndex];
                     if (moviePlayer && selectedEp) {
-                        moviePlayer.src = selected
+                        moviePlayer.src = selectedEp.videoUrl || item.videoUrl || '';
+                    }
+                };
+            } else {
+                if (episodeSelectorContainer) episodeSelectorContainer.style.display = 'none';
+                if (moviePlayer) {
+                    moviePlayer.
