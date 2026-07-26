@@ -1,22 +1,19 @@
 window.addEventListener('DOMContentLoaded', () => {
-    // Garante que sempre exista um perfil padrão salvo para nunca travar a tela
+    // Garante que exista um perfil padrão para nunca ficar vazio
     let profiles = JSON.parse(localStorage.getItem('playCine_profiles'));
     if (!profiles || profiles.length === 0) {
-        const defaultName = localStorage.getItem('playCine_name') || 'Meu Perfil';
-        profiles = [{ name: defaultName, avatar: "https://i.ibb.co/CpdwWKKj/44121.jpg" }];
+        profiles = [{ name: "Meu Perfil", avatar: "https://i.ibb.co/CpdwWKKj/44121.jpg" }];
         localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
     }
 
-    // Se já houver email ou perfis salvos, exibe a tela de perfis perfeitamente
+    // Exibe a seção de perfis e desenha os cards na tela
     const authSection = document.getElementById('authSection');
     const profileSection = document.getElementById('profileSection');
     
     if (authSection) authSection.classList.remove('active');
     if (profileSection) profileSection.classList.add('active');
     
-    if (typeof renderProfiles === 'function') {
-        renderProfiles();
-    }
+    renderProfiles();
 });
 
 const movies = [
