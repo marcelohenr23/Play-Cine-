@@ -1,12 +1,18 @@
-// Verifica se já existe login salvo ao abrir a página
 window.addEventListener('DOMContentLoaded', () => {
     const savedEmail = localStorage.getItem('playCine_email');
-    const profiles = JSON.parse(localStorage.getItem('playCine_profiles'));
+    const profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
     
-    // Se houver dados salvos, garante que a aplicação não fique presa na tela de login vazia
-    if (savedEmail && profiles && profiles.length > 0) {
-        // Se já estiver na tela de autenticação, podemos preparar os perfis silenciosamente
-        console.log("Sessão ativa encontrada.");
+    // Se houver dados salvos, oculta o login e vai direto para a tela de perfis ou catálogo
+    if (savedEmail) {
+        const authSection = document.getElementById('authSection');
+        const profileSection = document.getElementById('profileSection');
+        
+        if (authSection) authSection.classList.remove('active');
+        if (profileSection) profileSection.classList.add('active');
+        
+        if (typeof renderProfiles === 'function') {
+            renderProfiles();
+        }
     }
 });
 
