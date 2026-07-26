@@ -1,11 +1,20 @@
 window.addEventListener('DOMContentLoaded', () => {
-    // Verifica se já existe uma sessão ativa para pular o login se já estiver logado
-    const savedEmail = localStorage.getItem('playCine_email');
-    if (savedEmail) {
-        const authSection = document.getElementById('authSection');
-        const profileSection = document.getElementById('profileSection');
-        if (authSection) authSection.classList.remove('active');
-        if (profileSection) profileSection.classList.add('active');
+    // Garante que sempre exista um perfil padrão salvo para nunca travar a tela
+    let profiles = JSON.parse(localStorage.getItem('playCine_profiles'));
+    if (!profiles || profiles.length === 0) {
+        const defaultName = localStorage.getItem('playCine_name') || 'Meu Perfil';
+        profiles = [{ name: defaultName, avatar: "https://i.ibb.co/CpdwWKKj/44121.jpg" }];
+        localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
+    }
+
+    // Se já houver email ou perfis salvos, exibe a tela de perfis perfeitamente
+    const authSection = document.getElementById('authSection');
+    const profileSection = document.getElementById('profileSection');
+    
+    if (authSection) authSection.classList.remove('active');
+    if (profileSection) profileSection.classList.add('active');
+    
+    if (typeof renderProfiles === 'function') {
         renderProfiles();
     }
 });
