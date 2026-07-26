@@ -237,7 +237,7 @@ function renderProfiles() {
             if (activeProfileAvatarImg) activeProfileAvatarImg.src = avatarImg;
             
             switchView(mainAppSection);
-            renderMovies(movies);
+            renderMovies();
         });
 
         profilesGrid.appendChild(card);
@@ -325,28 +325,23 @@ if (saveProfileBtn) {
     });
 }
 
-function renderMovies(movieList) {
+function renderMovies(customMovies, customSeries) {
     const movieGridEl = document.getElementById('movieGrid');
     const serieGridEl = document.getElementById('serieGrid');
 
     if (movieGridEl) movieGridEl.innerHTML = '';
     if (serieGridEl) serieGridEl.innerHTML = '';
 
-    const visibleItems = movieList.filter(m => !m.hidden);
+    const listToRenderMovies = customMovies || movies;
+    const listToRenderSeries = customSeries || series;
 
-    if (visibleItems.length === 0) {
-        if (movieGridEl) movieGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nenhum conteúdo encontrado.</p>';
-        return;
-    }
-
-    // Separa o que é série dos filmes
-    const moviesOnly = visibleItems.filter(m => m.genre.toLowerCase() !== 'série' && m.genre.toLowerCase() !== 'serie');
-    const seriesOnly = visibleItems.filter(m => m.genre.toLowerCase() === 'série' || m.genre.toLowerCase() === 'serie');
+    const visibleMovies = listToRenderMovies.filter(m => !m.hidden);
+    const visibleSeries = listToRenderSeries.filter(s => !s.hidden);
 
     // Renderiza Filmes
     if (movieGridEl) {
-        if (moviesOnly.length > 0) {
-            moviesOnly.forEach(movie => {
+        if (visibleMovies.length > 0) {
+            visibleMovies.forEach(movie => {
                 movieGridEl.appendChild(createMovieCard(movie));
             });
         } else {
@@ -356,8 +351,8 @@ function renderMovies(movieList) {
 
     // Renderiza Séries
     if (serieGridEl) {
-        if (seriesOnly.length > 0) {
-            seriesOnly.forEach(serie => {
+        if (visibleSeries.length > 0) {
+            visibleSeries.forEach(serie => {
                 serieGridEl.appendChild(createMovieCard(serie));
             });
         } else {
@@ -402,63 +397,4 @@ function createMovieCard(movie) {
 
 if (closeVideoModalBtn) {
     closeVideoModalBtn.addEventListener('click', () => {
-        if (moviePlayer) moviePlayer.src = '';
-        videoModal.style.display = 'none';
-    });
-}
-
-window.addEventListener('click', (e) => {
-    if (e.target === videoModal) {
-        if (moviePlayer) moviePlayer.src = '';
-        videoModal.style.display = 'none';
-    }
-});
-
-if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase().trim();
-        const filtered = movies.filter(m => !m.hidden && 
-            (m.title.toLowerCase().includes(term) || m.genre.toLowerCase().includes(term))
-        );
-        renderMovies(filtered);
-    });
-}
-
-filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const category = btn.getAttribute('data-category');
-        if (category === 'all') {
-            renderMovies(movies);
-        } else {
-            const filtered = movies.filter(m => m.genre.toLowerCase() === category.toLowerCase());
-            renderMovies(filtered);
-        }
-    });
-});
-
-// Função para exibir a mensagem de humor no modal personalizado do site
-function showMoodMessage(text) {
-    const modal = document.getElementById('customModal');
-    const messageEl = document.getElementById('modalMessage');
-    const closeBtn = document.getElementById('modalCloseBtn');
-
-    if (modal && messageEl) {
-        messageEl.textContent = text;
-        modal.style.display = 'flex';
-
-        // Fechar ao clicar no botão OK
-        closeBtn.onclick = function() {
-            modal.style.display = 'none';
-        };
-
-        // Fechar também se clicar fora da caixinha do modal
-        window.onclick = function(event) {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        };
-    }
-}
+  
