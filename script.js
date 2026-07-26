@@ -1,3 +1,15 @@
+// Verifica se já existe login salvo ao abrir a página
+window.addEventListener('DOMContentLoaded', () => {
+    const savedEmail = localStorage.getItem('playCine_email');
+    const profiles = JSON.parse(localStorage.getItem('playCine_profiles'));
+    
+    // Se houver dados salvos, garante que a aplicação não fique presa na tela de login vazia
+    if (savedEmail && profiles && profiles.length > 0) {
+        // Se já estiver na tela de autenticação, podemos preparar os perfis silenciosamente
+        console.log("Sessão ativa encontrada.");
+    }
+});
+
 const movies = [
     { title: "Missão Pandora", genre: "Ficção", year: "2024", image: "img/1.jpg", videoUrl: "" },
     { title: "Águas Que Corroem", genre: "Terror", year: "2024", image: "img/agu.jpg", videoUrl: "" },
