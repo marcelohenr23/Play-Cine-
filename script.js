@@ -1,18 +1,17 @@
 window.addEventListener('DOMContentLoaded', () => {
-    const savedEmail = localStorage.getItem('playCine_email');
-    const profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
+    // Força a remoção da tela de login e ativa o catálogo e os perfis imediatamente
+    const authSection = document.getElementById('authSection');
+    const profileSection = document.getElementById('profileSection');
+    const mainAppSection = document.getElementById('mainAppSection');
+
+    if (authSection) authSection.classList.remove('active');
     
-    // Se houver dados salvos, oculta o login e vai direto para a tela de perfis ou catálogo
-    if (savedEmail) {
-        const authSection = document.getElementById('authSection');
-        const profileSection = document.getElementById('profileSection');
-        
-        if (authSection) authSection.classList.remove('active');
-        if (profileSection) profileSection.classList.add('active');
-        
-        if (typeof renderProfiles === 'function') {
-            renderProfiles();
-        }
+    // Se você usa seleção de perfis, ativa ela; senão, joga direto pro catálogo principal
+    if (profileSection) {
+        profileSection.classList.add('active');
+    } else if (mainAppSection) {
+        mainAppSection.classList.add('active');
+        if (typeof renderMovies === 'function') renderMovies();
     }
 });
 
