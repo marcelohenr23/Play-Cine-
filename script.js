@@ -132,10 +132,68 @@ const series = [
 ];
 
 const topSeries = [
-  { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
-  { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "" },
-  { title: "Capoeiras", genre: "Ação", year: "2024", image: "img/capoeiras.jpg", videoUrl: "" },
-  { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
+  { 
+    title: "Avatar: O Último Mestre do Air", 
+    genre: "Aventura", 
+    year: "2024", 
+    image: "img/avata.jpg", 
+    videoUrl: "",
+    seasons: [
+      {
+        seasonNumber: 1,
+        episodes: [
+          { number: 1, title: "Episódio 1", videoUrl: "" },
+          { number: 2, title: "Episódio 2", videoUrl: "" }
+        ]
+      }
+    ]
+  },
+  { 
+    title: "O Dia do Chacal", 
+    genre: "Thriller", 
+    year: "2024", 
+    image: "img/chacal.jpg", 
+    videoUrl: "https://ww4.embedtv.lat/chacal-ep1",
+    seasons: [
+      {
+        seasonNumber: 1,
+        episodes: [
+          { number: 1, title: "Episódio 1", videoUrl: "https://ww4.embedtv.lat/chacal-ep1" },
+          { number: 2, title: "Episódio 2", videoUrl: "https://ww4.embedtv.lat/chacal-ep2" }
+        ]
+      }
+    ]
+  },
+  { 
+    title: "Capoeiras", 
+    genre: "Ação", 
+    year: "2024", 
+    image: "img/capoeiras.jpg", 
+    videoUrl: "",
+    seasons: [
+      {
+        seasonNumber: 1,
+        episodes: [
+          { number: 1, title: "Episódio 1", videoUrl: "" }
+        ]
+      }
+    ]
+  },
+  { 
+    title: "Coragem, Irmão!", 
+    genre: "Ação", 
+    year: "2024", 
+    image: "img/coragemirmao.jpg", 
+    videoUrl: "",
+    seasons: [
+      {
+        seasonNumber: 1,
+        episodes: [
+          { number: 1, title: "Episódio 1", videoUrl: "" }
+        ]
+      }
+    ]
+  }
 ];
 
 const premiumMovies = [
@@ -313,11 +371,4 @@ function setupVideoModal() {
 }
 
 function setupMobileMenu() {
-    const menuBtn = document.getElementById('menuBtn');
-    if (menuBtn) {
-        menuBtn.addEventListener('click', () => {
-            alert("Menu de opções clicado!");
-        });
-    }
-    }
-   
+    const menuBtn = document.g
