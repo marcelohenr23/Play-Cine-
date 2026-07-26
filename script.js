@@ -79,9 +79,9 @@ const topSeries = [
 ];
 
 const premiumContent = [
-  { title: "Canal de Esportes", genre: "Esportes", year: "AO VIVO", image: "img/esportes.jpg", videoUrl: "" },
-  { title: "Canais Abertos", genre: "TV", year: "AO VIVO", image: "img/aberto.jpg", videoUrl: "" },
-  { title: "UFC", genre: "Luta", year: "AO VIVO", image: "img/ufc.jpg", videoUrl: "" }
+  { title: "Cazé TV", genre: "Esportes", year: "AO VIVO", image: "img/cazetv.jpg", videoUrl: "" },
+  { title: "GE TV", genre: "Esportes", year: "AO VIVO", image: "img/getv.jpg", videoUrl: "" },
+  { title: "SporTV", genre: "Esportes", year: "AO VIVO", image: "img/sportv.jpg", videoUrl: "" }
 ];
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -237,3 +237,4 @@ function setupVideoModal() {
         }
     });
 }
+    
