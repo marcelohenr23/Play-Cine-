@@ -78,21 +78,29 @@ const topSeries = [
   { title: "Walker", genre: "Drama", year: "2021", image: "img/walker.jpg", videoUrl: "" }
 ];
 
+const premiumContent = [
+  { title: "Canal de Esportes", genre: "Esportes", year: "AO VIVO", image: "img/esportes.jpg", videoUrl: "" },
+  { title: "Canais Abertos", genre: "TV", year: "AO VIVO", image: "img/aberto.jpg", videoUrl: "" },
+  { title: "UFC", genre: "Luta", year: "AO VIVO", image: "img/ufc.jpg", videoUrl: "" }
+];
+
 window.addEventListener('DOMContentLoaded', () => {
     renderMovies();
     setupSearchAndFilter();
     setupVideoModal();
 });
 
-function renderMovies(filteredMovies = movies, filteredSeries = series, filteredTopSeries = topSeries) {
+function renderMovies(filteredMovies = movies, filteredSeries = series, filteredTopSeries = topSeries, filteredPremium = premiumContent) {
     const movieGridEl = document.getElementById('movieGrid');
     const serieGridEl = document.getElementById('serieGrid');
     const topSerieGridEl = document.getElementById('topSerieGrid');
+    const premiumGridEl = document.getElementById('premiumGrid');
     const recentGridEl = document.getElementById('recentMovieGrid');
 
     if (movieGridEl) movieGridEl.innerHTML = '';
     if (serieGridEl) serieGridEl.innerHTML = '';
     if (topSerieGridEl) topSerieGridEl.innerHTML = '';
+    if (premiumGridEl) premiumGridEl.innerHTML = '';
     if (recentGridEl) recentGridEl.innerHTML = '';
 
     // Lançamentos Recentes (Pega os 4 primeiros)
@@ -132,6 +140,17 @@ function renderMovies(filteredMovies = movies, filteredSeries = series, filtered
             });
         } else {
             topSerieGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888;">Nenhuma top série encontrada.</p>';
+        }
+    }
+
+    // Conteúdo Premium
+    if (premiumGridEl) {
+        if (filteredPremium.length > 0) {
+            filteredPremium.forEach(item => {
+                premiumGridEl.appendChild(createMovieCard(item));
+            });
+        } else {
+            premiumGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888;">Nenhum conteúdo premium encontrado.</p>';
         }
     }
 }
@@ -175,7 +194,8 @@ function setupSearchAndFilter() {
             const searchedMovies = movies.filter(m => m.title.toLowerCase().includes(query) || m.genre.toLowerCase().includes(query));
             const searchedSeries = series.filter(s => s.title.toLowerCase().includes(query) || s.genre.toLowerCase().includes(query));
             const searchedTopSeries = topSeries.filter(ts => ts.title.toLowerCase().includes(query) || ts.genre.toLowerCase().includes(query));
-            renderMovies(searchedMovies, searchedSeries, searchedTopSeries);
+            const searchedPremium = premiumContent.filter(p => p.title.toLowerCase().includes(query) || p.genre.toLowerCase().includes(query));
+            renderMovies(searchedMovies, searchedSeries, searchedTopSeries, searchedPremium);
         });
     }
 
@@ -186,12 +206,13 @@ function setupSearchAndFilter() {
 
             const category = btn.getAttribute('data-category');
             if (category === 'all') {
-                renderMovies(movies, series, topSeries);
+                renderMovies(movies, series, topSeries, premiumContent);
             } else {
                 const filteredM = movies.filter(m => m.genre === category);
                 const filteredS = series.filter(s => s.genre === category);
                 const filteredTS = topSeries.filter(ts => ts.genre === category);
-                renderMovies(filteredM, filteredS, filteredTS);
+                const filteredP = premiumContent.filter(p => p.genre === category);
+                renderMovies(filteredM, filteredS, filteredTS, filteredP);
             }
         });
     });
@@ -215,5 +236,4 @@ function setupVideoModal() {
             if (moviePlayer) moviePlayer.src = '';
         }
     });
-        }
-    
+}
