@@ -66,6 +66,15 @@ const movies = [
     { title: "Todo Mundo em Pânico 3", genre: "Comédia", year: "2003", image: "img/tdmundo3.jpg", videoUrl: "" }
 ];
 
+const series = [
+  { title: "Avatar: O Último Mestre do Ar", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
+  { title: "Capoeiras", genre: "Ação", year: "2024", image: "img/capoeiras.jpg", videoUrl: "" },
+  { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "" },
+  { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" },
+  { title: "Punho de Ferro", genre: "Ação", year: "2017", image: "img/punhodeferro.jpg", videoUrl: "" },
+  { title: "Walker", genre: "Drama", year: "2021", image: "img/walker.jpg", videoUrl: "" }
+];
+
 const availableAvatars = [
     "https://i.ibb.co/CpdwWKKj/44121.jpg", 
     "https://i.ibb.co/ks41CQmb/44120.jpg", 
