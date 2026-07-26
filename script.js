@@ -93,7 +93,8 @@ const premiumMovies = [
   { title: "ESPN 3", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn3", isPremium: true },
   { title: "ESPN 4", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn4", isPremium: true },
   { title: "ESPN 5", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn5", isPremium: true },
-  { title: "ESPN 6", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn6", isPremium: true }
+  { title: "ESPN 6", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn6", isPremium: true },
+  { title: "GE TV", genre: "Esportes", year: "2026", image: "img/getv.jpg", videoUrl: "https://www.youtube.com/embed/5LfxhWTrs3s", isPremium: true }
 ];
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -238,5 +239,4 @@ function setupMobileMenu() {
             alert("Menu de opções clicado!");
         });
     }
-     }
-        
+                                        }
