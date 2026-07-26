@@ -88,12 +88,12 @@ const premiumMovies = [
   { title: "SporTV 2", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/pt_sportv2", isPremium: true },
   { title: "SporTV 3", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/pt_sportv3", isPremium: true },
   { title: "SporTV 4", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/pt_sportv4", isPremium: true },
-  { title: "ESPN 1", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "URL_DO_ESPN_1_AQUI", isPremium: true },
-  { title: "ESPN 2", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "URL_DO_ESPN_2_AQUI", isPremium: true },
-  { title: "ESPN 3", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "URL_DO_ESPN_3_AQUI", isPremium: true },
-  { title: "ESPN 4", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "URL_DO_ESPN_4_AQUI", isPremium: true },
-  { title: "ESPN 5", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "URL_DO_ESPN_5_AQUI", isPremium: true },
-  { title: "ESPN 6", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "URL_DO_ESPN_6_AQUI", isPremium: true }
+  { title: "ESPN 1", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn", isPremium: true },
+  { title: "ESPN 2", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn2", isPremium: true },
+  { title: "ESPN 3", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn3", isPremium: true },
+  { title: "ESPN 4", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn4", isPremium: true },
+  { title: "ESPN 5", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn5", isPremium: true },
+  { title: "ESPN 6", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn6", isPremium: true }
 ];
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -238,5 +238,5 @@ function setupMobileMenu() {
             alert("Menu de opções clicado!");
         });
     }
-        }
-            
+     }
+        
