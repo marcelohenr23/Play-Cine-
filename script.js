@@ -1,21 +1,3 @@
-window.addEventListener('DOMContentLoaded', () => {
-    // Garante que exista um perfil padrão para nunca ficar vazio
-    let profiles = JSON.parse(localStorage.getItem('playCine_profiles'));
-    if (!profiles || profiles.length === 0) {
-        profiles = [{ name: "Meu Perfil", avatar: "https://i.ibb.co/CpdwWKKj/44121.jpg" }];
-        localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
-    }
-
-    // Exibe a seção de perfis e desenha os cards na tela
-    const authSection = document.getElementById('authSection');
-    const profileSection = document.getElementById('profileSection');
-    
-    if (authSection) authSection.classList.remove('active');
-    if (profileSection) profileSection.classList.add('active');
-    
-    renderProfiles();
-});
-
 const movies = [
     { title: "Missão Pandora", genre: "Ficção", year: "2024", image: "img/1.jpg", videoUrl: "" },
     { title: "Águas Que Corroem", genre: "Terror", year: "2024", image: "img/agu.jpg", videoUrl: "" },
