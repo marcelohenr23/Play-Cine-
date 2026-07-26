@@ -1,5 +1,5 @@
 const movies = [
-    { title: "Jack o Caçador de Gigantes", genre: "Aventura", year: "2013", image: "img/jackgigante.jpg", videoUrl: "https://fembed.sx/e/81005-dub" }
+    { title: "Jack o Caçador de Gigantes", genre: "Aventura", year: "2013", image: "img/jackgigante.jpg", videoUrl: "https://fembed.sx/e/81005-dub" },
     { title: "Missão Pandora", genre: "Ficção", year: "2024", image: "img/1.jpg", videoUrl: "" },
     { title: "Águas Que Corroem", genre: "Terror", year: "2024", image: "img/agu.jpg", videoUrl: "" },
     { title: "Caça-Fantasmas", genre: "Comédia", year: "2016", image: "img/caca.jpg", videoUrl: "" },
@@ -228,4 +228,5 @@ function setupMobileMenu() {
             alert("Menu de opções clicado!");
         });
     }
-    }
+     }
+     
