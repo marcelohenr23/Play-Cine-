@@ -74,111 +74,54 @@ const series = [
   { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
 ];
 
-const topSeries = [
-  { title: "Punho de Ferro", genre: "Ação", year: "2017", image: "img/punhodeferro.jpg", videoUrl: "" },
-  { title: "Walker", genre: "Drama", year: "2021", image: "img/walker.jpg", videoUrl: "" }
-];
-
-const premiumContent = [
-  { title: "Cazé TV", genre: "Esportes", year: "AO VIVO", image: "img/cazetv.jpg", videoUrl: "" },
-  { title: "GE TV", genre: "Esportes", year: "AO VIVO", image: "img/getv.jpg", videoUrl: "" },
-  { title: "SporTV", genre: "Esportes", year: "AO VIVO", image: "img/sportv.jpg", videoUrl: "" }
-];
-
 window.addEventListener('DOMContentLoaded', () => {
     renderMovies();
     setupSearchAndFilter();
     setupVideoModal();
+    setupMobileMenu();
 });
 
-function renderMovies(filteredMovies = movies, filteredSeries = series, filteredTopSeries = topSeries, filteredPremium = premiumContent) {
+function renderMovies(filteredMovies = movies, filteredSeries = series) {
     const movieGridEl = document.getElementById('movieGrid');
     const serieGridEl = document.getElementById('serieGrid');
-    const topSerieGridEl = document.getElementById('topSerieGrid');
-    const premiumGridEl = document.getElementById('premiumGrid');
     const recentGridEl = document.getElementById('recentMovieGrid');
 
     if (movieGridEl) movieGridEl.innerHTML = '';
     if (serieGridEl) serieGridEl.innerHTML = '';
-    if (topSerieGridEl) topSerieGridEl.innerHTML = '';
-    if (premiumGridEl) premiumGridEl.innerHTML = '';
     if (recentGridEl) recentGridEl.innerHTML = '';
 
-    // Lançamentos Recentes (Pega os 4 primeiros)
     if (recentGridEl) {
         filteredMovies.slice(0, 4).forEach(movie => {
             recentGridEl.appendChild(createMovieCard(movie));
         });
     }
 
-    // Filmes
     if (movieGridEl) {
-        if (filteredMovies.length > 0) {
-            filteredMovies.forEach(movie => {
-                movieGridEl.appendChild(createMovieCard(movie));
-            });
-        } else {
-            movieGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888;">Nenhum filme encontrado.</p>';
-        }
+        filteredMovies.forEach(movie => {
+            movieGridEl.appendChild(createMovieCard(movie));
+        });
     }
 
-    // Séries
     if (serieGridEl) {
-        if (filteredSeries.length > 0) {
-            filteredSeries.forEach(serie => {
-                serieGridEl.appendChild(createMovieCard(serie));
-            });
-        } else {
-            serieGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888;">Nenhuma série encontrada.</p>';
-        }
-    }
-
-    // Tops Séries
-    if (topSerieGridEl) {
-        if (filteredTopSeries.length > 0) {
-            filteredTopSeries.forEach(topSerie => {
-                topSerieGridEl.appendChild(createMovieCard(topSerie));
-            });
-        } else {
-            topSerieGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888;">Nenhuma top série encontrada.</p>';
-        }
-    }
-
-    // Conteúdo Premium (Passando `true` para ativar o cadeado e bloqueio)
-    if (premiumGridEl) {
-        if (filteredPremium.length > 0) {
-            filteredPremium.forEach(item => {
-                premiumGridEl.appendChild(createMovieCard(item, true));
-            });
-        } else {
-            premiumGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888;">Nenhum conteúdo premium encontrado.</p>';
-        }
+        filteredSeries.forEach(serie => {
+            serieGridEl.appendChild(createMovieCard(serie));
+        });
     }
 }
 
-function createMovieCard(item, isPremium = false) {
+function createMovieCard(item) {
     const card = document.createElement('div');
     card.classList.add('movie-card');
-    card.style.position = 'relative';
-
-    // Adiciona o ícone de cadeado se for premium
-    let lockHtml = isPremium ? '<div style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #ffd700; padding: 6px 8px; border-radius: 50%; font-size: 0.9rem; z-index: 2;"><i class="fa-solid fa-lock"></i></div>' : '';
 
     card.innerHTML = `
-        ${lockHtml}
-        <img src="${item.image}" alt="${item.title}" loading="lazy">
-        <div class="movie-info">
-            <h4>${item.title}</h4>
-            <span>${item.genre} • ${item.year}</span>
+        <img src="${item.image}" alt="${item.title}" loading="lazy" style="width: 100%; border-radius: 8px; display: block;">
+        <div class="movie-info" style="margin-top: 5px;">
+            <h4 style="color: white; font-size: 0.9rem; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item.title}</h4>
+            <span style="color: #888; font-size: 0.8rem;">${item.genre} • ${item.year}</span>
         </div>
     `;
 
     card.addEventListener('click', () => {
-        if (isPremium) {
-            alert("Este conteúdo é Premium e está bloqueado!");
-            return;
-        }
-
         const videoModal = document.getElementById('videoModal');
         const modalMovieTitle = document.getElementById('modalMovieTitle');
         const modalMovieDesc = document.getElementById('modalMovieDesc');
@@ -204,9 +147,7 @@ function setupSearchAndFilter() {
             const query = e.target.value.toLowerCase();
             const searchedMovies = movies.filter(m => m.title.toLowerCase().includes(query) || m.genre.toLowerCase().includes(query));
             const searchedSeries = series.filter(s => s.title.toLowerCase().includes(query) || s.genre.toLowerCase().includes(query));
-            const searchedTopSeries = topSeries.filter(ts => ts.title.toLowerCase().includes(query) || ts.genre.toLowerCase().includes(query));
-            const searchedPremium = premiumContent.filter(p => p.title.toLowerCase().includes(query) || p.genre.toLowerCase().includes(query));
-            renderMovies(searchedMovies, searchedSeries, searchedTopSeries, searchedPremium);
+            renderMovies(searchedMovies, searchedSeries);
         });
     }
 
@@ -217,13 +158,11 @@ function setupSearchAndFilter() {
 
             const category = btn.getAttribute('data-category');
             if (category === 'all') {
-                renderMovies(movies, series, topSeries, premiumContent);
+                renderMovies(movies, series);
             } else {
                 const filteredM = movies.filter(m => m.genre === category);
                 const filteredS = series.filter(s => s.genre === category);
-                const filteredTS = topSeries.filter(ts => ts.genre === category);
-                const filteredP = premiumContent.filter(p => p.genre === category);
-                renderMovies(filteredM, filteredS, filteredTS, filteredP);
+                renderMovies(filteredM, filteredS);
             }
         });
     });
@@ -247,5 +186,14 @@ function setupVideoModal() {
             if (moviePlayer) moviePlayer.src = '';
         }
     });
-        }
-    
+}
+
+function setupMobileMenu() {
+    const menuBtn = document.getElementById('menuBtn');
+    if (menuBtn) {
+        menuBtn.addEventListener('click', () => {
+            alert("Menu de opções clicado!");
+        });
+    }
+     }
+     
