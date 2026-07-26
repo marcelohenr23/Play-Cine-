@@ -1,17 +1,12 @@
 window.addEventListener('DOMContentLoaded', () => {
-    // Força a remoção da tela de login e ativa o catálogo e os perfis imediatamente
-    const authSection = document.getElementById('authSection');
-    const profileSection = document.getElementById('profileSection');
-    const mainAppSection = document.getElementById('mainAppSection');
-
-    if (authSection) authSection.classList.remove('active');
-    
-    // Se você usa seleção de perfis, ativa ela; senão, joga direto pro catálogo principal
-    if (profileSection) {
-        profileSection.classList.add('active');
-    } else if (mainAppSection) {
-        mainAppSection.classList.add('active');
-        if (typeof renderMovies === 'function') renderMovies();
+    // Verifica se já existe uma sessão ativa para pular o login se já estiver logado
+    const savedEmail = localStorage.getItem('playCine_email');
+    if (savedEmail) {
+        const authSection = document.getElementById('authSection');
+        const profileSection = document.getElementById('profileSection');
+        if (authSection) authSection.classList.remove('active');
+        if (profileSection) profileSection.classList.add('active');
+        renderProfiles();
     }
 });
 
@@ -357,7 +352,6 @@ function renderMovies(customMovies, customSeries) {
     const visibleMovies = listToRenderMovies.filter(m => !m.hidden);
     const visibleSeries = listToRenderSeries.filter(s => !s.hidden);
 
-    // Renderiza Lançamentos Recentes (opcional, pega os 4 primeiros filmes)
     if (recentGridEl) {
         const recentMovies = visibleMovies.slice(0, 4);
         if (recentMovies.length > 0) {
@@ -367,7 +361,6 @@ function renderMovies(customMovies, customSeries) {
         }
     }
 
-    // Renderiza Filmes
     if (movieGridEl) {
         if (visibleMovies.length > 0) {
             visibleMovies.forEach(movie => {
@@ -378,7 +371,6 @@ function renderMovies(customMovies, customSeries) {
         }
     }
 
-    // Renderiza Séries
     if (serieGridEl) {
         if (visibleSeries.length > 0) {
             visibleSeries.forEach(serie => {
@@ -403,50 +395,5 @@ function createMovieCard(movie) {
     `;
 
     card.addEventListener('click', () => {
-        let targetUrl = movie.videoUrl;
-        
-        if (!targetUrl) {
-            const query = encodeURIComponent(movie.title + " trailer oficial");
-            targetUrl = `https://www.youtube.com/embed?listType=search&list=${query}`;
-        }
-
-        const playerContainer = moviePlayer.parentElement;
-        if (playerContainer) {
-            playerContainer.innerHTML = `<iframe id="moviePlayer" src="${targetUrl}" width="100%" height="100%" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>`;
-            moviePlayer = document.getElementById('moviePlayer');
-        }
-
-        modalMovieTitle.textContent = movie.title;
-        modalMovieDesc.textContent = `${movie.genre} • ${movie.year}`;
-        videoModal.style.display = 'flex';
-    });
-
-    return card;
-}
-
-if (closeVideoModalBtn) {
-    closeVideoModalBtn.addEventListener('click', () => {
-
-        // Função para exibir a mensagem de humor no modal personalizado do site
-function showMoodMessage(text) {
-    const modal = document.getElementById('customModal');
-    const messageEl = document.getElementById('modalMessage');
-    const closeBtn = document.getElementById('modalCloseBtn');
-
-    if (modal && messageEl) {
-        messageEl.textContent = text;
-        modal.style.display = 'flex';
-
-        // Fechar ao clicar no botão OK
-        closeBtn.onclick = function() {
-            modal.style.display = 'none';
-        };
-
-        // Fechar também se clicar fora da caixinha do modal
-        window.onclick = function(event) {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        };
-    }
-}
+        if (videoModal) {
+            if (modalMovieTitle) modalMovieTitle.textCont
