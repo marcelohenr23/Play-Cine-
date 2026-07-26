@@ -66,7 +66,7 @@ const movies = [
     { title: "Todo Mundo em Pânico 3", genre: "Comédia", year: "2003", image: "img/tdmundo3.jpg", videoUrl: "" }
 ];
 
-// Séries configuradas (suporta tanto formato simples quanto com temporadas)
+// Apenas as séries ficam aqui separadas
 const series = [
   { 
     title: "Avatar: O Último Mestre do Air", 
@@ -116,7 +116,6 @@ const series = [
   }
 ];
 
-// Dados para Tops Séries e Conteúdo Premium com Cadeados Bloqueados
 const topSeries = [
   { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
   { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "" }
@@ -228,7 +227,6 @@ function createMovieCard(item) {
             if (modalMovieTitle) modalMovieTitle.textContent = item.title;
             if (modalMovieDesc) modalMovieDesc.textContent = `${item.genre} • ${item.year}`;
             
-            // Verifica se a série tem temporadas e pega o primeiro episódio, senão usa o videoUrl normal
             let finalVideoUrl = item.videoUrl || '';
             if (item.seasons && item.seasons.length > 0 && item.seasons[0].episodes && item.seasons[0].episodes.length > 0) {
                 finalVideoUrl = item.seasons[0].episodes[0].videoUrl || finalVideoUrl;
@@ -299,5 +297,5 @@ function setupMobileMenu() {
             alert("Menu de opções clicado!");
         });
     }
-   }
-                
+     }
+            
