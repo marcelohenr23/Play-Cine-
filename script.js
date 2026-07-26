@@ -67,9 +67,39 @@ const movies = [
 ];
 
 const series = [
-  { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
+  { 
+    title: "Avatar: O Último Mestre do Air", 
+    genre: "Aventura", 
+    year: "2024", 
+    image: "img/avata.jpg", 
+    videoUrl: "",
+    seasons: [
+      {
+        seasonNumber: 1,
+        episodes: [
+          { number: 1, title: "Episódio 1", videoUrl: "" },
+          { number: 2, title: "Episódio 2", videoUrl: "" }
+        ]
+      }
+    ]
+  },
   { title: "Capoeiras", genre: "Ação", year: "2024", image: "img/capoeiras.jpg", videoUrl: "" },
-  { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "" },
+  { 
+    title: "O Dia do Chacal", 
+    genre: "Thriller", 
+    year: "2024", 
+    image: "img/chacal.jpg", 
+    videoUrl: "https://ww4.embedtv.lat/chacal-ep1",
+    seasons: [
+      {
+        seasonNumber: 1,
+        episodes: [
+          { number: 1, title: "Episódio 1", videoUrl: "https://ww4.embedtv.lat/chacal-ep1" },
+          { number: 2, title: "Episódio 2", videoUrl: "https://ww4.embedtv.lat/chacal-ep2" }
+        ]
+      }
+    ]
+  },
   { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
 ];
 
@@ -128,36 +158,36 @@ function renderMovies(filteredMovies = movies, filteredSeries = series) {
 
     if (recentGridEl) {
         filteredMovies.slice(0, 4).forEach(movie => {
-            recentGridEl.appendChild(createCard(movie));
+            recentGridEl.appendChild(createCard(movie, false));
         });
     }
 
     if (movieGridEl) {
         filteredMovies.forEach(movie => {
-            movieGridEl.appendChild(createCard(movie));
+            movieGridEl.appendChild(createCard(movie, false));
         });
     }
 
     if (serieGridEl) {
         filteredSeries.forEach(serie => {
-            serieGridEl.appendChild(createCard(serie));
+            serieGridEl.appendChild(createCard(serie, true));
         });
     }
 
     if (topSerieGridEl) {
         topSeries.forEach(serie => {
-            topSerieGridEl.appendChild(createCard(serie));
+            topSerieGridEl.appendChild(createCard(serie, true));
         });
     }
 
     if (premiumGridEl) {
         premiumMovies.forEach(movie => {
-            premiumGridEl.appendChild(createCard(movie));
+            premiumGridEl.appendChild(createCard(movie, false));
         });
     }
 }
 
-function createCard(item) {
+function createCard(item, isSerie) {
     const card = document.createElement('div');
     card.classList.add('movie-card');
 
@@ -183,11 +213,19 @@ function createCard(item) {
         if (videoModal) {
             if (modalMovieTitle) modalMovieTitle.textContent = item.title;
             if (modalMovieDesc) modalMovieDesc.textContent = `${item.genre} • ${item.year}`;
-            if (moviePlayer) moviePlayer.src = item.videoUrl || '';
             
-            // Oculta os selects de temporada/episódio caso existam no HTML do modal para os filmes
             const selects = videoModal.querySelectorAll('select');
-            selects.forEach(s => s.style.display = 'none');
+
+            if (isSerie && item.seasons && item.seasons.length > 0) {
+                // Se for série, exibe os seletores e configura o primeiro episódio da primeira temporada
+                selects.forEach(s => s.style.display = 'block');
+                let finalVideoUrl = item.seasons[0].episodes[0].videoUrl || item.videoUrl || '';
+                if (moviePlayer) moviePlayer.src = finalVideoUrl;
+            } else {
+                // Se for filme ou canal premium, oculta os seletores e toca direto
+                selects.forEach(s => s.style.display = 'none');
+                if (moviePlayer) moviePlayer.src = item.videoUrl || '';
+            }
 
             videoModal.style.display = 'flex';
         }
