@@ -328,15 +328,27 @@ if (saveProfileBtn) {
 function renderMovies(customMovies, customSeries) {
     const movieGridEl = document.getElementById('movieGrid');
     const serieGridEl = document.getElementById('serieGrid');
+    const recentGridEl = document.getElementById('recentMovieGrid');
 
     if (movieGridEl) movieGridEl.innerHTML = '';
     if (serieGridEl) serieGridEl.innerHTML = '';
+    if (recentGridEl) recentGridEl.innerHTML = '';
 
     const listToRenderMovies = customMovies || movies;
     const listToRenderSeries = customSeries || series;
 
     const visibleMovies = listToRenderMovies.filter(m => !m.hidden);
     const visibleSeries = listToRenderSeries.filter(s => !s.hidden);
+
+    // Renderiza Lançamentos Recentes (opcional, pega os 4 primeiros filmes)
+    if (recentGridEl) {
+        const recentMovies = visibleMovies.slice(0, 4);
+        if (recentMovies.length > 0) {
+            recentMovies.forEach(movie => {
+                recentGridEl.appendChild(createMovieCard(movie));
+            });
+        }
+    }
 
     // Renderiza Filmes
     if (movieGridEl) {
