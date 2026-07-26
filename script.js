@@ -297,78 +297,58 @@ function createCard(item, isSerie) {
         const modalMovieTitle = document.getElementById('modalMovieTitle');
         const modalMovieDesc = document.getElementById('modalMovieDesc');
         const moviePlayer = document.getElementById('moviePlayer');
+        const episodeSelectorContainer = document.getElementById('episodeSelectorContainer');
+        const seasonSelect = document.getElementById('seasonSelect');
+        const episodeSelect = document.getElementById('episodeSelect');
 
         if (videoModal) {
             if (modalMovieTitle) modalMovieTitle.textContent = item.title;
             if (modalMovieDesc) modalMovieDesc.textContent = `${item.genre} • ${item.year}`;
             
-            const selects = videoModal.querySelectorAll('select');
-
             if (isSerie && item.seasons && item.seasons.length > 0) {
-                selects.forEach(s => s.style.display = 'block');
-                let finalVideoUrl = item.seasons[0].episodes[0].videoUrl || item.videoUrl || '';
-                if (moviePlayer) moviePlayer.src = finalVideoUrl;
-            } else {
-                selects.forEach(s => s.style.display = 'none');
-                if (moviePlayer) moviePlayer.src = item.videoUrl || '';
-            }
+                if (episodeSelectorContainer) episodeSelectorContainer.style.display = 'flex';
+                
+                // Preencher temporadas
+                if (seasonSelect) {
+                    seasonSelect.innerHTML = '';
+                    item.seasons.forEach((season, index) => {
+                        const opt = document.createElement('option');
+                        opt.value = index;
+                        opt.textContent = `Temporada ${season.seasonNumber}`;
+                        seasonSelect.appendChild(opt);
+                    });
+                }
 
-            videoModal.style.display = 'flex';
-        }
-    });
+                // Função para atualizar os episódios baseado na temporada escolhida
+                const updateEpisodes = (seasonIndex) => {
+                    if (episodeSelect) {
+                        episodeSelect.innerHTML = '';
+                        const currentSeason = item.seasons[seasonIndex];
+                        if (currentSeason && currentSeason.episodes) {
+                            currentSeason.episodes.forEach((ep, epIndex) => {
+                                const opt = document.createElement('option');
+                                opt.value = epIndex;
+                                opt.textContent = ep.title || `Episódio ${ep.number}`;
+                                episodeSelect.appendChild(opt);
+                            });
+                            // Atualizar player com o primeiro episódio da temporada
+                            if (moviePlayer && currentSeason.episodes[0]) {
+                                moviePlayer.src = currentSeason.episodes[0].videoUrl || item.videoUrl || '';
+                            }
+                        }
+                    }
+                };
 
-    return card;
-}
+                updateEpisodes(0);
 
-function setupSearchAndFilter() {
-    const searchInput = document.getElementById('searchInput');
-    const filterBtns = document.querySelectorAll('.filter-btn');
+                // Eventos de mudança nos selects
+                seasonSelect.onchange = (e) => {
+                    updateEpisodes(e.target.value);
+                };
 
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            const searchedMovies = movies.filter(m => m.title.toLowerCase().includes(query) || m.genre.toLowerCase().includes(query));
-            const searchedSeries = series.filter(s => s.title.toLowerCase().includes(query) || s.genre.toLowerCase().includes(query));
-            renderMovies(searchedMovies, searchedSeries);
-        });
-    }
-
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const category = btn.getAttribute('data-category');
-            if (category === 'all') {
-                renderMovies(movies, series);
-            } else {
-                const filteredM = movies.filter(m => m.genre === category);
-                const filteredS = series.filter(s => s.genre === category);
-                renderMovies(filteredM, filteredS);
-            }
-        });
-    });
-}
-
-function setupVideoModal() {
-    const videoModal = document.getElementById('videoModal');
-    const closeVideoModalBtn = document.getElementById('closeVideoModal');
-    const moviePlayer = document.getElementById('moviePlayer');
-
-    if (closeVideoModalBtn && videoModal) {
-        closeVideoModalBtn.addEventListener('click', () => {
-            videoModal.style.display = 'none';
-            if (moviePlayer) moviePlayer.src = '';
-        });
-    }
-
-    window.addEventListener('click', (e) => {
-        if (e.target === videoModal) {
-            videoModal.style.display = 'none';
-            if (moviePlayer) moviePlayer.src = '';
-        }
-    });
-}
-
-function setupMobileMenu() {
-    const menuBtn = document.g
+                episodeSelect.onchange = (e) => {
+                    const sIndex = seasonSelect.value;
+                    const epIndex = e.target.value;
+                    const selectedEp = item.seasons[sIndex].episodes[epIndex];
+                    if (moviePlayer && selectedEp) {
+                        moviePlayer.src = selected
