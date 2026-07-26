@@ -72,12 +72,20 @@
     <div id="videoModal" class="modal" style="display: none;">
         <div class="modal-content video-modal-content">
             <button id="closeVideoModal" class="close-video-btn"><i class="fa-solid fa-xmark"></i></button>
-            <div class="video-container">
-                <iframe id="moviePlayer" src="" title="Player de Vídeo" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div class="video-details" style="margin-top: 10px;">
+            
+            <div class="video-details" style="margin-bottom: 10px;">
                 <h3 id="modalMovieTitle" style="font-size: 1.1rem; margin-bottom: 4px;">Título</h3>
                 <p id="modalMovieDesc" style="color: var(--text-muted); font-size: 0.85rem;">Gênero • Ano</p>
+            </div>
+
+            <!-- SELETORES DE TEMPORADA E EPISÓDIO -->
+            <div id="episodeSelectorContainer" style="display: none; margin-bottom: 15px; gap: 10px; display: flex;">
+                <select id="seasonSelect" style="padding: 8px; background: #222; color: white; border: 1px solid #444; border-radius: 4px;"></select>
+                <select id="episodeSelect" style="padding: 8px; background: #222; color: white; border: 1px solid #444; border-radius: 4px; flex-grow: 1;"></select>
+            </div>
+
+            <div class="video-container">
+                <iframe id="moviePlayer" src="" title="Player de Vídeo" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
     </div>
