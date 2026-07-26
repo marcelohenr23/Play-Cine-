@@ -83,7 +83,21 @@ const series = [
       }
     ]
   },
-  { title: "Capoeiras", genre: "Ação", year: "2024", image: "img/capoeiras.jpg", videoUrl: "" },
+  { 
+    title: "Capoeiras", 
+    genre: "Ação", 
+    year: "2024", 
+    image: "img/capoeiras.jpg", 
+    videoUrl: "",
+    seasons: [
+      {
+        seasonNumber: 1,
+        episodes: [
+          { number: 1, title: "Episódio 1", videoUrl: "" }
+        ]
+      }
+    ]
+  },
   { 
     title: "O Dia do Chacal", 
     genre: "Thriller", 
@@ -100,12 +114,28 @@ const series = [
       }
     ]
   },
-  { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
+  { 
+    title: "Coragem, Irmão!", 
+    genre: "Ação", 
+    year: "2024", 
+    image: "img/coragemirmao.jpg", 
+    videoUrl: "",
+    seasons: [
+      {
+        seasonNumber: 1,
+        episodes: [
+          { number: 1, title: "Episódio 1", videoUrl: "" }
+        ]
+      }
+    ]
+  }
 ];
 
 const topSeries = [
   { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
-  { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "" }
+  { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "" },
+  { title: "Capoeiras", genre: "Ação", year: "2024", image: "img/capoeiras.jpg", videoUrl: "" },
+  { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
 ];
 
 const premiumMovies = [
@@ -217,12 +247,10 @@ function createCard(item, isSerie) {
             const selects = videoModal.querySelectorAll('select');
 
             if (isSerie && item.seasons && item.seasons.length > 0) {
-                // Se for série, exibe os seletores e configura o primeiro episódio da primeira temporada
                 selects.forEach(s => s.style.display = 'block');
                 let finalVideoUrl = item.seasons[0].episodes[0].videoUrl || item.videoUrl || '';
                 if (moviePlayer) moviePlayer.src = finalVideoUrl;
             } else {
-                // Se for filme ou canal premium, oculta os seletores e toca direto
                 selects.forEach(s => s.style.display = 'none');
                 if (moviePlayer) moviePlayer.src = item.videoUrl || '';
             }
@@ -292,4 +320,4 @@ function setupMobileMenu() {
         });
     }
     }
-        
+   
