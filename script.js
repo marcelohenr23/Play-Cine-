@@ -81,8 +81,9 @@ const topSeries = [
 ];
 
 const premiumMovies = [
-  { title: "Resgate 2", genre: "Ação", year: "2023", image: "img/resgate2.jpg", videoUrl: "https://fembed.sx/e/697843-dub" },
-  { title: "Beekeeper: Rede de Vingança", genre: "Ação", year: "2024", image: "img/beekeeper.jpg", videoUrl: "https://fembed.sx/e/866398" }
+  { title: "Cazé TV", genre: "Esportes", year: "2026", image: "img/cazetv.jpg", videoUrl: "LINK_DO_VIDEO_AQUI" },
+  { title: "GE TV", genre: "Esportes", year: "2026", image: "img/getv.jpg", videoUrl: "LINK_DO_VIDEO_AQUI" },
+  { title: "SporTV", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "LINK_DO_VIDEO_AQUI" }
 ];
 
 window.addEventListener('DOMContentLoaded', () => {
