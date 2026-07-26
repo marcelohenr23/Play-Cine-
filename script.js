@@ -128,36 +128,36 @@ function renderMovies(filteredMovies = movies, filteredSeries = series) {
 
     if (recentGridEl) {
         filteredMovies.slice(0, 4).forEach(movie => {
-            recentGridEl.appendChild(createCard(movie, false));
+            recentGridEl.appendChild(createCard(movie));
         });
     }
 
     if (movieGridEl) {
         filteredMovies.forEach(movie => {
-            movieGridEl.appendChild(createCard(movie, false));
+            movieGridEl.appendChild(createCard(movie));
         });
     }
 
     if (serieGridEl) {
         filteredSeries.forEach(serie => {
-            serieGridEl.appendChild(createCard(serie, true));
+            serieGridEl.appendChild(createCard(serie));
         });
     }
 
     if (topSerieGridEl) {
         topSeries.forEach(serie => {
-            topSerieGridEl.appendChild(createCard(serie, true));
+            topSerieGridEl.appendChild(createCard(serie));
         });
     }
 
     if (premiumGridEl) {
         premiumMovies.forEach(movie => {
-            premiumGridEl.appendChild(createCard(movie, false));
+            premiumGridEl.appendChild(createCard(movie));
         });
     }
 }
 
-function createCard(item, isSerie) {
+function createCard(item) {
     const card = document.createElement('div');
     card.classList.add('movie-card');
 
@@ -184,6 +184,11 @@ function createCard(item, isSerie) {
             if (modalMovieTitle) modalMovieTitle.textContent = item.title;
             if (modalMovieDesc) modalMovieDesc.textContent = `${item.genre} • ${item.year}`;
             if (moviePlayer) moviePlayer.src = item.videoUrl || '';
+            
+            // Oculta os selects de temporada/episódio caso existam no HTML do modal para os filmes
+            const selects = videoModal.querySelectorAll('select');
+            selects.forEach(s => s.style.display = 'none');
+
             videoModal.style.display = 'flex';
         }
     });
@@ -248,5 +253,5 @@ function setupMobileMenu() {
             alert("Menu de opções clicado!");
         });
     }
-     }
+    }
         
