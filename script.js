@@ -74,16 +74,16 @@ const series = [
   { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
 ];
 
-// Dados para Tops Séries e Conteúdo Premium
+// Dados para Tops Séries e Conteúdo Premium com Cadeados Bloqueados
 const topSeries = [
   { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
   { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "" }
 ];
 
 const premiumMovies = [
-  { title: "Cazé TV", genre: "Esportes", year: "2026", image: "img/cazetv.jpg", videoUrl: "LINK_DO_VIDEO_AQUI" },
-  { title: "GE TV", genre: "Esportes", year: "2026", image: "img/getv.jpg", videoUrl: "LINK_DO_VIDEO_AQUI" },
-  { title: "SporTV", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "LINK_DO_VIDEO_AQUI" }
+  { title: "Cazé TV", genre: "Esportes", year: "2026", image: "img/cazetv.jpg", videoUrl: "LINK_DO_VIDEO_AQUI", isPremium: true },
+  { title: "GE TV", genre: "Esportes", year: "2026", image: "img/getv.jpg", videoUrl: "LINK_DO_VIDEO_AQUI", isPremium: true },
+  { title: "SporTV", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "LINK_DO_VIDEO_AQUI", isPremium: true }
 ];
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -141,8 +141,13 @@ function createMovieCard(item) {
     const card = document.createElement('div');
     card.classList.add('movie-card');
 
+    const lockIcon = item.isPremium ? `<div style="position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.7); color: #ffd700; padding: 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px;"><i class="fa-solid fa-lock"></i></div>` : '';
+
     card.innerHTML = `
-        <img src="${item.image}" alt="${item.title}" loading="lazy" style="width: 100%; border-radius: 8px; display: block;">
+        <div style="position: relative;">
+            <img src="${item.image}" alt="${item.title}" loading="lazy" style="width: 100%; border-radius: 8px; display: block;">
+            ${lockIcon}
+        </div>
         <div class="movie-info" style="margin-top: 5px;">
             <h4 style="color: white; font-size: 0.9rem; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item.title}</h4>
             <span style="color: #888; font-size: 0.8rem;">${item.genre} • ${item.year}</span>
@@ -223,5 +228,4 @@ function setupMobileMenu() {
             alert("Menu de opções clicado!");
         });
     }
-   }
-        
+    }
