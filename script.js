@@ -88,10 +88,10 @@ const premiumMovies = [
   { title: "Premiere 6", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere6", isPremium: true },
   { title: "Premiere 7", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere7", isPremium: true },
   { title: "Premiere 8", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere8", isPremium: true },
-  { title: "SporTV 1", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/pt_sportv1", isPremium: true },
-  { title: "SporTV 2", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/pt_sportv2", isPremium: true },
-  { title: "SporTV 3", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/pt_sportv3", isPremium: true },
-  { title: "SporTV 4", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/pt_sportv4", isPremium: true },
+  { title: "SporTV 1", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv", isPremium: true },
+  { title: "SporTV 2", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv2", isPremium: true },
+  { title: "SporTV 3", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv3", isPremium: true },
+  { title: "SporTV 4", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv4", isPremium: true },
   { title: "ESPN 1", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn", isPremium: true },
   { title: "ESPN 2", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn2", isPremium: true },
   { title: "ESPN 3", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn3", isPremium: true },
@@ -243,5 +243,5 @@ function setupMobileMenu() {
             alert("Menu de opções clicado!");
         });
     }
-   }
-                
+        }
+            
