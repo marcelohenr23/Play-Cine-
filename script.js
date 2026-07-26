@@ -80,6 +80,12 @@ const topSeries = [
 ];
 
 const premiumMovies = [
+  { title: "Chaves 24 Horas", genre: "Comédia", year: "2026", image: "img/chaves.jpg", videoUrl: "", isPremium: true },
+  { title: "Todo Mundo Odeia o Chris", genre: "Comédia", year: "2026", image: "img/chris.jpg", videoUrl: "", isPremium: true },
+  { title: "Dragon Ball Z 24 Horas", genre: "Animação", year: "2026", image: "img/dbz.jpg", videoUrl: "", isPremium: true },
+  { title: "Gloob", genre: "Infantil", year: "2026", image: "img/gloob.jpg", videoUrl: "", isPremium: true },
+  { title: "Naruto 24 Horas", genre: "Animação", year: "2026", image: "img/naruto.jpg", videoUrl: "", isPremium: true },
+  { title: "Os Simpsons", genre: "Comédia", year: "2026", image: "img/simpson.jpg", videoUrl: "", isPremium: true },
   { title: "Premiere 1", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere", isPremium: true },
   { title: "Premiere 2", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere2", isPremium: true },
   { title: "Premiere 3", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere3", isPremium: true },
@@ -243,5 +249,5 @@ function setupMobileMenu() {
             alert("Menu de opções clicado!");
         });
     }
-        }
+   }
             
