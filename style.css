@@ -534,3 +534,65 @@ body {
     padding: 20px;
     background-color: var(--card-bg);
     }
+
+/* Animação de Entrada Estilo Neon (Splash Screen) */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #050505;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeOutSplash 0.8s ease 2.2s forwards;
+}
+
+.neon-logo-box {
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    animation: neonPulse 1.5s infinite alternate;
+}
+
+.neon-play {
+    color: #ff0055;
+    text-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055, 0 0 40px #ff0055;
+}
+
+.neon-cine {
+    color: #00f0ff;
+    text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 40px #00f0ff;
+}
+
+@keyframes neonPulse {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1.05);
+        opacity: 1;
+        text-shadow: 0 0 15px #ff0055, 0 0 30px #ff0055, 0 0 60px #ff0055;
+    }
+}
+
+@keyframes fadeOutSplash {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* Efeito Neon nos Cards de Filmes ao passar o mouse / tocar */
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.6);
+    border: 1px solid #ff0055;
+}
