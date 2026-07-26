@@ -52,7 +52,6 @@ const movies = [
     { title: "Dora e a Cidade Perdida", genre: "Aventura", year: "2019", image: "img/cidadeperdida.jpg", videoUrl: "" },
     { title: "A Idade do Gelo 3: O Despertar dos Dinossauros", genre: "Animação", year: "2009", image: "img/eradogelo.jpg", videoUrl: "" },
     { title: "Charlie e a Fábrica de Chocolate", genre: "Fantasia", year: "2005", image: "img/fabricachocolate.jpg", videoUrl: "" },
-    { title: "A Grande Família: O Filme", genre: "Comédia", year: "2007", image: "img/familia.jpg", videoUrl: "" },
     { title: "Gru: O Maldisposto", genre: "Animação", year: "2010", image: "img/gru.jpg", videoUrl: "" },
     { title: "Gru: O Maldisposto 3", genre: "Animação", year: "2017", image: "img/gru3.jpg", videoUrl: "" },
     { title: "Minions", genre: "Animação", year: "2015", image: "img/minios.jpg", videoUrl: "" },
@@ -81,9 +80,10 @@ const topSeries = [
 ];
 
 const premiumMovies = [
-  { title: "Cazé TV", genre: "Esportes", year: "2026", image: "img/cazetv.jpg", videoUrl: "LINK_DO_VIDEO_AQUI", isPremium: true },
-  { title: "GE TV", genre: "Esportes", year: "2026", image: "img/getv.jpg", videoUrl: "LINK_DO_VIDEO_AQUI", isPremium: true },
-  { title: "SporTV", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "LINK_DO_VIDEO_AQUI", isPremium: true }
+  { title: "Premiere 1", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "URL_DO_PREMIERE_1_AQUI", isPremium: true },
+  { title: "Premiere 2", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "URL_DO_PREMIERE_2_AQUI", isPremium: true },
+  { title: "Premiere 3", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "URL_DO_PREMIERE_3_AQUI", isPremium: true },
+  { title: "Premiere 4", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "URL_DO_PREMIERE_4_AQUI", isPremium: true }
 ];
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -228,5 +228,4 @@ function setupMobileMenu() {
             alert("Menu de opções clicado!");
         });
     }
-      }
-                
+}
