@@ -143,11 +143,11 @@ function renderMovies(filteredMovies = movies, filteredSeries = series, filtered
         }
     }
 
-    // Conteúdo Premium
+    // Conteúdo Premium (Passando `true` para ativar o cadeado e bloqueio)
     if (premiumGridEl) {
         if (filteredPremium.length > 0) {
             filteredPremium.forEach(item => {
-                premiumGridEl.appendChild(createMovieCard(item));
+                premiumGridEl.appendChild(createMovieCard(item, true));
             });
         } else {
             premiumGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888;">Nenhum conteúdo premium encontrado.</p>';
@@ -155,11 +155,16 @@ function renderMovies(filteredMovies = movies, filteredSeries = series, filtered
     }
 }
 
-function createMovieCard(item) {
+function createMovieCard(item, isPremium = false) {
     const card = document.createElement('div');
     card.classList.add('movie-card');
+    card.style.position = 'relative';
+
+    // Adiciona o ícone de cadeado se for premium
+    let lockHtml = isPremium ? '<div style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #ffd700; padding: 6px 8px; border-radius: 50%; font-size: 0.9rem; z-index: 2;"><i class="fa-solid fa-lock"></i></div>' : '';
 
     card.innerHTML = `
+        ${lockHtml}
         <img src="${item.image}" alt="${item.title}" loading="lazy">
         <div class="movie-info">
             <h4>${item.title}</h4>
@@ -168,6 +173,11 @@ function createMovieCard(item) {
     `;
 
     card.addEventListener('click', () => {
+        if (isPremium) {
+            alert("Este conteúdo é Premium e está bloqueado!");
+            return;
+        }
+
         const videoModal = document.getElementById('videoModal');
         const modalMovieTitle = document.getElementById('modalMovieTitle');
         const modalMovieDesc = document.getElementById('modalMovieDesc');
@@ -236,5 +246,4 @@ function setupVideoModal() {
             if (moviePlayer) moviePlayer.src = '';
         }
     });
-}
-    
+   }
