@@ -83,7 +83,11 @@ const premiumMovies = [
   { title: "Premiere 1", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere", isPremium: true },
   { title: "Premiere 2", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere2", isPremium: true },
   { title: "Premiere 3", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere3", isPremium: true },
-  { title: "Premiere 4", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere4", isPremium: true }
+  { title: "Premiere 4", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere4", isPremium: true },
+  { title: "SporTV 1", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "URL_DO_SPORTV_1_AQUI", isPremium: true },
+  { title: "SporTV 2", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "URL_DO_SPORTV_2_AQUI", isPremium: true },
+  { title: "SporTV 3", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "URL_DO_SPORTV_3_AQUI", isPremium: true },
+  { title: "SporTV 4", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "URL_DO_SPORTV_4_AQUI", isPremium: true }
 ];
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -228,5 +232,4 @@ function setupMobileMenu() {
             alert("Menu de opções clicado!");
         });
     }
-     }
-        
+                }
