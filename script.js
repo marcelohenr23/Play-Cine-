@@ -397,4 +397,27 @@ function createMovieCard(movie) {
 
 if (closeVideoModalBtn) {
     closeVideoModalBtn.addEventListener('click', () => {
-  
+
+        // Função para exibir a mensagem de humor no modal personalizado do site
+function showMoodMessage(text) {
+    const modal = document.getElementById('customModal');
+    const messageEl = document.getElementById('modalMessage');
+    const closeBtn = document.getElementById('modalCloseBtn');
+
+    if (modal && messageEl) {
+        messageEl.textContent = text;
+        modal.style.display = 'flex';
+
+        // Fechar ao clicar no botão OK
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+        };
+
+        // Fechar também se clicar fora da caixinha do modal
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+    }
+}
