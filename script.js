@@ -75,257 +75,13 @@ const series = [
   { title: "Walker", genre: "Drama", year: "2021", image: "img/walker.jpg", videoUrl: "" }
 ];
 
-const availableAvatars = [
-    "https://i.ibb.co/CpdwWKKj/44121.jpg", 
-    "https://i.ibb.co/ks41CQmb/44120.jpg", 
-    "https://i.ibb.co/Vch7PHsr/44118.jpg", 
-    "https://i.ibb.co/VY9D3n1r/44119.jpg", 
-    "https://i.ibb.co/pvs3T14g/44122.jpg"  
-];
+window.addEventListener('DOMContentLoaded', () => {
+    renderMovies();
+    setupSearchAndFilter();
+    setupVideoModal();
+});
 
-const authSection = document.getElementById('authSection');
-const profileSection = document.getElementById('profileSection');
-const mainAppSection = document.getElementById('mainAppSection');
-
-const loginForm = document.getElementById('loginForm');
-const registerForm = document.getElementById('registerForm');
-const toRegisterBtn = document.getElementById('toRegister');
-const toLoginBtn = document.getElementById('toLogin');
-
-const profilesGrid = document.getElementById('profilesGrid');
-const openAddProfileModalBtn = document.getElementById('openAddProfileModal');
-const profileModal = document.getElementById('profileModal');
-const modalProfileTitle = document.getElementById('modalProfileTitle');
-const profileNameInput = document.getElementById('profileNameInput');
-const avatarGrid = document.getElementById('avatarGrid');
-const saveProfileBtn = document.getElementById('saveProfileBtn');
-const cancelProfileBtn = document.getElementById('cancelProfileBtn');
-const activeProfileAvatarImg = document.getElementById('activeProfileAvatarImg');
-const activeProfileNameText = document.getElementById('activeProfileNameText');
-const profileSwitcher = document.getElementById('profileSwitcher');
-
-const customModal = document.getElementById('customModal');
-const modalMessage = document.getElementById('modalMessage');
-const modalCloseBtn = document.getElementById('modalCloseBtn');
-
-const movieGrid = document.getElementById('movieGrid');
-const searchInput = document.getElementById('searchInput');
-const filterBtns = document.querySelectorAll('.filter-btn');
-
-const videoModal = document.getElementById('videoModal');
-const modalMovieTitle = document.getElementById('modalMovieTitle');
-const modalMovieDesc = document.getElementById('modalMovieDesc');
-const closeVideoModalBtn = document.getElementById('closeVideoModal');
-let moviePlayer = document.getElementById('moviePlayer');
-
-let selectedAvatarUrl = availableAvatars[0];
-let editingProfileIndex = null;
-
-function showAlert(message) {
-    modalMessage.textContent = message;
-    customModal.style.display = 'flex';
-}
-
-if (modalCloseBtn) {
-    modalCloseBtn.addEventListener('click', () => {
-        customModal.style.display = 'none';
-    });
-}
-
-function switchView(targetSection) {
-    authSection.classList.remove('active');
-    profileSection.classList.remove('active');
-    mainAppSection.classList.remove('active');
-
-    targetSection.classList.add('active');
-    window.scrollTo(0, 0);
-}
-
-if (toRegisterBtn && toLoginBtn) {
-    toRegisterBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        loginForm.style.display = 'none';
-        registerForm.style.display = 'block';
-    });
-
-    toLoginBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        registerForm.style.display = 'none';
-        loginForm.style.display = 'block';
-    });
-}
-
-if (registerForm) {
-    registerForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const name = document.getElementById('regName').value.trim();
-        const email = document.getElementById('regEmail').value.trim();
-        const password = document.getElementById('regPassword').value;
-
-        localStorage.setItem('playCine_name', name);
-        localStorage.setItem('playCine_email', email);
-        localStorage.setItem('playCine_password', password);
-
-        const defaultProfiles = [{ name: name, avatar: availableAvatars[0] }];
-        localStorage.setItem('playCine_profiles', JSON.stringify(defaultProfiles));
-
-        showAlert('Conta criada com sucesso! Faça login.');
-        registerForm.reset();
-        registerForm.style.display = 'none';
-        loginForm.style.display = 'block';
-    });
-}
-
-if (loginForm) {
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const emailInput = document.getElementById('loginEmail').value.trim();
-        const passwordInput = document.getElementById('loginPassword').value;
-
-        const savedEmail = localStorage.getItem('playCine_email');
-        const savedPassword = localStorage.getItem('playCine_password');
-
-        if (!savedEmail) {
-            showAlert('Nenhuma conta encontrada. Cadastre-se primeiro!');
-            return;
-        }
-
-        if (emailInput === savedEmail && passwordInput === savedPassword) {
-            let profiles = JSON.parse(localStorage.getItem('playCine_profiles'));
-            if (!profiles || profiles.length === 0) {
-                const userName = localStorage.getItem('playCine_name') || 'Convidado';
-                profiles = [{ name: userName, avatar: availableAvatars[0] }];
-                localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
-            }
-
-            renderProfiles();
-            switchView(profileSection);
-        } else {
-            showAlert('E-mail ou senha incorretos.');
-        }
-    });
-}
-
-function renderProfiles() {
-    if (!profilesGrid) return;
-    profilesGrid.innerHTML = '';
-    const profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
-
-    profiles.forEach((profile, index) => {
-        const card = document.createElement('div');
-        card.classList.add('profile-card');
-        const avatarImg = profile.avatar || availableAvatars[0];
-
-        card.innerHTML = `
-            <div class="profile-avatar-box">
-                <img src="${avatarImg}" alt="${profile.name}">
-                <div class="profile-edit-badge" title="Editar Perfil">
-                    <i class="fa-solid fa-pen"></i>
-                </div>
-            </div>
-            <span>${profile.name}</span>
-        `;
-
-        card.addEventListener('click', (e) => {
-            if (e.target.closest('.profile-edit-badge')) {
-                e.stopPropagation();
-                openProfileModalForEdit(index);
-                return;
-            }
-
-            if (activeProfileNameText) activeProfileNameText.textContent = profile.name;
-            if (activeProfileAvatarImg) activeProfileAvatarImg.src = avatarImg;
-            
-            switchView(mainAppSection);
-            renderMovies();
-        });
-
-        profilesGrid.appendChild(card);
-    });
-}
-
-if (profileSwitcher) {
-    profileSwitcher.addEventListener('click', () => {
-        renderProfiles();
-        switchView(profileSection);
-    });
-}
-
-function renderAvatarSelector(activeUrl) {
-    if (!avatarGrid) return;
-    avatarGrid.innerHTML = '';
-    
-    availableAvatars.forEach(url => {
-        const option = document.createElement('div');
-        option.classList.add('avatar-option');
-        if (url === activeUrl) {
-            option.classList.add('selected');
-            selectedAvatarUrl = url;
-        }
-
-        option.innerHTML = `<img src="${url}" alt="Avatar">`;
-        
-        option.addEventListener('click', () => {
-            document.querySelectorAll('.avatar-option').forEach(el => el.classList.remove('selected'));
-            option.classList.add('selected');
-            selectedAvatarUrl = url;
-        });
-
-        avatarGrid.appendChild(option);
-    });
-}
-
-if (openAddProfileModalBtn) {
-    openAddProfileModalBtn.addEventListener('click', () => {
-        editingProfileIndex = null;
-        if (modalProfileTitle) modalProfileTitle.textContent = "Novo Perfil";
-        if (profileNameInput) profileNameInput.value = '';
-        renderAvatarSelector(availableAvatars[0]);
-        profileModal.style.display = 'flex';
-    });
-}
-
-function openProfileModalForEdit(index) {
-    editingProfileIndex = index;
-    if (modalProfileTitle) modalProfileTitle.textContent = "Editar Perfil";
-    const profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
-    const profile = profiles[index];
-
-    if (profileNameInput) profileNameInput.value = profile.name;
-    renderAvatarSelector(profile.avatar || availableAvatars[0]);
-    profileModal.style.display = 'flex';
-}
-
-if (cancelProfileBtn) {
-    cancelProfileBtn.addEventListener('click', () => {
-        profileModal.style.display = 'none';
-    });
-}
-
-if (saveProfileBtn) {
-    saveProfileBtn.addEventListener('click', () => {
-        const nameVal = profileNameInput.value.trim();
-        if (!nameVal) {
-            showAlert('Por favor, informe o nome do perfil.');
-            return;
-        }
-
-        let profiles = JSON.parse(localStorage.getItem('playCine_profiles')) || [];
-
-        if (editingProfileIndex === null) {
-            profiles.push({ name: nameVal, avatar: selectedAvatarUrl });
-        } else {
-            profiles[editingProfileIndex].name = nameVal;
-            profiles[editingProfileIndex].avatar = selectedAvatarUrl;
-        }
-
-        localStorage.setItem('playCine_profiles', JSON.stringify(profiles));
-        profileModal.style.display = 'none';
-        renderProfiles();
-    });
-}
-
-function renderMovies(customMovies, customSeries) {
+function renderMovies(filteredMovies = movies, filteredSeries = series) {
     const movieGridEl = document.getElementById('movieGrid');
     const serieGridEl = document.getElementById('serieGrid');
     const recentGridEl = document.getElementById('recentMovieGrid');
@@ -334,54 +90,111 @@ function renderMovies(customMovies, customSeries) {
     if (serieGridEl) serieGridEl.innerHTML = '';
     if (recentGridEl) recentGridEl.innerHTML = '';
 
-    const listToRenderMovies = customMovies || movies;
-    const listToRenderSeries = customSeries || series;
-
-    const visibleMovies = listToRenderMovies.filter(m => !m.hidden);
-    const visibleSeries = listToRenderSeries.filter(s => !s.hidden);
-
+    // Lançamentos Recentes (Pega os 4 primeiros)
     if (recentGridEl) {
-        const recentMovies = visibleMovies.slice(0, 4);
-        if (recentMovies.length > 0) {
-            recentMovies.forEach(movie => {
-                recentGridEl.appendChild(createMovieCard(movie));
-            });
-        }
+        filteredMovies.slice(0, 4).forEach(movie => {
+            recentGridEl.appendChild(createMovieCard(movie));
+        });
     }
 
+    // Filmes
     if (movieGridEl) {
-        if (visibleMovies.length > 0) {
-            visibleMovies.forEach(movie => {
+        if (filteredMovies.length > 0) {
+            filteredMovies.forEach(movie => {
                 movieGridEl.appendChild(createMovieCard(movie));
             });
         } else {
-            movieGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nenhum filme encontrado.</p>';
+            movieGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888;">Nenhum filme encontrado.</p>';
         }
     }
 
+    // Séries
     if (serieGridEl) {
-        if (visibleSeries.length > 0) {
-            visibleSeries.forEach(serie => {
+        if (filteredSeries.length > 0) {
+            filteredSeries.forEach(serie => {
                 serieGridEl.appendChild(createMovieCard(serie));
             });
         } else {
-            serieGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nenhuma série encontrada.</p>';
+            serieGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888;">Nenhuma série encontrada.</p>';
         }
     }
 }
 
-function createMovieCard(movie) {
+function createMovieCard(item) {
     const card = document.createElement('div');
     card.classList.add('movie-card');
 
     card.innerHTML = `
-        <img src="${movie.image}" alt="${movie.title}">
+        <img src="${item.image}" alt="${item.title}" loading="lazy">
         <div class="movie-info">
-            <h4>${movie.title}</h4>
-            <span>${movie.genre} • ${movie.year}</span>
+            <h4>${item.title}</h4>
+            <span>${item.genre} • ${item.year}</span>
         </div>
     `;
 
     card.addEventListener('click', () => {
+        const videoModal = document.getElementById('videoModal');
+        const modalMovieTitle = document.getElementById('modalMovieTitle');
+        const modalMovieDesc = document.getElementById('modalMovieDesc');
+        const moviePlayer = document.getElementById('moviePlayer');
+
         if (videoModal) {
-            if (modalMovieTitle) modalMovieTitle.textCont
+            if (modalMovieTitle) modalMovieTitle.textContent = item.title;
+            if (modalMovieDesc) modalMovieDesc.textContent = `${item.genre} • ${item.year}`;
+            if (moviePlayer) moviePlayer.src = item.videoUrl || '';
+            videoModal.style.display = 'flex';
+        }
+    });
+
+    return card;
+}
+
+function setupSearchAndFilter() {
+    const searchInput = document.getElementById('searchInput');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const searchedMovies = movies.filter(m => m.title.toLowerCase().includes(query) || m.genre.toLowerCase().includes(query));
+            const searchedSeries = series.filter(s => s.title.toLowerCase().includes(query) || s.genre.toLowerCase().includes(query));
+            renderMovies(searchedMovies, searchedSeries);
+        });
+    }
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const category = btn.getAttribute('data-category');
+            if (category === 'all') {
+                renderMovies(movies, series);
+            } else {
+                const filteredM = movies.filter(m => m.genre === category);
+                const filteredS = series.filter(s => s.genre === category);
+                renderMovies(filteredM, filteredS);
+            }
+        });
+    });
+}
+
+function setupVideoModal() {
+    const videoModal = document.getElementById('videoModal');
+    const closeVideoModalBtn = document.getElementById('closeVideoModal');
+    const moviePlayer = document.getElementById('moviePlayer');
+
+    if (closeVideoModalBtn && videoModal) {
+        closeVideoModalBtn.addEventListener('click', () => {
+            videoModal.style.display = 'none';
+            if (moviePlayer) moviePlayer.src = '';
+        });
+    }
+
+    window.addEventListener('click', (e) => {
+        if (e.target === videoModal) {
+            videoModal.style.display = 'none';
+            if (moviePlayer) moviePlayer.src = '';
+        }
+    });
+                            }
