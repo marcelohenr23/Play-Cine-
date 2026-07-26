@@ -67,10 +67,13 @@ const movies = [
 ];
 
 const series = [
-  { title: "Avatar: O Último Mestre do Ar", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
+  { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
   { title: "Capoeiras", genre: "Ação", year: "2024", image: "img/capoeiras.jpg", videoUrl: "" },
   { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "" },
-  { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" },
+  { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
+];
+
+const topSeries = [
   { title: "Punho de Ferro", genre: "Ação", year: "2017", image: "img/punhodeferro.jpg", videoUrl: "" },
   { title: "Walker", genre: "Drama", year: "2021", image: "img/walker.jpg", videoUrl: "" }
 ];
@@ -81,13 +84,15 @@ window.addEventListener('DOMContentLoaded', () => {
     setupVideoModal();
 });
 
-function renderMovies(filteredMovies = movies, filteredSeries = series) {
+function renderMovies(filteredMovies = movies, filteredSeries = series, filteredTopSeries = topSeries) {
     const movieGridEl = document.getElementById('movieGrid');
     const serieGridEl = document.getElementById('serieGrid');
+    const topSerieGridEl = document.getElementById('topSerieGrid');
     const recentGridEl = document.getElementById('recentMovieGrid');
 
     if (movieGridEl) movieGridEl.innerHTML = '';
     if (serieGridEl) serieGridEl.innerHTML = '';
+    if (topSerieGridEl) topSerieGridEl.innerHTML = '';
     if (recentGridEl) recentGridEl.innerHTML = '';
 
     // Lançamentos Recentes (Pega os 4 primeiros)
@@ -116,6 +121,17 @@ function renderMovies(filteredMovies = movies, filteredSeries = series) {
             });
         } else {
             serieGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888;">Nenhuma série encontrada.</p>';
+        }
+    }
+
+    // Tops Séries
+    if (topSerieGridEl) {
+        if (filteredTopSeries.length > 0) {
+            filteredTopSeries.forEach(topSerie => {
+                topSerieGridEl.appendChild(createMovieCard(topSerie));
+            });
+        } else {
+            topSerieGridEl.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888;">Nenhuma top série encontrada.</p>';
         }
     }
 }
@@ -158,7 +174,8 @@ function setupSearchAndFilter() {
             const query = e.target.value.toLowerCase();
             const searchedMovies = movies.filter(m => m.title.toLowerCase().includes(query) || m.genre.toLowerCase().includes(query));
             const searchedSeries = series.filter(s => s.title.toLowerCase().includes(query) || s.genre.toLowerCase().includes(query));
-            renderMovies(searchedMovies, searchedSeries);
+            const searchedTopSeries = topSeries.filter(ts => ts.title.toLowerCase().includes(query) || ts.genre.toLowerCase().includes(query));
+            renderMovies(searchedMovies, searchedSeries, searchedTopSeries);
         });
     }
 
@@ -169,11 +186,12 @@ function setupSearchAndFilter() {
 
             const category = btn.getAttribute('data-category');
             if (category === 'all') {
-                renderMovies(movies, series);
+                renderMovies(movies, series, topSeries);
             } else {
                 const filteredM = movies.filter(m => m.genre === category);
                 const filteredS = series.filter(s => s.genre === category);
-                renderMovies(filteredM, filteredS);
+                const filteredTS = topSeries.filter(ts => ts.genre === category);
+                renderMovies(filteredM, filteredS, filteredTS);
             }
         });
     });
@@ -197,4 +215,5 @@ function setupVideoModal() {
             if (moviePlayer) moviePlayer.src = '';
         }
     });
-                            }
+        }
+    
