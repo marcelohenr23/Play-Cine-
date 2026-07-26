@@ -74,6 +74,17 @@ const series = [
   { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
 ];
 
+// Dados para Tops Séries e Conteúdo Premium
+const topSeries = [
+  { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
+  { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "" }
+];
+
+const premiumMovies = [
+  { title: "Resgate 2", genre: "Ação", year: "2023", image: "img/resgate2.jpg", videoUrl: "https://fembed.sx/e/697843-dub" },
+  { title: "Beekeeper: Rede de Vingança", genre: "Ação", year: "2024", image: "img/beekeeper.jpg", videoUrl: "https://fembed.sx/e/866398" }
+];
+
 window.addEventListener('DOMContentLoaded', () => {
     renderMovies();
     setupSearchAndFilter();
@@ -85,10 +96,14 @@ function renderMovies(filteredMovies = movies, filteredSeries = series) {
     const movieGridEl = document.getElementById('movieGrid');
     const serieGridEl = document.getElementById('serieGrid');
     const recentGridEl = document.getElementById('recentMovieGrid');
+    const topSerieGridEl = document.getElementById('topSerieGrid');
+    const premiumGridEl = document.getElementById('premiumGrid');
 
     if (movieGridEl) movieGridEl.innerHTML = '';
     if (serieGridEl) serieGridEl.innerHTML = '';
     if (recentGridEl) recentGridEl.innerHTML = '';
+    if (topSerieGridEl) topSerieGridEl.innerHTML = '';
+    if (premiumGridEl) premiumGridEl.innerHTML = '';
 
     if (recentGridEl) {
         filteredMovies.slice(0, 4).forEach(movie => {
@@ -105,6 +120,18 @@ function renderMovies(filteredMovies = movies, filteredSeries = series) {
     if (serieGridEl) {
         filteredSeries.forEach(serie => {
             serieGridEl.appendChild(createMovieCard(serie));
+        });
+    }
+
+    if (topSerieGridEl) {
+        topSeries.forEach(serie => {
+            topSerieGridEl.appendChild(createMovieCard(serie));
+        });
+    }
+
+    if (premiumGridEl) {
+        premiumMovies.forEach(movie => {
+            premiumGridEl.appendChild(createMovieCard(movie));
         });
     }
 }
@@ -195,5 +222,5 @@ function setupMobileMenu() {
             alert("Menu de opções clicado!");
         });
     }
-     }
-     
+   }
+        
