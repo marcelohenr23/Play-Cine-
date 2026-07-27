@@ -67,63 +67,43 @@ const movies = [
 ];
 
 const series = [
-  { 
-    title: "O Dia do Chacal", 
-    genre: "Thriller", 
-    year: "2024", 
-    image: "img/chacal.jpg", 
-    seasons: {
-        "Temporada 1": [
-            { episode: "Episódio 1", url: "https://fembed.sx/e/222766/1-1" }
-        ]
-    }
-  },
-  { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
-  { title: "Capoeiras", genre: "Ação", year: "2024", image: "img/capoeiras.jpg", videoUrl: "" },
-  { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
+    { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "https://fembed.sx/e/222766/1-1" },
+    { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
+    { title: "Capoeiras", genre: "Ação", year: "2024", image: "img/capoeiras.jpg", videoUrl: "" },
+    { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
 ];
 
 const topSeries = [
-  { 
-    title: "O Dia do Chacal", 
-    genre: "Thriller", 
-    year: "2024", 
-    image: "img/chacal.jpg", 
-    seasons: {
-        "Temporada 1": [
-            { episode: "Episódio 1", url: "https://fembed.sx/e/222766/1-1" }
-        ]
-    }
-  },
-  { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" }
+    { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "https://fembed.sx/e/222766/1-1" },
+    { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" }
 ];
 
 const premiumMovies = [
-  { title: "Chaves 24 Horas", genre: "Comédia", year: "2026", image: "img/chaves.jpg", videoUrl: "https://ww4.embedtv.lat/24h_chaves", isPremium: true },
-  { title: "Todo Mundo Odeia o Chris", genre: "Comédia", year: "2026", image: "img/chris.jpg", videoUrl: "https://ww4.embedtv.lat/24h_odeiachris", isPremium: true },
-  { title: "Dragon Ball Z 24 Horas", genre: "Animação", year: "2026", image: "img/dbz.jpg", videoUrl: "https://ww4.embedtv.lat/24h_dragonball", isPremium: true },
-  { title: "Gloob", genre: "Infantil", year: "2026", image: "img/gloob.jpg", videoUrl: "https://ww4.embedtv.lat/gloob", isPremium: true },
-  { title: "Naruto 24 Horas", genre: "Animação", year: "2026", image: "img/naruto.jpg", videoUrl: "https://ww4.embedtv.lat/24h_naruto", isPremium: true },
-  { title: "Os Simpsons", genre: "Comédia", year: "2026", image: "img/simpson.jpg", videoUrl: "https://ww4.embedtv.lat/24h_simpsons", isPremium: true },
-  { title: "Premiere 1", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere", isPremium: true },
-  { title: "Premiere 2", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere2", isPremium: true },
-  { title: "Premiere 3", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere3", isPremium: true },
-  { title: "Premiere 4", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere4", isPremium: true },
-  { title: "Premiere 5", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere5", isPremium: true },
-  { title: "Premiere 6", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere6", isPremium: true },
-  { title: "Premiere 7", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere7", isPremium: true },
-  { title: "Premiere 8", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere8", isPremium: true },
-  { title: "SporTV 1", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv", isPremium: true },
-  { title: "SporTV 2", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv2", isPremium: true },
-  { title: "SporTV 3", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv3", isPremium: true },
-  { title: "SporTV 4", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv4", isPremium: true },
-  { title: "ESPN 1", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn", isPremium: true },
-  { title: "ESPN 2", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn2", isPremium: true },
-  { title: "ESPN 3", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn3", isPremium: true },
-  { title: "ESPN 4", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn4", isPremium: true },
-  { title: "ESPN 5", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn5", isPremium: true },
-  { title: "ESPN 6", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn6", isPremium: true },
-  { title: "GE TV", genre: "Esportes", year: "2026", image: "img/getv.jpg", videoUrl: "https://www.youtube.com/embed/5LfxhWTrs3s", isPremium: true }
+    { title: "Chaves 24 Horas", genre: "Comédia", year: "2026", image: "img/chaves.jpg", videoUrl: "https://ww4.embedtv.lat/24h_chaves", isPremium: true },
+    { title: "Todo Mundo Odeia o Chris", genre: "Comédia", year: "2026", image: "img/chris.jpg", videoUrl: "https://ww4.embedtv.lat/24h_odeiachris", isPremium: true },
+    { title: "Dragon Ball Z 24 Horas", genre: "Animação", year: "2026", image: "img/dbz.jpg", videoUrl: "https://ww4.embedtv.lat/24h_dragonball", isPremium: true },
+    { title: "Gloob", genre: "Infantil", year: "2026", image: "img/gloob.jpg", videoUrl: "https://ww4.embedtv.lat/gloob", isPremium: true },
+    { title: "Naruto 24 Horas", genre: "Animação", year: "2026", image: "img/naruto.jpg", videoUrl: "https://ww4.embedtv.lat/24h_naruto", isPremium: true },
+    { title: "Os Simpsons", genre: "Comédia", year: "2026", image: "img/simpson.jpg", videoUrl: "https://ww4.embedtv.lat/24h_simpsons", isPremium: true },
+    { title: "Premiere 1", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere", isPremium: true },
+    { title: "Premiere 2", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere2", isPremium: true },
+    { title: "Premiere 3", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere3", isPremium: true },
+    { title: "Premiere 4", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere4", isPremium: true },
+    { title: "Premiere 5", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere5", isPremium: true },
+    { title: "Premiere 6", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere6", isPremium: true },
+    { title: "Premiere 7", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere7", isPremium: true },
+    { title: "Premiere 8", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere8", isPremium: true },
+    { title: "SporTV 1", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv", isPremium: true },
+    { title: "SporTV 2", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv2", isPremium: true },
+    { title: "SporTV 3", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv3", isPremium: true },
+    { title: "SporTV 4", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv4", isPremium: true },
+    { title: "ESPN 1", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn", isPremium: true },
+    { title: "ESPN 2", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn2", isPremium: true },
+    { title: "ESPN 3", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn3", isPremium: true },
+    { title: "ESPN 4", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn4", isPremium: true },
+    { title: "ESPN 5", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn5", isPremium: true },
+    { title: "ESPN 6", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn6", isPremium: true },
+    { title: "GE TV", genre: "Esportes", year: "2026", image: "img/getv.jpg", videoUrl: "https://www.youtube.com/embed/5LfxhWTrs3s", isPremium: true }
 ];
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -212,57 +192,11 @@ function createMovieCard(item) {
         const modalMovieTitle = document.getElementById('modalMovieTitle');
         const modalMovieDesc = document.getElementById('modalMovieDesc');
         const moviePlayer = document.getElementById('moviePlayer');
-        const episodeContainer = document.getElementById('episodeSelectorContainer');
-        const seasonSelect = document.getElementById('seasonSelect');
-        const episodeSelect = document.getElementById('episodeSelect');
 
         if (videoModal) {
             if (modalMovieTitle) modalMovieTitle.textContent = item.title;
             if (modalMovieDesc) modalMovieDesc.textContent = `${item.genre} • ${item.year}`;
-
-            // Se for série e tiver temporadas cadastradas
-            if (item.seasons && episodeContainer && seasonSelect && episodeSelect) {
-                episodeContainer.style.display = 'flex';
-                seasonSelect.innerHTML = '';
-                
-                const seasonsKeys = Object.keys(item.seasons);
-                seasonsKeys.forEach(seasonName => {
-                    const opt = document.createElement('option');
-                    opt.value = seasonName;
-                    opt.textContent = seasonName;
-                    seasonSelect.appendChild(opt);
-                });
-
-                const loadEpisodes = (seasonName) => {
-                    episodeSelect.innerHTML = '';
-                    const eps = item.seasons[seasonName] || [];
-                    eps.forEach(ep => {
-                        const opt = document.createElement('option');
-                        opt.value = ep.url;
-                        opt.textContent = ep.episode;
-                        episodeSelect.appendChild(opt);
-                    });
-                    if (eps.length > 0 && moviePlayer) {
-                        moviePlayer.src = eps[0].url;
-                    }
-                };
-
-                loadEpisodes(seasonsKeys[0]);
-
-                seasonSelect.onchange = (e) => {
-                    loadEpisodes(e.target.value);
-                };
-
-                episodeSelect.onchange = (e) => {
-                    if (moviePlayer) moviePlayer.src = e.target.value;
-                };
-
-            } else {
-                // Se for filme ou canal normal
-                if (episodeContainer) episodeContainer.style.display = 'none';
-                if (moviePlayer) moviePlayer.src = item.videoUrl || '';
-            }
-
+            if (moviePlayer) moviePlayer.src = item.videoUrl || '';
             videoModal.style.display = 'flex';
         }
     });
@@ -322,4 +256,10 @@ function setupVideoModal() {
 
 function setupMobileMenu() {
     const menuBtn = document.getElementById('menuBtn');
-    if (menuBtn
+    if (menuBtn) {
+        menuBtn.addEventListener('click', () => {
+            alert("Menu de opções clicado!");
+        });
+    }
+        }
+    
