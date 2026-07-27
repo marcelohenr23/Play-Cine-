@@ -219,7 +219,34 @@ function setupVideoModal() {
     const videoModal = document.getElementById('videoModal');
     const closeVideoModalBtn = document.getElementById('closeVideoModal');
     const moviePlayer = document.getElementById('moviePlayer');
+    const detailsContainer = document.getElementById('modalDetailsContainer');
+    const playerContainer = document.getElementById('playerContainer');
 
-    function closeModal() {
-        if (videoModal) {
-       
+    if (closeVideoModalBtn) {
+        closeVideoModalBtn.addEventListener('click', () => {
+            if (videoModal) videoModal.style.display = 'none';
+            if (moviePlayer) moviePlayer.src = ''; // Para o vídeo ao fechar
+            if (detailsContainer) detailsContainer.style.display = 'block';
+            if (playerContainer) playerContainer.style.display = 'none';
+        });
+    }
+
+    // Fecha ao clicar fora do conteúdo do modal se desejar
+    window.addEventListener('click', (e) => {
+        if (e.target === videoModal) {
+            videoModal.style.display = 'none';
+            if (moviePlayer) moviePlayer.src = '';
+            if (detailsContainer) detailsContainer.style.display = 'block';
+            if (playerContainer) playerContainer.style.display = 'none';
+        }
+    });
+}
+
+function setupMobileMenu() {
+    const menuBtn = document.getElementById('menuBtn');
+    if (menuBtn) {
+        menuBtn.addEventListener('click', () => {
+            alert('Menu lateral em desenvolvimento!');
+        });
+    }
+}
