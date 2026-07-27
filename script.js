@@ -67,15 +67,35 @@ const movies = [
 ];
 
 const series = [
+  { 
+    title: "O Dia do Chacal", 
+    genre: "Thriller", 
+    year: "2024", 
+    image: "img/chacal.jpg", 
+    seasons: {
+        "Temporada 1": [
+            { episode: "Episódio 1", url: "https://fembed.sx/e/222766/1-1" }
+        ]
+    }
+  },
   { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
   { title: "Capoeiras", genre: "Ação", year: "2024", image: "img/capoeiras.jpg", videoUrl: "" },
-  { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "https://fembed.sx/e/222766/1-1" },
   { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
 ];
 
 const topSeries = [
-  { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
-  { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "https://fembed.sx/e/222766/1-1" }
+  { 
+    title: "O Dia do Chacal", 
+    genre: "Thriller", 
+    year: "2024", 
+    image: "img/chacal.jpg", 
+    seasons: {
+        "Temporada 1": [
+            { episode: "Episódio 1", url: "https://fembed.sx/e/222766/1-1" }
+        ]
+    }
+  },
+  { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" }
 ];
 
 const premiumMovies = [
@@ -193,13 +213,55 @@ function createMovieCard(item) {
         const modalMovieDesc = document.getElementById('modalMovieDesc');
         const moviePlayer = document.getElementById('moviePlayer');
         const episodeContainer = document.getElementById('episodeSelectorContainer');
+        const seasonSelect = document.getElementById('seasonSelect');
+        const episodeSelect = document.getElementById('episodeSelect');
 
         if (videoModal) {
             if (modalMovieTitle) modalMovieTitle.textContent = item.title;
             if (modalMovieDesc) modalMovieDesc.textContent = `${item.genre} • ${item.year}`;
-            if (moviePlayer) moviePlayer.src = item.videoUrl || '';
-            
-            if (episodeContainer) episodeContainer.style.display = 'none';
+
+            // Se for série e tiver temporadas cadastradas
+            if (item.seasons && episodeContainer && seasonSelect && episodeSelect) {
+                episodeContainer.style.display = 'flex';
+                seasonSelect.innerHTML = '';
+                
+                const seasonsKeys = Object.keys(item.seasons);
+                seasonsKeys.forEach(seasonName => {
+                    const opt = document.createElement('option');
+                    opt.value = seasonName;
+                    opt.textContent = seasonName;
+                    seasonSelect.appendChild(opt);
+                });
+
+                const loadEpisodes = (seasonName) => {
+                    episodeSelect.innerHTML = '';
+                    const eps = item.seasons[seasonName] || [];
+                    eps.forEach(ep => {
+                        const opt = document.createElement('option');
+                        opt.value = ep.url;
+                        opt.textContent = ep.episode;
+                        episodeSelect.appendChild(opt);
+                    });
+                    if (eps.length > 0 && moviePlayer) {
+                        moviePlayer.src = eps[0].url;
+                    }
+                };
+
+                loadEpisodes(seasonsKeys[0]);
+
+                seasonSelect.onchange = (e) => {
+                    loadEpisodes(e.target.value);
+                };
+
+                episodeSelect.onchange = (e) => {
+                    if (moviePlayer) moviePlayer.src = e.target.value;
+                };
+
+            } else {
+                // Se for filme ou canal normal
+                if (episodeContainer) episodeContainer.style.display = 'none';
+                if (moviePlayer) moviePlayer.src = item.videoUrl || '';
+            }
 
             videoModal.style.display = 'flex';
         }
@@ -260,10 +322,4 @@ function setupVideoModal() {
 
 function setupMobileMenu() {
     const menuBtn = document.getElementById('menuBtn');
-    if (menuBtn) {
-        menuBtn.addEventListener('click', () => {
-            alert("Menu de opções clicado!");
-        });
-    }
-     }
-    
+    if (menuBtn
