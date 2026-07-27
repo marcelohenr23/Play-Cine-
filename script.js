@@ -171,6 +171,7 @@ function renderMovies(filteredMovies = movies, filteredSeries = series) {
 }
 
 function createMovieCard(item) {
+function createMovieCard(item) {
     const card = document.createElement('div');
     card.classList.add('movie-card');
 
@@ -192,11 +193,56 @@ function createMovieCard(item) {
         const modalMovieTitle = document.getElementById('modalMovieTitle');
         const modalMovieDesc = document.getElementById('modalMovieDesc');
         const moviePlayer = document.getElementById('moviePlayer');
+        const episodeContainer = document.getElementById('episodeSelectorContainer');
+        const seasonSelect = document.getElementById('seasonSelect');
+        const episodeSelect = document.getElementById('episodeSelect');
 
         if (videoModal) {
             if (modalMovieTitle) modalMovieTitle.textContent = item.title;
             if (modalMovieDesc) modalMovieDesc.textContent = `${item.genre} • ${item.year}`;
-            if (moviePlayer) moviePlayer.src = item.videoUrl || '';
+
+            // Se for série e tiver temporadas cadastradas
+            if (item.isSeries && item.seasons) {
+                if (episodeContainer) episodeContainer.style.display = 'flex';
+                if (seasonSelect && episodeSelect) {
+                    seasonSelect.innerHTML = '';
+                    Object.keys(item.seasons).forEach(seasonName => {
+                        const opt = document.createElement('option');
+                        opt.value = seasonName;
+                        opt.textContent = seasonName;
+                        seasonSelect.appendChild(opt);
+                    });
+
+                    const updateEpisodes = (seasonName) => {
+                        episodeSelect.innerHTML = '';
+                        const episodes = item.seasons[seasonName] || [];
+                        episodes.forEach(ep => {
+                            const opt = document.createElement('option');
+                            opt.value = ep.url;
+                            opt.textContent = ep.name;
+                            episodeSelect.appendChild(opt);
+                        });
+                        if (episodes.length > 0 && moviePlayer) {
+                            moviePlayer.src = episodes[0].url;
+                        }
+                    };
+
+                    updateEpisodes(Object.keys(item.seasons)[0]);
+
+                    seasonSelect.onchange = (e) => {
+                        updateEpisodes(e.target.value);
+                    };
+
+                    episodeSelect.onchange = (e) => {
+                        if (moviePlayer) moviePlayer.src = e.target.value;
+                    };
+                }
+            } else {
+                // Se for filme ou série sem temporadas, esconde o seletor e toca o link normal
+                if (episodeContainer) episodeContainer.style.display = 'none';
+                if (moviePlayer) moviePlayer.src = item.videoUrl || '';
+            }
+
             videoModal.style.display = 'flex';
         }
     });
