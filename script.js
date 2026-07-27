@@ -67,14 +67,40 @@ const movies = [
 ];
 
 const series = [
-    { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "https://fembed.sx/e/222766/1-1" },
+    { 
+        title: "O Dia do Chacal", 
+        genre: "Thriller", 
+        year: "2024", 
+        image: "img/chacal.jpg", 
+        isSeries: true,
+        seasons: {
+            "Temporada 1": [
+                { name: "Episódio 1", url: "https://fembed.sx/e/222766/1-1" },
+                { name: "Episódio 2", url: "https://fembed.sx/e/222766/1-2" },
+                { name: "Episódio 3", url: "https://fembed.sx/e/222766/1-3" }
+            ]
+        }
+    },
     { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
     { title: "Capoeiras", genre: "Ação", year: "2024", image: "img/capoeiras.jpg", videoUrl: "" },
     { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
 ];
 
 const topSeries = [
-    { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "https://fembed.sx/e/222766/1-1" },
+    { 
+        title: "O Dia do Chacal", 
+        genre: "Thriller", 
+        year: "2024", 
+        image: "img/chacal.jpg", 
+        isSeries: true,
+        seasons: {
+            "Temporada 1": [
+                { name: "Episódio 1", url: "https://fembed.sx/e/222766/1-1" },
+                { name: "Episódio 2", url: "https://fembed.sx/e/222766/1-2" },
+                { name: "Episódio 3", url: "https://fembed.sx/e/222766/1-3" }
+            ]
+        }
+    },
     { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" }
 ];
 
@@ -192,11 +218,54 @@ function createMovieCard(item) {
         const modalMovieTitle = document.getElementById('modalMovieTitle');
         const modalMovieDesc = document.getElementById('modalMovieDesc');
         const moviePlayer = document.getElementById('moviePlayer');
+        const episodeContainer = document.getElementById('episodeSelectorContainer');
+        const seasonSelect = document.getElementById('seasonSelect');
+        const episodeSelect = document.getElementById('episodeSelect');
 
         if (videoModal) {
             if (modalMovieTitle) modalMovieTitle.textContent = item.title;
             if (modalMovieDesc) modalMovieDesc.textContent = `${item.genre} • ${item.year}`;
-            if (moviePlayer) moviePlayer.src = item.videoUrl || '';
+
+            if (item.isSeries && item.seasons) {
+                if (episodeContainer) episodeContainer.style.display = 'flex';
+                if (seasonSelect && episodeSelect) {
+                    seasonSelect.innerHTML = '';
+                    Object.keys(item.seasons).forEach(seasonName => {
+                        const opt = document.createElement('option');
+                        opt.value = seasonName;
+                        opt.textContent = seasonName;
+                        seasonSelect.appendChild(opt);
+                    });
+
+                    const updateEpisodes = (seasonName) => {
+                        episodeSelect.innerHTML = '';
+                        const episodes = item.seasons[seasonName] || [];
+                        episodes.forEach(ep => {
+                            const opt = document.createElement('option');
+                            opt.value = ep.url;
+                            opt.textContent = ep.name;
+                            episodeSelect.appendChild(opt);
+                        });
+                        if (episodes.length > 0 && moviePlayer) {
+                            moviePlayer.src = episodes[0].url;
+                        }
+                    };
+
+                    updateEpisodes(Object.keys(item.seasons)[0]);
+
+                    seasonSelect.onchange = (e) => {
+                        updateEpisodes(e.target.value);
+                    };
+
+                    episodeSelect.onchange = (e) => {
+                        if (moviePlayer) moviePlayer.src = e.target.value;
+                    };
+                }
+            } else {
+                if (episodeContainer) episodeContainer.style.display = 'none';
+                if (moviePlayer) moviePlayer.src = item.videoUrl || '';
+            }
+
             videoModal.style.display = 'flex';
         }
     });
@@ -239,27 +308,4 @@ function setupVideoModal() {
     const closeVideoModalBtn = document.getElementById('closeVideoModal');
     const moviePlayer = document.getElementById('moviePlayer');
 
-    if (closeVideoModalBtn && videoModal) {
-        closeVideoModalBtn.addEventListener('click', () => {
-            videoModal.style.display = 'none';
-            if (moviePlayer) moviePlayer.src = '';
-        });
-    }
-
-    window.addEventListener('click', (e) => {
-        if (e.target === videoModal) {
-            videoModal.style.display = 'none';
-            if (moviePlayer) moviePlayer.src = '';
-        }
-    });
-}
-
-function setupMobileMenu() {
-    const menuBtn = document.getElementById('menuBtn');
-    if (menuBtn) {
-        menuBtn.addEventListener('click', () => {
-            alert("Menu de opções clicado!");
-        });
-    }
-        }
-    
+  
