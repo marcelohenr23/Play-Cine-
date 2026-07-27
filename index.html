@@ -23,7 +23,6 @@
                 <h1 class="brand-header" style="margin-bottom:0; font-size:1.8rem;">
                     <span class="neon-play">PLAY</span><span class="neon-cine">CINE</span>
                 </h1>
-                <!-- Botão de Menu (3 traços) adicionado mantendo todo o resto intacto -->
                 <button id="menuBtn" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 5px;">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -76,6 +75,12 @@
             <div class="video-details" style="margin-bottom: 10px;">
                 <h3 id="modalMovieTitle" style="font-size: 1.1rem; margin-bottom: 4px;">Título</h3>
                 <p id="modalMovieDesc" style="color: var(--text-muted); font-size: 0.85rem;">Gênero • Ano</p>
+            </div>
+
+            <!-- SELETORES DE TEMPORADA E EPISÓDIO (Discreto e elegante) -->
+            <div id="episodeSelectorContainer" style="display: none; margin-bottom: 12px; gap: 8px; display: none;">
+                <select id="seasonSelect" style="padding: 6px 10px; background: #1a1a1a; color: white; border: 1px solid #333; border-radius: 4px; font-size: 0.85rem;"></select>
+                <select id="episodeSelect" style="padding: 6px 10px; background: #1a1a1a; color: white; border: 1px solid #333; border-radius: 4px; font-size: 0.85rem; flex-grow: 1;"></select>
             </div>
 
             <div class="video-container">
