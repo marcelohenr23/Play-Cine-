@@ -67,133 +67,16 @@ const movies = [
 ];
 
 const series = [
-  { 
-    title: "Avatar: O Último Mestre do Air", 
-    genre: "Aventura", 
-    year: "2024", 
-    image: "img/avata.jpg", 
-    videoUrl: "",
-    seasons: [
-      {
-        seasonNumber: 1,
-        episodes: [
-          { number: 1, title: "Episódio 1", videoUrl: "" },
-          { number: 2, title: "Episódio 2", videoUrl: "" }
-        ]
-      }
-    ]
-  },
-  { 
-    title: "Capoeiras", 
-    genre: "Ação", 
-    year: "2024", 
-    image: "img/capoeiras.jpg", 
-    videoUrl: "",
-    seasons: [
-      {
-        seasonNumber: 1,
-        episodes: [
-          { number: 1, title: "Episódio 1", videoUrl: "" }
-        ]
-      }
-    ]
-  },
-  { 
-    title: "O Dia do Chacal", 
-    genre: "Thriller", 
-    year: "2024", 
-    image: "img/chacal.jpg", 
-    videoUrl: "https://ww4.embedtv.lat/chacal-ep1",
-    seasons: [
-      {
-        seasonNumber: 1,
-        episodes: [
-          { number: 1, title: "Episódio 1", videoUrl: "https://ww4.embedtv.lat/chacal-ep1" },
-          { number: 2, title: "Episódio 2", videoUrl: "https://ww4.embedtv.lat/chacal-ep2" }
-        ]
-      }
-    ]
-  },
-  { 
-    title: "Coragem, Irmão!", 
-    genre: "Ação", 
-    year: "2024", 
-    image: "img/coragemirmao.jpg", 
-    videoUrl: "",
-    seasons: [
-      {
-        seasonNumber: 1,
-        episodes: [
-          { number: 1, title: "Episódio 1", videoUrl: "" }
-        ]
-      }
-    ]
-  }
+  { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
+  { title: "Capoeiras", genre: "Ação", year: "2024", image: "img/capoeiras.jpg", videoUrl: "" },
+  { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "" },
+  { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
 ];
 
+// Dados para Tops Séries e Conteúdo Premium com Cadeados Bloqueados
 const topSeries = [
-  { 
-    title: "Avatar: O Último Mestre do Air", 
-    genre: "Aventura", 
-    year: "2024", 
-    image: "img/avata.jpg", 
-    videoUrl: "",
-    seasons: [
-      {
-        seasonNumber: 1,
-        episodes: [
-          { number: 1, title: "Episódio 1", videoUrl: "" },
-          { number: 2, title: "Episódio 2", videoUrl: "" }
-        ]
-      }
-    ]
-  },
-  { 
-    title: "O Dia do Chacal", 
-    genre: "Thriller", 
-    year: "2024", 
-    image: "img/chacal.jpg", 
-    videoUrl: "https://ww4.embedtv.lat/chacal-ep1",
-    seasons: [
-      {
-        seasonNumber: 1,
-        episodes: [
-          { number: 1, title: "Episódio 1", videoUrl: "https://ww4.embedtv.lat/chacal-ep1" },
-          { number: 2, title: "Episódio 2", videoUrl: "https://ww4.embedtv.lat/chacal-ep2" }
-        ]
-      }
-    ]
-  },
-  { 
-    title: "Capoeiras", 
-    genre: "Ação", 
-    year: "2024", 
-    image: "img/capoeiras.jpg", 
-    videoUrl: "",
-    seasons: [
-      {
-        seasonNumber: 1,
-        episodes: [
-          { number: 1, title: "Episódio 1", videoUrl: "" }
-        ]
-      }
-    ]
-  },
-  { 
-    title: "Coragem, Irmão!", 
-    genre: "Ação", 
-    year: "2024", 
-    image: "img/coragemirmao.jpg", 
-    videoUrl: "",
-    seasons: [
-      {
-        seasonNumber: 1,
-        episodes: [
-          { number: 1, title: "Episódio 1", videoUrl: "" }
-        ]
-      }
-    ]
-  }
+  { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
+  { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "" }
 ];
 
 const premiumMovies = [
@@ -246,36 +129,36 @@ function renderMovies(filteredMovies = movies, filteredSeries = series) {
 
     if (recentGridEl) {
         filteredMovies.slice(0, 4).forEach(movie => {
-            recentGridEl.appendChild(createCard(movie, false));
+            recentGridEl.appendChild(createMovieCard(movie));
         });
     }
 
     if (movieGridEl) {
         filteredMovies.forEach(movie => {
-            movieGridEl.appendChild(createCard(movie, false));
+            movieGridEl.appendChild(createMovieCard(movie));
         });
     }
 
     if (serieGridEl) {
         filteredSeries.forEach(serie => {
-            serieGridEl.appendChild(createCard(serie, true));
+            serieGridEl.appendChild(createMovieCard(serie));
         });
     }
 
     if (topSerieGridEl) {
         topSeries.forEach(serie => {
-            topSerieGridEl.appendChild(createCard(serie, true));
+            topSerieGridEl.appendChild(createMovieCard(serie));
         });
     }
 
     if (premiumGridEl) {
         premiumMovies.forEach(movie => {
-            premiumGridEl.appendChild(createCard(movie, false));
+            premiumGridEl.appendChild(createMovieCard(movie));
         });
     }
 }
 
-function createCard(item, isSerie) {
+function createMovieCard(item) {
     const card = document.createElement('div');
     card.classList.add('movie-card');
 
@@ -297,60 +180,74 @@ function createCard(item, isSerie) {
         const modalMovieTitle = document.getElementById('modalMovieTitle');
         const modalMovieDesc = document.getElementById('modalMovieDesc');
         const moviePlayer = document.getElementById('moviePlayer');
-        const episodeSelectorContainer = document.getElementById('episodeSelectorContainer');
-        const seasonSelect = document.getElementById('seasonSelect');
-        const episodeSelect = document.getElementById('episodeSelect');
 
         if (videoModal) {
             if (modalMovieTitle) modalMovieTitle.textContent = item.title;
             if (modalMovieDesc) modalMovieDesc.textContent = `${item.genre} • ${item.year}`;
-            
-            if (isSerie && item.seasons && item.seasons.length > 0) {
-                if (episodeSelectorContainer) episodeSelectorContainer.style.display = 'flex';
-                
-                if (seasonSelect) {
-                    seasonSelect.innerHTML = '';
-                    item.seasons.forEach((season, index) => {
-                        const opt = document.createElement('option');
-                        opt.value = index;
-                        opt.textContent = `Temporada ${season.seasonNumber}`;
-                        seasonSelect.appendChild(opt);
-                    });
-                }
+            if (moviePlayer) moviePlayer.src = item.videoUrl || '';
+            videoModal.style.display = 'flex';
+        }
+    });
 
-                const updateEpisodes = (seasonIndex) => {
-                    if (episodeSelect) {
-                        episodeSelect.innerHTML = '';
-                        const currentSeason = item.seasons[seasonIndex];
-                        if (currentSeason && currentSeason.episodes) {
-                            currentSeason.episodes.forEach((ep, epIndex) => {
-                                const opt = document.createElement('option');
-                                opt.value = epIndex;
-                                opt.textContent = ep.title || `Episódio ${ep.number}`;
-                                episodeSelect.appendChild(opt);
-                            });
-                            if (moviePlayer && currentSeason.episodes[0]) {
-                                moviePlayer.src = currentSeason.episodes[0].videoUrl || item.videoUrl || '';
-                            }
-                        }
-                    }
-                };
+    return card;
+}
 
-                updateEpisodes(0);
+function setupSearchAndFilter() {
+    const searchInput = document.getElementById('searchInput');
+    const filterBtns = document.querySelectorAll('.filter-btn');
 
-                seasonSelect.onchange = (e) => {
-                    updateEpisodes(e.target.value);
-                };
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const searchedMovies = movies.filter(m => m.title.toLowerCase().includes(query) || m.genre.toLowerCase().includes(query));
+            const searchedSeries = series.filter(s => s.title.toLowerCase().includes(query) || s.genre.toLowerCase().includes(query));
+            renderMovies(searchedMovies, searchedSeries);
+        });
+    }
 
-                episodeSelect.onchange = (e) => {
-                    const sIndex = seasonSelect.value;
-                    const epIndex = e.target.value;
-                    const selectedEp = item.seasons[sIndex].episodes[epIndex];
-                    if (moviePlayer && selectedEp) {
-                        moviePlayer.src = selectedEp.videoUrl || item.videoUrl || '';
-                    }
-                };
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const category = btn.getAttribute('data-category');
+            if (category === 'all') {
+                renderMovies(movies, series);
             } else {
-                if (episodeSelectorContainer) episodeSelectorContainer.style.display = 'none';
-                if (moviePlayer) {
-                    moviePlayer.
+                const filteredM = movies.filter(m => m.genre === category);
+                const filteredS = series.filter(s => s.genre === category);
+                renderMovies(filteredM, filteredS);
+            }
+        });
+    });
+}
+
+function setupVideoModal() {
+    const videoModal = document.getElementById('videoModal');
+    const closeVideoModalBtn = document.getElementById('closeVideoModal');
+    const moviePlayer = document.getElementById('moviePlayer');
+
+    if (closeVideoModalBtn && videoModal) {
+        closeVideoModalBtn.addEventListener('click', () => {
+            videoModal.style.display = 'none';
+            if (moviePlayer) moviePlayer.src = '';
+        });
+    }
+
+    window.addEventListener('click', (e) => {
+        if (e.target === videoModal) {
+            videoModal.style.display = 'none';
+            if (moviePlayer) moviePlayer.src = '';
+        }
+    });
+}
+
+function setupMobileMenu() {
+    const menuBtn = document.getElementById('menuBtn');
+    if (menuBtn) {
+        menuBtn.addEventListener('click', () => {
+            alert("Menu de opções clicado!");
+        });
+    }
+   }
+    
