@@ -67,7 +67,19 @@ const movies = [
 ];
 
 const series = [
-    { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "https://fembed.sx/e/222766/1-1" },
+    { 
+        title: "O Dia do Chacal", 
+        genre: "Thriller", 
+        year: "2024", 
+        image: "img/chacal.jpg", 
+        isSeries: true, 
+        seasons: {
+            "Temporada 1": [
+                { name: "Episódio 1", url: "https://fembed.sx/e/222766/1-1" },
+                { name: "Episódio 2", url: "https://fembed.sx/e/222766/1-2" }
+            ]
+        }
+    },
     { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
     { title: "Capoeiras", genre: "Ação", year: "2024", image: "img/capoeiras.jpg", videoUrl: "" },
     { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
