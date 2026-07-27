@@ -1,161 +1,67 @@
 const movies = [
-    { title: "Jack o Caçador de Gigantes", genre: "Aventura", year: "2013", image: "img/jackgigante.jpg", videoUrl: "https://fembed.sx/e/81005-dub" },
-    { title: "Missão Pandora", genre: "Ficção", year: "2024", image: "img/1.jpg", videoUrl: "https://fembed.sx/e/1056569-dub" },
-    { title: "Águas Que Corroem", genre: "Terror", year: "2024", image: "img/agu.jpg", videoUrl: "https://fembed.sx/e/561362-dub" },
-    { title: "Caça-Fantasmas", genre: "Comédia", year: "2016", image: "img/caca.jpg", videoUrl: "" },
-    { title: "Caçada Sem Regras", genre: "Ação", year: "2023", image: "img/cacada.jpg", videoUrl: "" },
-    { title: "Furioza 2", genre: "Ação", year: "2024", image: "img/fuu.jpg", videoUrl: "" },
-    { title: "Gigantes de Aço", genre: "Ficção", year: "2011", image: "img/giga.jpg", videoUrl: "" },
-    { title: "Guerra Primitiva", genre: "Ação", year: "2024", image: "img/gu.jpg", videoUrl: "" },
-    { title: "A Primeira Noite de Crime", genre: "Terror", year: "2018", image: "img/noi.jpg", videoUrl: "" },
-    { title: "Jovens Titãs: O Contrato de Judas", genre: "Animação", year: "2017", image: "img/tita.jpg", videoUrl: "" },
-    { title: "Caçador de Tormentas", genre: "Ação", year: "2023", image: "img/to.jpg", videoUrl: "" },
-    { title: "Uma História de Vingança", genre: "Ação", year: "2017", image: "img/vi.jpg", videoUrl: "" },
-    { title: "Ong-Bak 2", genre: "Ação", year: "2008", image: "img/ongbak2.jpg", videoUrl: "https://fembed.sx/e/16353-dub" },
-    { title: "Ong-Bak 3", genre: "Ação", year: "2010", image: "img/ongbak3 (1).jpg", videoUrl: "https://fembed.sx/e/43209-dub" },
-    { title: "Assalto à Casa Blanca", genre: "Ação", year: "2013", image: "img/assaltoacasabranca.jpg", videoUrl: "" },
-    { title: "Busca Explosiva 4", genre: "Ação", year: "2023", image: "img/buscaexplosiva4.jpg", videoUrl: "" },
-    { title: "Força Bruta: Punição", genre: "Ação", year: "2024", image: "img/forcabrutapunicao.jpg", videoUrl: "" },
-    { title: "Força Bruta: Sem Saída", genre: "Ação", year: "2022", image: "img/forcabrutasemsaida.jpg", videoUrl: "" },
-    { title: "O Valente", genre: "Ação", year: "2023", image: "img/ovalente.jpg", videoUrl: "" },
-    { title: "Plano de Família 2", genre: "Ação", year: "2024", image: "img/planodefamilia2.jpg", videoUrl: "" },
-    { title: "Quem Morre", genre: "Terror", year: "2023", image: "img/quemmorre.jpg", videoUrl: "" },
-    { title: "Red: Aposentados e Perigosos", genre: "Ação", year: "2010", image: "img/redaposentado.jpg", videoUrl: "" },
-    { title: "Sicario", genre: "Ação", year: "2015", image: "img/sicario.jpg", videoUrl: "" },
-    { title: "Superman: O Retorno", genre: "Ficção", year: "2006", image: "img/oretorno.jpg", videoUrl: "" },
-    { title: "Caçada Sangrenta", genre: "Ação", year: "2024", image: "img/cacadasangrenta.jpg", videoUrl: "https://fembed.sx/e/1084222-dub" },
-    { title: "Cores da Justiça", genre: "Ação", year: "2024", image: "img/coresdajustica.jpg", videoUrl: "https://fembed.sx/e/578189-dub" },
-    { title: "Gamer", genre: "Ação", year: "2009", image: "img/gamer.jpg", videoUrl: "https://fembed.sx/e/18501-dub" },
-    { title: "Johnny English", genre: "Comédia", year: "2003", image: "img/jonyingles.jpg", videoUrl: "https://fembed.sx/e/463272-dub" },
-    { title: "O Ataque dos 6 Tubarões", genre: "Terror", year: "2021", image: "img/oataquedos6tubaroes.jpg", videoUrl: "https://fembed.sx/e/522438-dub" },
-    { title: "A Guerra do Amanhã", genre: "Ficção", year: "2021", image: "img/tomorow.jpg", videoUrl: "" },
-    { title: "Ambulância: Um Dia de Crime", genre: "Ação", year: "2022", image: "img/ambulancia.jpg", videoUrl: "https://fembed.sx/e/763285" },
-    { title: "Beekeeper: Rede de Vingança", genre: "Ação", year: "2024", image: "img/beekeeper.jpg", videoUrl: "https://fembed.sx/e/866398" },
-    { title: "Code 8: Renegados", genre: "Ficção", year: "2019", image: "img/code8.png", videoUrl: "https://fembed.sx/e/461130-dub" },
-    { title: "iBoy", genre: "Ação", year: "2017", image: "img/iboy.jpg", videoUrl: "https://fembed.sx/e/414190-dub" },
-    { title: "Legado Explosivo", genre: "Ação", year: "2020", image: "img/legadoexplosivo.webp", videoUrl: "https://fembed.sx/e/553604-dub" },
-    { title: "Operação Fronteira", genre: "Ação", year: "2019", image: "img/operacaofroteira.jpg", videoUrl: "https://fembed.sx/e/399361" },
-    { title: "Em Ritmo de Fuga", genre: "Ação", year: "2017", image: "img/em ritmo de fuga.jpg", videoUrl: "https://fembed.sx/e/339403" },
-    { title: "Implacável", genre: "Ação", year: "2021", image: "img/implacavel.jpg", videoUrl: "https://fembed.sx/e/534490-dub" },
-    { title: "Sem Limite", genre: "Ação", year: "2011", image: "img/semlimite.jpg", videoUrl: "https://fembed.sx/e/1138749-dub" },
-    { title: "Vingança", genre: "Ação", year: "2019", image: "img/vinganca.jpg", videoUrl: "https://fembed.sx/e/1195518-dub" },
-    { title: "Avatar", genre: "Aventura", year: "2009", image: "img/avata1.jpg", videoUrl: "https://fembed.sx/e/19995-dub" },
-    { title: "Avatar: O Caminho da Água", genre: "Aventura", year: "2022", image: "img/avata2.jpg", videoUrl: "https://fembed.sx/e/76600-dub" },
-    { title: "Avatar 3", genre: "Aventura", year: "2025", image: "img/avata3.jpg", videoUrl: "https://fembed.sx/e/83533-dub" },
-    { title: "A Chamada", genre: "Ação", year: "2023", image: "img/achamada.jpg", videoUrl: "https://fembed.sx/e/762430-dub" },
-    { title: "Resgate", genre: "Ação", year: "2020", image: "img/resgate1.jpg", videoUrl: "https://fembed.sx/e/545609-dub" },
-    { title: "Resgate 2", genre: "Ação", year: "2023", image: "img/resgate2.jpg", videoUrl: "https://fembed.sx/e/697843-dub" },
-    { title: "Um Panda em Apuros 2", genre: "Animação", year: "2022", image: "img/apuro3.jpg", videoUrl: "" },
-    { title: "Baywatch: Marés Vivas", genre: "Ação", year: "2017", image: "img/baywat.jpg", videoUrl: "" },
-    { title: "A Barraca do Beijo 3", genre: "Romance", year: "2021", image: "img/beijo3.jpg", videoUrl: "" },
-    { title: "A Fantástica Fábrica de Chocolate", genre: "Fantasia", year: "1971", image: "img/chocolate1.jpg", videoUrl: "" },
-    { title: "Dora e a Cidade Perdida", genre: "Aventura", year: "2019", image: "img/cidadeperdida.jpg", videoUrl: "" },
-    { title: "A Idade do Gelo 3: O Despertar dos Dinossauros", genre: "Animação", year: "2009", image: "img/eradogelo.jpg", videoUrl: "" },
-    { title: "Charlie e a Fábrica de Chocolate", genre: "Fantasia", year: "2005", image: "img/fabricachocolate.jpg", videoUrl: "" },
-    { title: "Gru: O Maldisposto", genre: "Animação", year: "2010", image: "img/gru.jpg", videoUrl: "" },
-    { title: "Gru: O Maldisposto 3", genre: "Animação", year: "2017", image: "img/gru3.jpg", videoUrl: "" },
-    { title: "Minions", genre: "Animação", year: "2015", image: "img/minios.jpg", videoUrl: "" },
-    { title: "Ó Paí, Ó", genre: "Comédia", year: "2007", image: "img/opaio.jpg", videoUrl: "" },
-    { title: "O Cão e a Raposa 2", genre: "Animação", year: "2006", image: "img/raposa2.jpg", videoUrl: "" },
-    { title: "R.I.P.D.: Agentes do Além", genre: "Ação", year: "2013", image: "img/rip.jpg", videoUrl: "" },
-    { title: "Soul: Uma Aventura com Alma", genre: "Animação", year: "2020", image: "img/soul.jpg", videoUrl: "" },
-    { title: "Toy Story 2", genre: "Animação", year: "1999", image: "img/story2.jpg", videoUrl: "" },
-    { title: "Toy Story 3", genre: "Animação", year: "2010", image: "img/story3.jpg", videoUrl: "" },
-    { title: "Toy Story 4", genre: "Animação", year: "2019", image: "img/story4.jpg", videoUrl: "" },
-    { title: "Todo Mundo em Pânico 2", genre: "Comédia", year: "2001", image: "img/tdmundo2.jpg", videoUrl: "" },
-    { title: "Todo Mundo em Pânico 3", genre: "Comédia", year: "2003", image: "img/tdmundo3.jpg", videoUrl: "" }
+    { title: "Jack o Caçador de Gigantes", genre: "Aventura", year: "2013", image: "img/jackgigante.jpg", videoUrl: "https://fembed.sx/e/81005-dub", description: "Uma antiga guerra entra em erupção novamente quando um jovem fazendeiro abre involuntariamente um portal entre nosso mundo e uma raça de gigantes aterrorizantes." },
+    { title: "Missão Pandora", genre: "Ficção", year: "2024", image: "img/1.jpg", videoUrl: "https://fembed.sx/e/1056569-dub", description: "Em uma missão de alto risco em território desconhecido, agentes precisam lutar contra o tempo para recuperar um artefato tecnológico." },
+    { title: "Águas Que Corroem", genre: "Terror", year: "2024", image: "img/agu.jpg", videoUrl: "https://fembed.sx/e/561362-dub", description: "Um grupo de amigos explora uma área isolada de águas profundas e descobre uma presença maligna à espreita." },
+    { title: "Caça-Fantasmas", genre: "Comédia", year: "2016", image: "img/caca.jpg", videoUrl: "", description: "Com equipes de investigadores paranormais estreantes, Nova York é salva por um grupo hilário e corajoso." },
+    { title: "Caçada Sem Regras", genre: "Ação", year: "2023", image: "img/cacada.jpg", videoUrl: "", description: "Em um jogo de gato e rato implacável, um ex-agente precisa proteger sua família contra mercenários." },
+    { title: "Furioza 2", genre: "Ação", year: "2024", image: "img/fuu.jpg", videoUrl: "", description: "A continuação eletrizante repleta de confrontos sangrentos e alianças perigosas no submundo do crime." },
+    { title: "Gigantes de Aço", genre: "Ficção", year: "2011", image: "img/giga.jpg", videoUrl: "", description: "Em um futuro próximo onde robôs combatem no ringue, um ex-lutador tenta uma nova chance treinando uma máquina obsoleta." },
+    { title: "Guerra Primitiva", genre: "Ação", year: "2024", image: "img/gu.jpg", videoUrl: "", description: "Soldados em missões hostis se deparam com ameaças primordiais ferozes e implacáveis." },
+    { title: "A Primeira Noite de Crime", genre: "Terror", year: "2018", image: "img/noi.jpg", videoUrl: "", description: "Para baixar a taxa de criminalidade para o resto do ano, os novos founding fathers testam uma teoria sociológica em uma ilha isolada." },
+    { title: "Jovens Titãs: O Contrato de Judas", genre: "Animação", year: "2017", image: "img/tita.jpg", videoUrl: "", description: "Os Titãs recebem uma nova integrante, mas segredos obscuros ameaçam destruir a equipe por dentro." },
+    { title: "Caçador de Tormentas", genre: "Ação", year: "2023", image: "img/to.jpg", videoUrl: "", description: "Perseguindo furacões mortais, um grupo percebe que há criminosos usando o caos climáticos para encobrir assaltos." },
+    { title: "Uma História de Vingança", genre: "Ação", year: "2017", image: "img/vi.jpg", videoUrl: "", description: "Após uma tragédia pessoal, um homem busca implacavelmente os responsáveis por destruir sua vida." },
+    { title: "Ong-Bak 2", genre: "Ação", year: "2008", image: "img/ongbak2.jpg", videoUrl: "https://fembed.sx/e/16353-dub", description: "Traído e vendido como escravo, um jovem guerreiro busca dominar artes marciais lendárias para sua vingança." },
+    { title: "Ong-Bak 3", genre: "Ação", year: "2010", image: "img/ongbak3 (1).jpg", videoUrl: "https://fembed.sx/e/43209-dub", description: "A conclusão épica da jornada de artes marciais, enfrentando o destino e o renascimento espiritual." },
+    { title: "Assalto à Casa Blanca", genre: "Ação", year: "2013", image: "img/assaltoacasabranca.jpg", videoUrl: "", description: "Uma operação altamente coordenada coloca a segurança nacional em risco extremo." },
+    { title: "Busca Explosiva 4", genre: "Ação", year: "2023", image: "img/buscaexplosiva4.jpg", videoUrl: "", description: "Tiroteios intensos e missões suicidas marcam o retorno deste grupo inconfundível de mercenários." },
+    { title: "Força Bruta: Punição", genre: "Ação", year: "2024", image: "img/forcabrutapunicao.jpg", videoUrl: "", description: "Detetives durões entram em ação para desmantelar uma rede perigosa de crimes cibernéticos e extorsão." },
+    { title: "Força Bruta: Sem Saída", genre: "Ação", year: "2022", image: "img/forcabrutasemsaida.jpg", videoUrl: "", description: "A lei do mais forte impera quando a polícia decide caçar criminosos internacionais sem seguir protocolos." },
+    { title: "O Valente", genre: "Ação", year: "2023", image: "img/ovalente.jpg", videoUrl: "", description: "Um homem comum descobre sua verdadeira coragem ao enfrentar uma facção criminosa local." },
+    { title: "Plano de Família 2", genre: "Ação", year: "2024", image: "img/planodefamilia2.jpg", videoUrl: "", description: "Um ex-assassino pacato é arrastado de volta ao passado mortal durante o que deveria ser uma viagem comum de férias." },
+    { title: "Quem Morre", genre: "Terror", year: "2023", image: "img/quemmorre.jpg", videoUrl: "", description: "Um jogo de sobrevivência sádico coloca amigos uns contra os outros em uma mansão trancada." },
+    { title: "Red: Aposentados e Perigosos", genre: "Ação", year: "2010", image: "img/redaposentado.jpg", videoUrl: "", description: "Ex-agentes da CIA aposentados precisam se reunir após serem marcados para morrer por uma conspiração." },
+    { title: "Sicario", genre: "Ação", year: "2015", image: "img/sicario.jpg", videoUrl: "", description: "Uma agente do FBI idealista é alistada por uma força-tarefa governamental para combater o cartel na fronteira." },
+    { title: "Superman: O Retorno", genre: "Ficção", year: "2006", image: "img/oretorno.jpg", videoUrl: "", description: "O Homem de Aço retorna à Terra após uma longa ausência e precisa lidar com um mundo que seguiu em frente sem ele." },
+    { title: "Caçada Sangrenta", genre: "Ação", year: "2024", image: "img/cacadasangrenta.jpg", videoUrl: "https://fembed.sx/e/1084222-dub", description: "Uma perseguição implacável transforma uma floresta isolada em uma zona de guerra brutal." },
+    { title: "Cores da Justiça", genre: "Ação", year: "2024", image: "img/coresdajustica.jpg", videoUrl: "https://fembed.sx/e/578189-dub", description: "Policiais enfrentam dilemas morais profundos em meio à corrupção sistêmica na cidade." },
+    { title: "Gamer", genre: "Ação", year: "2009", image: "img/gamer.jpg", videoUrl: "https://fembed.sx/e/18501-dub", description: "Em um futuro onde prisioneiros são controlados por humanos em um jogo online de tiro, um lutador busca sua liberdade." },
+    { title: "Johnny English", genre: "Comédia", year: "2003", image: "img/jonyingles.jpg", videoUrl: "https://fembed.sx/e/463272-dub", description: "O agente secreto mais desastrosos do mundo precisa salvar as Joias da Coroa britânica por pura sorte." },
+    { title: "O Ataque dos 6 Tubarões", genre: "Terror", year: "2021", image: "img/oataquedos6tubaroes.jpg", videoUrl: "https://fembed.sx/e/522438-dub", description: "Visitantes em uma instalação de pesquisa científica isolada lutam para sobreviver a criaturas mutantes." },
+    { title: "A Guerra do Amanhã", genre: "Ficção", year: "2021", image: "img/tomorow.jpg", videoUrl: "", description: "Viajantes do tempo chegam do ano 2051 para entregar uma mensagem urgente: a humanidade está perdendo uma guerra global." },
+    { title: "Ambulância: Um Dia de Crime", genre: "Ação", year: "2022", image: "img/ambulancia.jpg", videoUrl: "https://fembed.sx/e/763285", description: "Dois irmãos adotivos executam um assalto a banco que dá errado e sequestram uma ambulância para fugir." },
+    { title: "Beekeeper: Rede de Vingança", genre: "Ação", year: "2024", image: "img/beekeeper.jpg", videoUrl: "https://fembed.sx/e/866398", description: "A brutal campanha de vingança de um homem assume riscos nacionais quando se descobre que ele é um ex-agente secreto." },
+    { title: "Code 8: Renegados", genre: "Ficção", year: "2019", image: "img/code8.png", videoUrl: "https://fembed.sx/e/461130-dub", description: "Em um mundo onde pessoas com superpoderes vivem na margem da sociedade, um jovem recorre ao crime para salvar sua mãe." },
+    { title: "iBoy", genre: "Ação", year: "2017", image: "img/iboy.jpg", videoUrl: "https://fembed.sx/e/414190-dub", description: "Após um incidente com fragmentos de celular em seu cérebro, um adolescente ganha superpoderes tecnológicos." },
+    { title: "Legado Explosivo", genre: "Ação", year: "2020", image: "img/legadoexplosivo.webp", videoUrl: "https://fembed.sx/e/553604-dub", description: "Um gênio da engenharia planeja invadir o cofre mais intransponível do mundo durante a Copa do Mundo." },
+    { title: "Operação Fronteira", genre: "Ação", year: "2019", image: "img/operacaofroteira.jpg", videoUrl: "https://fembed.sx/e/399361", description: "Cinco ex-veteranos das Forças Armadas se reúnem para roubar a fortuna de um poderoso chefão do narcotráfico." },
+    { title: "Em Ritmo de Fuga", genre: "Ação", year: "2017", image: "img/em ritmo de fuga.jpg", videoUrl: "https://fembed.sx/e/339403", description: "Um jovem motorista de fuga talentoso confia na trilha sonora perfeita para ser o melhor no que faz." },
+    { title: "Implacável", genre: "Ação", year: "2021", image: "img/implacavel.jpg", videoUrl: "https://fembed.sx/e/534490-dub", description: "Uma jornada implacável de justiça com sequências intensas de perseguição e combate." },
+    { title: "Sem Limite", genre: "Ação", year: "2011", image: "img/semlimite.jpg", videoUrl: "https://fembed.sx/e/1138749-dub", description: "Um escritor frustrado toma uma pílula revolucionária que destrava 100% da capacidade cerebral." },
+    { title: "Vingança", genre: "Ação", year: "2019", image: "img/vinganca.jpg", videoUrl: "https://fembed.sx/e/1195518-dub", description: "Uma caçada implacável pelo submundo do crime em busca de reparação e acerto de contas." },
+    { title: "Avatar", genre: "Aventura", year: "2009", image: "img/avata1.jpg", videoUrl: "https://fembed.sx/e/19995-dub", description: "Um fuzileiro naval paraplégico é enviado à lua Pandora em uma missão única, dividindo-se entre ordens e sua nova tribo." },
+    { title: "Avatar: O Caminho da Água", genre: "Aventura", year: "2022", image: "img/avata2.jpg", videoUrl: "https://fembed.sx/e/76600-dub", description: "Jake Sully vive com sua família em Pandora, protegendo seus laços contra uma nova ameaça humana." },
+    { title: "Avatar 3", genre: "Aventura", year: "2025", image: "img/avata3.jpg", videoUrl: "https://fembed.sx/e/83533-dub", description: "Novas culturas e desafios aguardam o clã em territórios inexplorados de Pandora." },
+    { title: "A Chamada", genre: "Ação", year: "2023", image: "img/achamada.jpg", videoUrl: "https://fembed.sx/e/762430-dub", description: "Uma ligação misteriosa conecta duas pessoas em linhas temporais diferentes com consequências fatais." },
+    { title: "Resgate", genre: "Ação", year: "2020", image: "img/resgate1.jpg", videoUrl: "https://fembed.sx/e/545609-dub", description: "Um mercenário destemido do mercado negro embarca em uma missão suicida para resgatar o filho sequestrado de um lorde do crime." },
+    { title: "Resgate 2", genre: "Ação", year: "2023", image: "img/resgate2.jpg", videoUrl: "https://fembed.sx/e/697843-dub", description: "Após quase morrer na primeira missão, Tyler Rake retorna para resgatar a família de um implacável gângster." }
 ];
 
 const series = [
-    { 
-        title: "O Dia do Chacal", 
-        genre: "Thriller", 
-        year: "2024", 
-        image: "img/chacal.jpg", 
-        seasons: [
-            {
-                seasonNumber: 1,
-                episodes: [
-                    { title: "Episódio 1", videoUrl: "https://fembed.sx/e/222766" }
-                ]
-            }
-        ]
-    },
-    { 
-        title: "Avatar: O Último Mestre do Air", 
-        genre: "Aventura", 
-        year: "2024", 
-        image: "img/avata.jpg", 
-        seasons: [
-            {
-                seasonNumber: 1,
-                episodes: [
-                    { title: "Episódio 1", videoUrl: "https://betterflix.lat/api/player?id=82452&type=tv&season=1&episode=1" }
-                ]
-            }
-        ]
-    },
-    { title: "Capoeiras", genre: "Ação", year: "2024", image: "img/capoeiras.jpg", videoUrl: "" },
-    { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
+    { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "https://fembed.sx/e/222766", description: "Um assassino profissional altamente qualificado conhecido como O Chacal assume seu contrato mais desafiador." },
+    { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "https://betterflix.lat/api/player?id=82452&type=tv&season=1&episode=1", description: "Um jovem Avatar deve aprender a dominar os quatro elementos para salvar um mundo dividido pela guerra." },
+    { title: "Capoeiras", genre: "Ação", year: "2024", image: "img/capoeiras.jpg", videoUrl: "", description: "A arte marcial tradicional serve de base para combates intensos e estratégias de sobrevivência urbana." },
+    { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "", description: "Dois irmãos enfrentam dilemas morais e inimigos impiedosos para proteger o que restou da família." }
 ];
 
 const topSeries = [
-    { 
-        title: "O Dia do Chacal", 
-        genre: "Thriller", 
-        year: "2024", 
-        image: "img/chacal.jpg", 
-        seasons: [
-            {
-                seasonNumber: 1,
-                episodes: [
-                    { title: "Episódio 1", videoUrl: "https://fembed.sx/e/222766" }
-                ]
-            }
-        ]
-    },
-    { 
-        title: "Avatar: O Último Mestre do Air", 
-        genre: "Aventura", 
-        year: "2024", 
-        image: "img/avata.jpg", 
-        seasons: [
-            {
-                seasonNumber: 1,
-                episodes: [
-                    { title: "Episódio 1", videoUrl: "https://betterflix.lat/api/player?id=82452&type=tv&season=1&episode=1" }
-                ]
-            }
-        ]
-    }
+    { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "https://fembed.sx/e/222766", description: "Um assassino profissional altamente qualificado conhecido como O Chacal assume seu contrato mais desafiador." },
+    { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "https://betterflix.lat/api/player?id=82452&type=tv&season=1&episode=1", description: "Um jovem Avatar deve aprender a dominar os quatro elementos para salvar um mundo dividido pela guerra." }
 ];
 
 const premiumMovies = [
-    { title: "Chaves 24 Horas", genre: "Comédia", year: "2026", image: "img/chaves.jpg", videoUrl: "https://ww4.embedtv.lat/24h_chaves", isPremium: true },
-    { title: "Todo Mundo Odeia o Chris", genre: "Comédia", year: "2026", image: "img/chris.jpg", videoUrl: "https://ww4.embedtv.lat/24h_odeiachris", isPremium: true },
-    { title: "Dragon Ball Z 24 Horas", genre: "Animação", year: "2026", image: "img/dbz.jpg", videoUrl: "https://ww4.embedtv.lat/24h_dragonball", isPremium: true },
-    { title: "Gloob", genre: "Infantil", year: "2026", image: "img/gloob.jpg", videoUrl: "https://ww4.embedtv.lat/gloob", isPremium: true },
-    { title: "Naruto 24 Horas", genre: "Animação", year: "2026", image: "img/naruto.jpg", videoUrl: "https://ww4.embedtv.lat/24h_naruto", isPremium: true },
-    { title: "Os Simpsons", genre: "Comédia", year: "2026", image: "img/simpson.jpg", videoUrl: "https://ww4.embedtv.lat/24h_simpsons", isPremium: true },
-    { title: "Premiere 1", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere", isPremium: true },
-    { title: "Premiere 2", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere2", isPremium: true },
-    { title: "Premiere 3", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere3", isPremium: true },
-    { title: "Premiere 4", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere4", isPremium: true },
-    { title: "Premiere 5", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere5", isPremium: true },
-    { title: "Premiere 6", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere6", isPremium: true },
-    { title: "Premiere 7", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere7", isPremium: true },
-    { title: "Premiere 8", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere8", isPremium: true },
-    { title: "SporTV 1", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv", isPremium: true },
-    { title: "SporTV 2", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv2", isPremium: true },
-    { title: "SporTV 3", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv3", isPremium: true },
-    { title: "SporTV 4", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv4", isPremium: true },
-    { title: "ESPN 1", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn", isPremium: true },
-    { title: "ESPN 2", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn2", isPremium: true },
-    { title: "ESPN 3", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn3", isPremium: true },
-    { title: "ESPN 4", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn4", isPremium: true },
-    { title: "ESPN 5", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn5", isPremium: true },
-    { title: "ESPN 6", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn6", isPremium: true },
-    { title: "GE TV", genre: "Esportes", year: "2026", image: "img/getv.jpg", videoUrl: "https://www.youtube.com/embed/5LfxhWTrs3s", isPremium: true }
+    { title: "Chaves 24 Horas", genre: "Comédia", year: "2026", image: "img/chaves.jpg", videoUrl: "https://ww4.embedtv.lat/24h_chaves", isPremium: true, description: "Transmissão contínua 24 horas com os melhores momentos da vila mais famosa da TV." },
+    { title: "Todo Mundo Odeia o Chris", genre: "Comédia", year: "2026", image: "img/chris.jpg", videoUrl: "https://ww4.embedtv.lat/24h_odeiachris", isPremium: true, description: "As confusões clássicas da juventude de Chris no Brooklyn." }
 ];
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -239,49 +145,37 @@ function createMovieCard(item) {
         </div>
     `;
 
+    // Ação ao clicar no card: abre a tela de detalhes estilo Netflix
     card.addEventListener('click', () => {
         const videoModal = document.getElementById('videoModal');
+        const modalBackdrop = document.getElementById('modalBackdrop'); // Imagem de fundo do topo do modal
         const modalMovieTitle = document.getElementById('modalMovieTitle');
         const modalMovieDesc = document.getElementById('modalMovieDesc');
+        const modalMetadata = document.getElementById('modalMetadata'); // Elemento para ano, gênero, etc.
+        const playBtn = document.getElementById('playButton'); // Botão "Assistir"
         const moviePlayer = document.getElementById('moviePlayer');
-        const episodeList = document.getElementById('episodeList');
-        const episodeContainer = document.getElementById('episodeListContainer');
+        const playerContainer = document.getElementById('playerContainer'); // Container onde fica o player (escondido inicialmente)
+        const detailsContainer = document.getElementById('modalDetailsContainer'); // Container com sinopse e botões
 
         if (videoModal) {
+            // Preenche as informações na tela de detalhes
+            if (modalBackdrop) modalBackdrop.src = item.image;
             if (modalMovieTitle) modalMovieTitle.textContent = item.title;
-            if (modalMovieDesc) modalMovieDesc.textContent = `${item.genre} • ${item.year}`;
-            
-            if (episodeList) episodeList.innerHTML = '';
+            if (modalMetadata) modalMetadata.textContent = `${item.year} • ${item.genre}`;
+            if (modalMovieDesc) modalMovieDesc.textContent = item.description || "Sem descrição disponível.";
 
-            // Se for série com temporadas e episódios
-            if (item.seasons && item.seasons.length > 0) {
-                if (episodeContainer) episodeContainer.style.display = 'block';
+            // Garante que o painel de detalhes aparece e o player fica oculto até clicar em "Assistir"
+            if (detailsContainer) detailsContainer.style.display = 'block';
+            if (playerContainer) playerContainer.style.display = 'none';
+            if (moviePlayer) moviePlayer.src = '';
 
-                // Carrega o primeiro episódio por padrão
-                const firstEpUrl = item.seasons[0].episodes[0].videoUrl;
-                if (moviePlayer) moviePlayer.src = firstEpUrl;
-
-                // Cria os botões para cada episódio da 1ª temporada
-                item.seasons[0].episodes.forEach((ep) => {
-                    const epBtn = document.createElement('button');
-                    epBtn.textContent = ep.title;
-                    epBtn.style.padding = '6px 12px';
-                    epBtn.style.background = '#e50914';
-                    epBtn.style.color = '#fff';
-                    epBtn.style.border = 'none';
-                    epBtn.style.borderRadius = '4px';
-                    epBtn.style.cursor = 'pointer';
-
-                    epBtn.addEventListener('click', () => {
-                        if (moviePlayer) moviePlayer.src = ep.videoUrl;
-                    });
-
-                    episodeList.appendChild(epBtn);
-                });
-            } else {
-                // Se for filme ou série sem lista de episódios estruturada
-                if (episodeContainer) episodeContainer.style.display = 'none';
-                if (moviePlayer) moviePlayer.src = item.videoUrl || '';
+            // Configura o botão "Assistir" para rodar o vídeo quando pressionado
+            if (playBtn) {
+                playBtn.onclick = () => {
+                    if (detailsContainer) detailsContainer.style.display = 'none';
+                    if (playerContainer) playerContainer.style.display = 'block';
+                    if (moviePlayer) moviePlayer.src = item.videoUrl || '';
+                };
             }
 
             videoModal.style.display = 'flex';
@@ -289,5 +183,43 @@ function createMovieCard(item) {
     });
 
     return card;
+}
+
+function setupSearchAndFilter() {
+    const searchInput = document.getElementById('searchInput');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const searchedMovies = movies.filter(m => m.title.toLowerCase().includes(query) || m.genre.toLowerCase().includes(query));
+            const searchedSeries = series.filter(s => s.title.toLowerCase().includes(query) || s.genre.toLowerCase().includes(query));
+            renderMovies(searchedMovies, searchedSeries);
+        });
+    }
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const category = btn.getAttribute('data-category');
+            if (category === 'all') {
+                renderMovies(movies, series);
+            } else {
+                const filteredM = movies.filter(m => m.genre === category);
+                const filteredS = series.filter(s => s.genre === category);
+                renderMovies(filteredM, filteredS);
             }
-                   
+        });
+    });
+}
+
+function setupVideoModal() {
+    const videoModal = document.getElementById('videoModal');
+    const closeVideoModalBtn = document.getElementById('closeVideoModal');
+    const moviePlayer = document.getElementById('moviePlayer');
+
+    function closeModal() {
+        if (videoModal) {
+       
