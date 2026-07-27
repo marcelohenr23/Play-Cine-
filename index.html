@@ -68,19 +68,24 @@
         <p>&copy; 2026 Play Cine. Todos os direitos reservados.</p>
     </footer>
             
-    <!-- MODAL DE REPRODUÇÃO DO VÍDEO -->
-    <div id="videoModal" class="modal" style="display: none;">
-        <div class="modal-content video-modal-content">
-            <button id="closeVideoModal" class="close-video-btn"><i class="fa-solid fa-xmark"></i></button>
+        <!-- MODAL DE REPRODUÇÃO DO VÍDEO -->
+    <div id="videoModal" class="modal" style="display: none; align-items: center; justify-content: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; padding: 15px;">
+        <div class="modal-content video-modal-content" style="background: #121212; width: 100%; max-width: 800px; border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 8px 25px rgba(0,0,0,0.7); border: 1px solid #222;">
             
-            <div class="video-details" style="margin-bottom: 10px;">
-                <h3 id="modalMovieTitle" style="font-size: 1.1rem; margin-bottom: 4px;">Título</h3>
-                <p id="modalMovieDesc" style="color: var(--text-muted); font-size: 0.85rem;">Gênero • Ano</p>
+            <!-- Barra superior do modal com título e botão de fechar -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #222;">
+                <div>
+                    <h3 id="modalMovieTitle" style="font-size: 1.1rem; color: #fff; margin: 0 0 4px 0; font-weight: 600;">Título</h3>
+                    <p id="modalMovieDesc" style="color: #888; font-size: 0.8rem; margin: 0;">Gênero • Ano</p>
+                </div>
+                <button id="closeVideoModal" style="background: #222; border: none; color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem;"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
-            <div class="video-container">
-                <iframe id="moviePlayer" src="" title="Player de Vídeo" frameborder="0" allowfullscreen></iframe>
+            <!-- Container do Player de Vídeo -->
+            <div class="video-container" style="position: relative; width: 100%; aspect-ratio: 16/9; background: #000;">
+                <iframe id="moviePlayer" src="" title="Player de Vídeo" style="width: 100%; height: 100%; border: none;" allowfullscreen></iframe>
             </div>
+
         </div>
     </div>
 
