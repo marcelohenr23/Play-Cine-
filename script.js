@@ -67,15 +67,67 @@ const movies = [
 ];
 
 const series = [
-    { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "https://fembed.sx/e/222766" },
-    { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
+    { 
+        title: "O Dia do Chacal", 
+        genre: "Thriller", 
+        year: "2024", 
+        image: "img/chacal.jpg", 
+        seasons: [
+            {
+                seasonNumber: 1,
+                episodes: [
+                    { title: "Episódio 1", videoUrl: "https://fembed.sx/e/222766" }
+                ]
+            }
+        ]
+    },
+    { 
+        title: "Avatar: O Último Mestre do Air", 
+        genre: "Aventura", 
+        year: "2024", 
+        image: "img/avata.jpg", 
+        seasons: [
+            {
+                seasonNumber: 1,
+                episodes: [
+                    { title: "Episódio 1", videoUrl: "https://betterflix.lat/api/player?id=82452&type=tv&season=1&episode=1" }
+                ]
+            }
+        ]
+    },
     { title: "Capoeiras", genre: "Ação", year: "2024", image: "img/capoeiras.jpg", videoUrl: "" },
     { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
 ];
 
 const topSeries = [
-    { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "https://fembed.sx/e/222766" },
-    { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" }
+    { 
+        title: "O Dia do Chacal", 
+        genre: "Thriller", 
+        year: "2024", 
+        image: "img/chacal.jpg", 
+        seasons: [
+            {
+                seasonNumber: 1,
+                episodes: [
+                    { title: "Episódio 1", videoUrl: "https://fembed.sx/e/222766" }
+                ]
+            }
+        ]
+    },
+    { 
+        title: "Avatar: O Último Mestre do Air", 
+        genre: "Aventura", 
+        year: "2024", 
+        image: "img/avata.jpg", 
+        seasons: [
+            {
+                seasonNumber: 1,
+                episodes: [
+                    { title: "Episódio 1", videoUrl: "https://betterflix.lat/api/player?id=82452&type=tv&season=1&episode=1" }
+                ]
+            }
+        ]
+    }
 ];
 
 const premiumMovies = [
@@ -192,74 +244,50 @@ function createMovieCard(item) {
         const modalMovieTitle = document.getElementById('modalMovieTitle');
         const modalMovieDesc = document.getElementById('modalMovieDesc');
         const moviePlayer = document.getElementById('moviePlayer');
+        const episodeList = document.getElementById('episodeList');
+        const episodeContainer = document.getElementById('episodeListContainer');
 
         if (videoModal) {
             if (modalMovieTitle) modalMovieTitle.textContent = item.title;
             if (modalMovieDesc) modalMovieDesc.textContent = `${item.genre} • ${item.year}`;
-            if (moviePlayer) moviePlayer.src = item.videoUrl || '';
+            
+            if (episodeList) episodeList.innerHTML = '';
+
+            // Se for série com temporadas e episódios
+            if (item.seasons && item.seasons.length > 0) {
+                if (episodeContainer) episodeContainer.style.display = 'block';
+
+                // Carrega o primeiro episódio por padrão
+                const firstEpUrl = item.seasons[0].episodes[0].videoUrl;
+                if (moviePlayer) moviePlayer.src = firstEpUrl;
+
+                // Cria os botões para cada episódio da 1ª temporada
+                item.seasons[0].episodes.forEach((ep) => {
+                    const epBtn = document.createElement('button');
+                    epBtn.textContent = ep.title;
+                    epBtn.style.padding = '6px 12px';
+                    epBtn.style.background = '#e50914';
+                    epBtn.style.color = '#fff';
+                    epBtn.style.border = 'none';
+                    epBtn.style.borderRadius = '4px';
+                    epBtn.style.cursor = 'pointer';
+
+                    epBtn.addEventListener('click', () => {
+                        if (moviePlayer) moviePlayer.src = ep.videoUrl;
+                    });
+
+                    episodeList.appendChild(epBtn);
+                });
+            } else {
+                // Se for filme ou série sem lista de episódios estruturada
+                if (episodeContainer) episodeContainer.style.display = 'none';
+                if (moviePlayer) moviePlayer.src = item.videoUrl || '';
+            }
+
             videoModal.style.display = 'flex';
         }
     });
 
     return card;
-}
-
-function setupSearchAndFilter() {
-    const searchInput = document.getElementById('searchInput');
-    const filterBtns = document.querySelectorAll('.filter-btn');
-
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            const searchedMovies = movies.filter(m => m.title.toLowerCase().includes(query) || m.genre.toLowerCase().includes(query));
-            const searchedSeries = series.filter(s => s.title.toLowerCase().includes(query) || s.genre.toLowerCase().includes(query));
-            renderMovies(searchedMovies, searchedSeries);
-        });
     }
-
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const category = btn.getAttribute('data-category');
-            if (category === 'all') {
-                renderMovies(movies, series);
-            } else {
-                const filteredM = movies.filter(m => m.genre === category);
-                const filteredS = series.filter(s => s.genre === category);
-                renderMovies(filteredM, filteredS);
-            }
-        });
-    });
-}
-
-function setupVideoModal() {
-    const videoModal = document.getElementById('videoModal');
-    const closeVideoModalBtn = document.getElementById('closeVideoModal');
-    const moviePlayer = document.getElementById('moviePlayer');
-
-    if (closeVideoModalBtn && videoModal) {
-        closeVideoModalBtn.addEventListener('click', () => {
-            videoModal.style.display = 'none';
-            if (moviePlayer) moviePlayer.src = '';
-        });
-    }
-
-    window.addEventListener('click', (e) => {
-        if (e.target === videoModal) {
-            videoModal.style.display = 'none';
-            if (moviePlayer) moviePlayer.src = '';
-        }
-    });
-}
-
-function setupMobileMenu() {
-    const menuBtn = document.getElementById('menuBtn');
-    if (menuBtn) {
-        menuBtn.addEventListener('click', () => {
-            alert("Menu de opções clicado!");
-        });
-    }
-    }
-                          
+                                                  
