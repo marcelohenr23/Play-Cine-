@@ -183,7 +183,6 @@ function renderMovies(filteredMovies = movies, filteredSeries = series) {
 }
 
 function createMovieCard(item) {
-function createMovieCard(item) {
     const card = document.createElement('div');
     card.classList.add('movie-card');
 
@@ -213,7 +212,6 @@ function createMovieCard(item) {
             if (modalMovieTitle) modalMovieTitle.textContent = item.title;
             if (modalMovieDesc) modalMovieDesc.textContent = `${item.genre} • ${item.year}`;
 
-            // Se for série e tiver temporadas cadastradas
             if (item.isSeries && item.seasons) {
                 if (episodeContainer) episodeContainer.style.display = 'flex';
                 if (seasonSelect && episodeSelect) {
@@ -250,7 +248,6 @@ function createMovieCard(item) {
                     };
                 }
             } else {
-                // Se for filme ou série sem temporadas, esconde o seletor e toca o link normal
                 if (episodeContainer) episodeContainer.style.display = 'none';
                 if (moviePlayer) moviePlayer.src = item.videoUrl || '';
             }
@@ -308,15 +305,4 @@ function setupVideoModal() {
         if (e.target === videoModal) {
             videoModal.style.display = 'none';
             if (moviePlayer) moviePlayer.src = '';
-        }
-    });
-}
-
-function setupMobileMenu() {
-    const menuBtn = document.getElementById('menuBtn');
-    if (menuBtn) {
-        menuBtn.addEventListener('click', () => {
-            alert("Menu de opções clicado!");
-        });
-    }
-     }
+     
