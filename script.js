@@ -73,7 +73,6 @@ const series = [
   { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
 ];
 
-// Dados para Tops Séries e Conteúdo Premium com Cadeados Bloqueados
 const topSeries = [
   { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
   { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "" }
@@ -108,11 +107,24 @@ const premiumMovies = [
 ];
 
 window.addEventListener('DOMContentLoaded', () => {
+    setupSplashIntro();
     renderMovies();
     setupSearchAndFilter();
     setupVideoModal();
     setupMobileMenu();
 });
+
+function setupSplashIntro() {
+    const splash = document.getElementById('introSplash');
+    if (splash) {
+        setTimeout(() => {
+            splash.style.opacity = '0';
+            setTimeout(() => {
+                splash.style.display = 'none';
+            }, 500);
+        }, 1500);
+    }
+}
 
 function renderMovies(filteredMovies = movies, filteredSeries = series) {
     const movieGridEl = document.getElementById('movieGrid');
@@ -180,11 +192,16 @@ function createMovieCard(item) {
         const modalMovieTitle = document.getElementById('modalMovieTitle');
         const modalMovieDesc = document.getElementById('modalMovieDesc');
         const moviePlayer = document.getElementById('moviePlayer');
+        const episodeContainer = document.getElementById('episodeSelectorContainer');
 
         if (videoModal) {
             if (modalMovieTitle) modalMovieTitle.textContent = item.title;
             if (modalMovieDesc) modalMovieDesc.textContent = `${item.genre} • ${item.year}`;
             if (moviePlayer) moviePlayer.src = item.videoUrl || '';
+            
+            // Oculta seletor de episódio por padrão para filmes/canais
+            if (episodeContainer) episodeContainer.style.display = 'none';
+
             videoModal.style.display = 'flex';
         }
     });
@@ -250,4 +267,4 @@ function setupMobileMenu() {
         });
     }
    }
-    
+   
