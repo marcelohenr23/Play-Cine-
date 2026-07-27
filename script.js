@@ -66,76 +66,69 @@ const movies = [
     { title: "Todo Mundo em Pânico 3", genre: "Comédia", year: "2003", image: "img/tdmundo3.jpg", videoUrl: "" }
 ];
 
-function createMovieCard(item) {
-    const card = document.createElement('div');
-    card.classList.add('movie-card');
-
-    const lockIcon = item.isPremium ? `<div style="position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.7); color: #ffd700; padding: 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px;"><i class="fa-solid fa-lock"></i></div>` : '';
-
-    card.innerHTML = `
-        <div style="position: relative;">
-            <img src="${item.image}" alt="${item.title}" loading="lazy" style="width: 100%; border-radius: 8px; display: block;">
-            ${lockIcon}
-        </div>
-        <div class="movie-info" style="margin-top: 5px;">
-            <h4 style="color: white; font-size: 0.9rem; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item.title}</h4>
-            <span style="color: #888; font-size: 0.8rem;">${item.genre} • ${item.year}</span>
-        </div>
-    `;
-
-    card.addEventListener('click', () => {
-        const videoModal = document.getElementById('videoModal');
-        const modalMovieTitle = document.getElementById('modalMovieTitle');
-        const modalMovieDesc = document.getElementById('modalMovieDesc');
-        const moviePlayer = document.getElementById('moviePlayer');
-        const episodeList = document.getElementById('episodeList');
-        const episodeContainer = document.getElementById('episodeListContainer');
-
-        if (videoModal) {
-            if (modalMovieTitle) modalMovieTitle.textContent = item.title;
-            if (modalMovieDesc) modalMovieDesc.textContent = `${item.genre} • ${item.year}`;
-            
-            if (episodeList) episodeList.innerHTML = '';
-
-            // Se for série com temporadas e episódios
-            if (item.seasons && item.seasons.length > 0) {
-                if (episodeContainer) episodeContainer.style.display = 'block';
-
-                // Carrega o primeiro episódio por padrão no player
-                const firstEpUrl = item.seasons[0].episodes[0].videoUrl;
-                if (moviePlayer) moviePlayer.src = firstEpUrl;
-
-                // Cria os botões de episódios visíveis
-                item.seasons[0].episodes.forEach((ep) => {
-                    const epBtn = document.createElement('button');
-                    epBtn.textContent = ep.title;
-                    epBtn.style.padding = '8px 14px';
-                    epBtn.style.background = '#e50914';
-                    epBtn.style.color = '#fff';
-                    epBtn.style.border = 'none';
-                    epBtn.style.borderRadius = '6px';
-                    epBtn.style.cursor = 'pointer';
-                    epBtn.style.fontWeight = 'bold';
-                    epBtn.style.fontSize = '0.85rem';
-
-                    epBtn.addEventListener('click', () => {
-                        if (moviePlayer) moviePlayer.src = ep.videoUrl;
-                    });
-
-                    episodeList.appendChild(epBtn);
-                });
-            } else {
-                // Se for filme ou canal normal
-                if (episodeContainer) episodeContainer.style.display = 'none';
-                if (moviePlayer) moviePlayer.src = item.videoUrl || '';
+const series = [
+    { 
+        title: "O Dia do Chacal", 
+        genre: "Thriller", 
+        year: "2024", 
+        image: "img/chacal.jpg", 
+        seasons: [
+            {
+                seasonNumber: 1,
+                episodes: [
+                    { title: "Episódio 1", videoUrl: "https://fembed.sx/e/222766" }
+                ]
             }
+        ]
+    },
+    { 
+        title: "Avatar: O Último Mestre do Air", 
+        genre: "Aventura", 
+        year: "2024", 
+        image: "img/avata.jpg", 
+        seasons: [
+            {
+                seasonNumber: 1,
+                episodes: [
+                    { title: "Episódio 1", videoUrl: "https://betterflix.lat/api/player?id=82452&type=tv&season=1&episode=1" }
+                ]
+            }
+        ]
+    },
+    { title: "Capoeiras", genre: "Ação", year: "2024", image: "img/capoeiras.jpg", videoUrl: "" },
+    { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
+];
 
-            videoModal.style.display = 'flex';
-        }
-    });
-
-    return card;
-}
+const topSeries = [
+    { 
+        title: "O Dia do Chacal", 
+        genre: "Thriller", 
+        year: "2024", 
+        image: "img/chacal.jpg", 
+        seasons: [
+            {
+                seasonNumber: 1,
+                episodes: [
+                    { title: "Episódio 1", videoUrl: "https://fembed.sx/e/222766" }
+                ]
+            }
+        ]
+    },
+    { 
+        title: "Avatar: O Último Mestre do Air", 
+        genre: "Aventura", 
+        year: "2024", 
+        image: "img/avata.jpg", 
+        seasons: [
+            {
+                seasonNumber: 1,
+                episodes: [
+                    { title: "Episódio 1", videoUrl: "https://betterflix.lat/api/player?id=82452&type=tv&season=1&episode=1" }
+                ]
+            }
+        ]
+    }
+];
 
 const premiumMovies = [
     { title: "Chaves 24 Horas", genre: "Comédia", year: "2026", image: "img/chaves.jpg", videoUrl: "https://ww4.embedtv.lat/24h_chaves", isPremium: true },
@@ -286,7 +279,7 @@ function createMovieCard(item) {
                     episodeList.appendChild(epBtn);
                 });
             } else {
-                // Se for filme ou canal sem lista estruturada de episódios
+                // Se for filme ou série sem lista de episódios estruturada
                 if (episodeContainer) episodeContainer.style.display = 'none';
                 if (moviePlayer) moviePlayer.src = item.videoUrl || '';
             }
@@ -296,40 +289,5 @@ function createMovieCard(item) {
     });
 
     return card;
-}
-
-function setupSearchAndFilter() {
-    const searchInput = document.getElementById('searchInput');
-    const filterBtns = document.querySelectorAll('.filter-btn');
-
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            const searchedMovies = movies.filter(m => m.title.toLowerCase().includes(query) || m.genre.toLowerCase().includes(query));
-            const searchedSeries = series.filter(s => s.title.toLowerCase().includes(query) || s.genre.toLowerCase().includes(query));
-            renderMovies(searchedMovies, searchedSeries);
-        });
-    }
-
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const category = btn.getAttribute('data-category');
-            if (category === 'all') {
-                renderMovies(movies, series);
-            } else {
-                const filteredM = movies.filter(m => m.genre === category);
-                const filteredS = series.filter(s => s.genre === category);
-                renderMovies(filteredM, filteredS);
             }
-        });
-    });
-}
-
-function setupVideoModal() {
-    const videoModal = document.getElementById('videoModal');
-    const closeVideoModalBtn = document.getElementById('closeVideoModal');
-    const moviePlayer = document.getElementById('moviePlayer');
- 
+                   
