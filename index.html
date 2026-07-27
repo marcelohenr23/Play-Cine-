@@ -1,91 +1,264 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Play Cine - Neon Edition</title>
-    <link rel="stylesheet" href="style.css?v=4.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
+const movies = [
+    { title: "Jack o Caçador de Gigantes", genre: "Aventura", year: "2013", image: "img/jackgigante.jpg", videoUrl: "https://fembed.sx/e/81005-dub" },
+    { title: "Missão Pandora", genre: "Ficção", year: "2024", image: "img/1.jpg", videoUrl: "https://fembed.sx/e/1056569-dub" },
+    { title: "Águas Que Corroem", genre: "Terror", year: "2024", image: "img/agu.jpg", videoUrl: "https://fembed.sx/e/561362-dub" },
+    { title: "Caça-Fantasmas", genre: "Comédia", year: "2016", image: "img/caca.jpg", videoUrl: "" },
+    { title: "Caçada Sem Regras", genre: "Ação", year: "2023", image: "img/cacada.jpg", videoUrl: "" },
+    { title: "Furioza 2", genre: "Ação", year: "2024", image: "img/fuu.jpg", videoUrl: "" },
+    { title: "Gigantes de Aço", genre: "Ficção", year: "2011", image: "img/giga.jpg", videoUrl: "" },
+    { title: "Guerra Primitiva", genre: "Ação", year: "2024", image: "img/gu.jpg", videoUrl: "" },
+    { title: "A Primeira Noite de Crime", genre: "Terror", year: "2018", image: "img/noi.jpg", videoUrl: "" },
+    { title: "Jovens Titãs: O Contrato de Judas", genre: "Animação", year: "2017", image: "img/tita.jpg", videoUrl: "" },
+    { title: "Caçador de Tormentas", genre: "Ação", year: "2023", image: "img/to.jpg", videoUrl: "" },
+    { title: "Uma História de Vingança", genre: "Ação", year: "2017", image: "img/vi.jpg", videoUrl: "" },
+    { title: "Ong-Bak 2", genre: "Ação", year: "2008", image: "img/ongbak2.jpg", videoUrl: "https://fembed.sx/e/16353-dub" },
+    { title: "Ong-Bak 3", genre: "Ação", year: "2010", image: "img/ongbak3 (1).jpg", videoUrl: "https://fembed.sx/e/43209-dub" },
+    { title: "Assalto à Casa Blanca", genre: "Ação", year: "2013", image: "img/assaltoacasabranca.jpg", videoUrl: "" },
+    { title: "Busca Explosiva 4", genre: "Ação", year: "2023", image: "img/buscaexplosiva4.jpg", videoUrl: "" },
+    { title: "Força Bruta: Punição", genre: "Ação", year: "2024", image: "img/forcabrutapunicao.jpg", videoUrl: "" },
+    { title: "Força Bruta: Sem Saída", genre: "Ação", year: "2022", image: "img/forcabrutasemsaida.jpg", videoUrl: "" },
+    { title: "O Valente", genre: "Ação", year: "2023", image: "img/ovalente.jpg", videoUrl: "" },
+    { title: "Plano de Família 2", genre: "Ação", year: "2024", image: "img/planodefamilia2.jpg", videoUrl: "" },
+    { title: "Quem Morre", genre: "Terror", year: "2023", image: "img/quemmorre.jpg", videoUrl: "" },
+    { title: "Red: Aposentados e Perigosos", genre: "Ação", year: "2010", image: "img/redaposentado.jpg", videoUrl: "" },
+    { title: "Sicario", genre: "Ação", year: "2015", image: "img/sicario.jpg", videoUrl: "" },
+    { title: "Superman: O Retorno", genre: "Ficção", year: "2006", image: "img/oretorno.jpg", videoUrl: "" },
+    { title: "Caçada Sangrenta", genre: "Ação", year: "2024", image: "img/cacadasangrenta.jpg", videoUrl: "https://fembed.sx/e/1084222-dub" },
+    { title: "Cores da Justiça", genre: "Ação", year: "2024", image: "img/coresdajustica.jpg", videoUrl: "https://fembed.sx/e/578189-dub" },
+    { title: "Gamer", genre: "Ação", year: "2009", image: "img/gamer.jpg", videoUrl: "https://fembed.sx/e/18501-dub" },
+    { title: "Johnny English", genre: "Comédia", year: "2003", image: "img/jonyingles.jpg", videoUrl: "https://fembed.sx/e/463272-dub" },
+    { title: "O Ataque dos 6 Tubarões", genre: "Terror", year: "2021", image: "img/oataquedos6tubaroes.jpg", videoUrl: "https://fembed.sx/e/522438-dub" },
+    { title: "A Guerra do Amanhã", genre: "Ficção", year: "2021", image: "img/tomorow.jpg", videoUrl: "" },
+    { title: "Ambulância: Um Dia de Crime", genre: "Ação", year: "2022", image: "img/ambulancia.jpg", videoUrl: "https://fembed.sx/e/763285" },
+    { title: "Beekeeper: Rede de Vingança", genre: "Ação", year: "2024", image: "img/beekeeper.jpg", videoUrl: "https://fembed.sx/e/866398" },
+    { title: "Code 8: Renegados", genre: "Ficção", year: "2019", image: "img/code8.png", videoUrl: "https://fembed.sx/e/461130-dub" },
+    { title: "iBoy", genre: "Ação", year: "2017", image: "img/iboy.jpg", videoUrl: "https://fembed.sx/e/414190-dub" },
+    { title: "Legado Explosivo", genre: "Ação", year: "2020", image: "img/legadoexplosivo.webp", videoUrl: "https://fembed.sx/e/553604-dub" },
+    { title: "Operação Fronteira", genre: "Ação", year: "2019", image: "img/operacaofroteira.jpg", videoUrl: "https://fembed.sx/e/399361" },
+    { title: "Em Ritmo de Fuga", genre: "Ação", year: "2017", image: "img/em ritmo de fuga.jpg", videoUrl: "https://fembed.sx/e/339403" },
+    { title: "Implacável", genre: "Ação", year: "2021", image: "img/implacavel.jpg", videoUrl: "https://fembed.sx/e/534490-dub" },
+    { title: "Sem Limite", genre: "Ação", year: "2011", image: "img/semlimite.jpg", videoUrl: "https://fembed.sx/e/1138749-dub" },
+    { title: "Vingança", genre: "Ação", year: "2019", image: "img/vinganca.jpg", videoUrl: "https://fembed.sx/e/1195518-dub" },
+    { title: "Avatar", genre: "Aventura", year: "2009", image: "img/avata1.jpg", videoUrl: "https://fembed.sx/e/19995-dub" },
+    { title: "Avatar: O Caminho da Água", genre: "Aventura", year: "2022", image: "img/avata2.jpg", videoUrl: "https://fembed.sx/e/76600-dub" },
+    { title: "Avatar 3", genre: "Aventura", year: "2025", image: "img/avata3.jpg", videoUrl: "https://fembed.sx/e/83533-dub" },
+    { title: "A Chamada", genre: "Ação", year: "2023", image: "img/achamada.jpg", videoUrl: "https://fembed.sx/e/762430-dub" },
+    { title: "Resgate", genre: "Ação", year: "2020", image: "img/resgate1.jpg", videoUrl: "https://fembed.sx/e/545609-dub" },
+    { title: "Resgate 2", genre: "Ação", year: "2023", image: "img/resgate2.jpg", videoUrl: "https://fembed.sx/e/697843-dub" },
+    { title: "Um Panda em Apuros 2", genre: "Animação", year: "2022", image: "img/apuro3.jpg", videoUrl: "" },
+    { title: "Baywatch: Marés Vivas", genre: "Ação", year: "2017", image: "img/baywat.jpg", videoUrl: "" },
+    { title: "A Barraca do Beijo 3", genre: "Romance", year: "2021", image: "img/beijo3.jpg", videoUrl: "" },
+    { title: "A Fantástica Fábrica de Chocolate", genre: "Fantasia", year: "1971", image: "img/chocolate1.jpg", videoUrl: "" },
+    { title: "Dora e a Cidade Perdida", genre: "Aventura", year: "2019", image: "img/cidadeperdida.jpg", videoUrl: "" },
+    { title: "A Idade do Gelo 3: O Despertar dos Dinossauros", genre: "Animação", year: "2009", image: "img/eradogelo.jpg", videoUrl: "" },
+    { title: "Charlie e a Fábrica de Chocolate", genre: "Fantasia", year: "2005", image: "img/fabricachocolate.jpg", videoUrl: "" },
+    { title: "Gru: O Maldisposto", genre: "Animação", year: "2010", image: "img/gru.jpg", videoUrl: "" },
+    { title: "Gru: O Maldisposto 3", genre: "Animação", year: "2017", image: "img/gru3.jpg", videoUrl: "" },
+    { title: "Minions", genre: "Animação", year: "2015", image: "img/minios.jpg", videoUrl: "" },
+    { title: "Ó Paí, Ó", genre: "Comédia", year: "2007", image: "img/opaio.jpg", videoUrl: "" },
+    { title: "O Cão e a Raposa 2", genre: "Animação", year: "2006", image: "img/raposa2.jpg", videoUrl: "" },
+    { title: "R.I.P.D.: Agentes do Além", genre: "Ação", year: "2013", image: "img/rip.jpg", videoUrl: "" },
+    { title: "Soul: Uma Aventura com Alma", genre: "Animação", year: "2020", image: "img/soul.jpg", videoUrl: "" },
+    { title: "Toy Story 2", genre: "Animação", year: "1999", image: "img/story2.jpg", videoUrl: "" },
+    { title: "Toy Story 3", genre: "Animação", year: "2010", image: "img/story3.jpg", videoUrl: "" },
+    { title: "Toy Story 4", genre: "Animação", year: "2019", image: "img/story4.jpg", videoUrl: "" },
+    { title: "Todo Mundo em Pânico 2", genre: "Comédia", year: "2001", image: "img/tdmundo2.jpg", videoUrl: "" },
+    { title: "Todo Mundo em Pânico 3", genre: "Comédia", year: "2003", image: "img/tdmundo3.jpg", videoUrl: "" }
+];
 
-    <!-- ANIMAÇÃO DE ENTRADA ESTILO NETFLIX COM NEON -->
-    <div id="introSplash" class="splash-screen">
-        <div class="neon-logo-box">
-            <span class="neon-play">PLAY</span><span class="neon-cine">CINE</span>
+const series = [
+    { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "https://fembed.sx/e/222766/1-1" },
+    { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" },
+    { title: "Capoeiras", genre: "Ação", year: "2024", image: "img/capoeiras.jpg", videoUrl: "" },
+    { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "" }
+];
+
+const topSeries = [
+    { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "https://fembed.sx/e/222766/1-1" },
+    { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "" }
+];
+
+const premiumMovies = [
+    { title: "Chaves 24 Horas", genre: "Comédia", year: "2026", image: "img/chaves.jpg", videoUrl: "https://ww4.embedtv.lat/24h_chaves", isPremium: true },
+    { title: "Todo Mundo Odeia o Chris", genre: "Comédia", year: "2026", image: "img/chris.jpg", videoUrl: "https://ww4.embedtv.lat/24h_odeiachris", isPremium: true },
+    { title: "Dragon Ball Z 24 Horas", genre: "Animação", year: "2026", image: "img/dbz.jpg", videoUrl: "https://ww4.embedtv.lat/24h_dragonball", isPremium: true },
+    { title: "Gloob", genre: "Infantil", year: "2026", image: "img/gloob.jpg", videoUrl: "https://ww4.embedtv.lat/gloob", isPremium: true },
+    { title: "Naruto 24 Horas", genre: "Animação", year: "2026", image: "img/naruto.jpg", videoUrl: "https://ww4.embedtv.lat/24h_naruto", isPremium: true },
+    { title: "Os Simpsons", genre: "Comédia", year: "2026", image: "img/simpson.jpg", videoUrl: "https://ww4.embedtv.lat/24h_simpsons", isPremium: true },
+    { title: "Premiere 1", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere", isPremium: true },
+    { title: "Premiere 2", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere2", isPremium: true },
+    { title: "Premiere 3", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere3", isPremium: true },
+    { title: "Premiere 4", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere4", isPremium: true },
+    { title: "Premiere 5", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere5", isPremium: true },
+    { title: "Premiere 6", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere6", isPremium: true },
+    { title: "Premiere 7", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere7", isPremium: true },
+    { title: "Premiere 8", genre: "Esportes", year: "2026", image: "img/premiere.jpg", videoUrl: "https://ww4.embedtv.lat/premiere8", isPremium: true },
+    { title: "SporTV 1", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv", isPremium: true },
+    { title: "SporTV 2", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv2", isPremium: true },
+    { title: "SporTV 3", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv3", isPremium: true },
+    { title: "SporTV 4", genre: "Esportes", year: "2026", image: "img/sportv.jpg", videoUrl: "https://ww4.embedtv.lat/sportv4", isPremium: true },
+    { title: "ESPN 1", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn", isPremium: true },
+    { title: "ESPN 2", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn2", isPremium: true },
+    { title: "ESPN 3", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn3", isPremium: true },
+    { title: "ESPN 4", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn4", isPremium: true },
+    { title: "ESPN 5", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn5", isPremium: true },
+    { title: "ESPN 6", genre: "Esportes", year: "2026", image: "img/espnbr.png", videoUrl: "https://ww4.embedtv.lat/espn6", isPremium: true },
+    { title: "GE TV", genre: "Esportes", year: "2026", image: "img/getv.jpg", videoUrl: "https://www.youtube.com/embed/5LfxhWTrs3s", isPremium: true }
+];
+
+window.addEventListener('DOMContentLoaded', () => {
+    setupSplashIntro();
+    renderMovies();
+    setupSearchAndFilter();
+    setupVideoModal();
+    setupMobileMenu();
+});
+
+function setupSplashIntro() {
+    const splash = document.getElementById('introSplash');
+    if (splash) {
+        setTimeout(() => {
+            splash.style.opacity = '0';
+            setTimeout(() => {
+                splash.style.display = 'none';
+            }, 500);
+        }, 1500);
+    }
+}
+
+function renderMovies(filteredMovies = movies, filteredSeries = series) {
+    const movieGridEl = document.getElementById('movieGrid');
+    const serieGridEl = document.getElementById('serieGrid');
+    const recentGridEl = document.getElementById('recentMovieGrid');
+    const topSerieGridEl = document.getElementById('topSerieGrid');
+    const premiumGridEl = document.getElementById('premiumGrid');
+
+    if (movieGridEl) movieGridEl.innerHTML = '';
+    if (serieGridEl) serieGridEl.innerHTML = '';
+    if (recentGridEl) recentGridEl.innerHTML = '';
+    if (topSerieGridEl) topSerieGridEl.innerHTML = '';
+    if (premiumGridEl) premiumGridEl.innerHTML = '';
+
+    if (recentGridEl) {
+        filteredMovies.slice(0, 4).forEach(movie => {
+            recentGridEl.appendChild(createMovieCard(movie));
+        });
+    }
+
+    if (movieGridEl) {
+        filteredMovies.forEach(movie => {
+            movieGridEl.appendChild(createMovieCard(movie));
+        });
+    }
+
+    if (serieGridEl) {
+        filteredSeries.forEach(serie => {
+            serieGridEl.appendChild(createMovieCard(serie));
+        });
+    }
+
+    if (topSerieGridEl) {
+        topSeries.forEach(serie => {
+            topSerieGridEl.appendChild(createMovieCard(serie));
+        });
+    }
+
+    if (premiumGridEl) {
+        premiumMovies.forEach(movie => {
+            premiumGridEl.appendChild(createMovieCard(movie));
+        });
+    }
+}
+
+function createMovieCard(item) {
+    const card = document.createElement('div');
+    card.classList.add('movie-card');
+
+    const lockIcon = item.isPremium ? `<div style="position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.7); color: #ffd700; padding: 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px;"><i class="fa-solid fa-lock"></i></div>` : '';
+
+    card.innerHTML = `
+        <div style="position: relative;">
+            <img src="${item.image}" alt="${item.title}" loading="lazy" style="width: 100%; border-radius: 8px; display: block;">
+            ${lockIcon}
         </div>
-    </div>
-
-    <!-- Plataforma Principal (Catálogo Direto) -->
-    <section id="mainAppSection" class="view-section active">
-        <header class="navbar">
-            <div class="header-brand" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-                <h1 class="brand-header" style="margin-bottom:0; font-size:1.8rem;">
-                    <span class="neon-play">PLAY</span><span class="neon-cine">CINE</span>
-                </h1>
-                <button id="menuBtn" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 5px;">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-            </div>
-        </header>
-
-        <div class="content-container">
-            <div class="search-bar-container neon-search">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Pesquisar filme ou gênero...">
-            </div>
-
-            <div class="filter-bar">
-                <button class="filter-btn active" data-category="all">Todos</button>
-                <button class="filter-btn" data-category="Ação">Ação</button>
-                <button class="filter-btn" data-category="Terror">Terror</button>
-                <button class="filter-btn" data-category="Ficção">Ficção</button>
-                <button class="filter-btn" data-category="Aventura">Aventura</button>
-                <button class="filter-btn" data-category="Comédia">Comédia</button>
-            </div>
-
-            <section class="catalog-section">
-                <h3>Lançamentos Recentes</h3>
-                <div id="recentMovieGrid" class="movie-grid" style="margin-bottom: 25px;"></div>
-
-                <h3>Filmes</h3>
-                <div id="movieGrid" class="movie-grid" style="margin-bottom: 25px;"></div>
-
-                <h3>Séries</h3>
-                <div id="serieGrid" class="movie-grid" style="margin-bottom: 25px;"></div>
-
-                <h3>Tops Séries</h3>
-                <div id="topSerieGrid" class="movie-grid" style="margin-bottom: 25px;"></div>
-
-                <h3 id="Conteúdo Premium">Conteúdo Premium</h3>
-                <div id="premiumGrid" class="movie-grid"></div>
-            </section>
+        <div class="movie-info" style="margin-top: 5px;">
+            <h4 style="color: white; font-size: 0.9rem; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item.title}</h4>
+            <span style="color: #888; font-size: 0.8rem;">${item.genre} • ${item.year}</span>
         </div>
-    </section>
+    `;
 
-    <footer style="text-align: center; padding: 20px; color: var(--text-muted);">
-        <p>&copy; 2026 Play Cine. Todos os direitos reservados.</p>
-    </footer>
-            
-    <!-- MODAL DE REPRODUÇÃO DO VÍDEO -->
-    <div id="videoModal" class="modal" style="display: none;">
-        <div class="modal-content video-modal-content">
-            <button id="closeVideoModal" class="close-video-btn"><i class="fa-solid fa-xmark"></i></button>
-            
-            <div class="video-details" style="margin-bottom: 10px;">
-                <h3 id="modalMovieTitle" style="font-size: 1.1rem; margin-bottom: 4px;">Título</h3>
-                <p id="modalMovieDesc" style="color: var(--text-muted); font-size: 0.85rem;">Gênero • Ano</p>
-            </div>
+    card.addEventListener('click', () => {
+        const videoModal = document.getElementById('videoModal');
+        const modalMovieTitle = document.getElementById('modalMovieTitle');
+        const modalMovieDesc = document.getElementById('modalMovieDesc');
+        const moviePlayer = document.getElementById('moviePlayer');
 
-            <!-- SELETORES DE TEMPORADA E EPISÓDIO -->
-            <div id="episodeSelectorContainer" style="display: none; margin-bottom: 12px; gap: 8px;"><select id="seasonSelect" style="padding: 6px 10px; background: #1a1a1a; color: white; border: 1px solid #333; border-radius: 4px; font-size: 0.85rem;"></select><select id="episodeSelect" style="padding: 6px 10px; background: #1a1a1a; color: white; border: 1px solid #333; border-radius: 4px; font-size: 0.85rem; flex-grow: 1;"></select></div>
+        if (videoModal) {
+            if (modalMovieTitle) modalMovieTitle.textContent = item.title;
+            if (modalMovieDesc) modalMovieDesc.textContent = `${item.genre} • ${item.year}`;
+            if (moviePlayer) moviePlayer.src = item.videoUrl || '';
+            videoModal.style.display = 'flex';
+        }
+    });
 
-            <div class="video-container">
-                <iframe id="moviePlayer" src="" title="Player de Vídeo" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
+    return card;
+}
 
-    <script src="script.js?v=5.0"></script>
-</body>
-</html>
+function setupSearchAndFilter() {
+    const searchInput = document.getElementById('searchInput');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const searchedMovies = movies.filter(m => m.title.toLowerCase().includes(query) || m.genre.toLowerCase().includes(query));
+            const searchedSeries = series.filter(s => s.title.toLowerCase().includes(query) || s.genre.toLowerCase().includes(query));
+            renderMovies(searchedMovies, searchedSeries);
+        });
+    }
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const category = btn.getAttribute('data-category');
+            if (category === 'all') {
+                renderMovies(movies, series);
+            } else {
+                const filteredM = movies.filter(m => m.genre === category);
+                const filteredS = series.filter(s => s.genre === category);
+                renderMovies(filteredM, filteredS);
+            }
+        });
+    });
+}
+
+function setupVideoModal() {
+    const videoModal = document.getElementById('videoModal');
+    const closeVideoModalBtn = document.getElementById('closeVideoModal');
+    const moviePlayer = document.getElementById('moviePlayer');
+
+    if (closeVideoModalBtn && videoModal) {
+        closeVideoModalBtn.addEventListener('click', () => {
+            videoModal.style.display = 'none';
+            if (moviePlayer) moviePlayer.src = '';
+        });
+    }
+
+    window.addEventListener('click', (e) => {
+        if (e.target === videoModal) {
+            videoModal.style.display = 'none';
+            if (moviePlayer) moviePlayer.src = '';
+        }
+    });
+}
+
+function setupMobileMenu() {
+    const menuBtn = document.getElementById('menuBtn');
+    if (menuBtn) {
+        menuBtn.addEventListener('click', () => {
+            alert("Menu de opções clicado!");
+        });
+    }
+}
