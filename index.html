@@ -65,7 +65,7 @@
         <p>&copy; 2026 Play Cine. Todos os direitos reservados.</p>
     </footer>
             
-    <div id="videoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; flex-direction:column; overflow-y:auto;">
+    <div id="videoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:1000; flex-direction:column; overflow-y:auto;">
     <!-- Botão Fechar -->
     <button id="closeVideoModal" style="position:absolute; top:20px; right:20px; z-index:10; background:none; border:none; color:white; font-size:24px; cursor:pointer;">✕</button>
 
@@ -75,15 +75,27 @@
         <h2 id="modalMovieTitle" style="margin-top:15px; font-size:1.8rem;"></h2>
         <p id="modalMetadata" style="color:#aaa; font-size:0.9rem; margin:5px 0;"></p>
         
-        <!-- Botão Assistir -->
+        <!-- Botão Assistir (Usado para filmes ou play geral) -->
         <button id="playButton" style="width:100%; background:white; color:black; border:none; padding:12px; border-radius:4px; font-weight:bold; font-size:1rem; margin:15px 0; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
             <i class="fa-solid fa-play"></i> Assistir
         </button>
 
-        <p id="modalMovieDesc" style="font-size:0.95rem; line-height:1.4; color:#ddd;"></p>
+        <p id="modalMovieDesc" style="font-size:0.95rem; line-height:1.4; color:#ddd; margin-bottom: 20px;"></p>
+
+        <!-- SEÇÃO DE EPISÓDIOS (Aparece apenas para Séries) -->
+        <div id="serieEpisodesSection" style="display:none; border-top: 1px solid #333; padding-top: 15px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="font-size: 1.2rem; margin: 0;">Episódios</h3>
+                <select id="seasonSelect" style="background: #222; color: white; border: 1px solid #441; padding: 6px 12px; border-radius: 4px; font-size: 0.9rem; outline: none;">
+                    <option value="1">Temporada 1</option>
+                </select>
+            </div>
+            <!-- Lista de Episódios gerada dinamicamente -->
+            <div id="episodesList" style="display: flex; flex-direction: column; gap: 12px;"></div>
+        </div>
     </div>
 
-    <!-- 2. Container do Player (Abre apenas ao clicar em Assistir) -->
+    <!-- 2. Container do Player -->
     <div id="playerContainer" style="display:none; width:100%; height:100%; margin:auto;">
         <iframe id="moviePlayer" src="" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
     </div>
