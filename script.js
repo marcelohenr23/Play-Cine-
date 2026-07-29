@@ -48,89 +48,15 @@ const movies = [
 ];
 
 const series = [
-    { 
-        title: "O Dia do Chacal", 
-        genre: "Thriller", 
-        year: "2024", 
-        image: "img/chacal.jpg", 
-        isSeries: true,
-        description: "Um assassino profissional altamente qualificado conhecido como O Chacal assume seu contrato mais desafiador.",
-        seasons: {
-            "1": [
-                { epNum: 1, title: "Episódio 1", duration: "50m", desc: "O Chacal se prepara para seu próximo grande alvo.", videoUrl: "https://fembed.sx/e/222766" },
-                { epNum: 2, title: "Episódio 2", duration: "52m", desc: "A inteligência começa a rastrear os passos do assassino.", videoUrl: "https://fembed.sx/e/222766" }
-            ]
-        }
-    },
-    { 
-        title: "Avatar: O Último Mestre do Air", 
-        genre: "Aventura", 
-        year: "2024", 
-        image: "img/avata.jpg", 
-        isSeries: true,
-        description: "Um jovem Avatar deve aprender a dominar os quatro elementos para salvar um mundo dividido pela guerra.",
-        seasons: {
-            "1": [
-                { epNum: 1, title: "Aang", duration: "1h 2m", desc: "Um Dobrador de ar precisa se adaptar à sua nova realidade quando a guerra começa.", videoUrl: "https://betterflix.lat/api/player?id=82452&type=tv&season=1&episode=1" },
-                { epNum: 2, title: "Guerreiros", duration: "54m", desc: "O grupo chega à Ilha Kyoshi e enfrenta novos perigos.", videoUrl: "https://betterflix.lat/api/player?id=82452&type=tv&season=1&episode=2" }
-            ]
-        }
-    },
-    { 
-        title: "Capoeiras", 
-        genre: "Ação", 
-        year: "2024", 
-        image: "img/capoeiras.jpg", 
-        isSeries: true,
-        description: "A arte marcial tradicional serve de base para combates intensos e estratégias de sobrevivência urbana.",
-        seasons: {
-            "1": [
-                { epNum: 1, title: "Episódio 1", duration: "45m", desc: "Introdução ao mundo clandestino das lutas.", videoUrl: "" }
-            ]
-        }
-    },
-    { 
-        title: "Coragem, Irmão!", 
-        genre: "Ação", 
-        year: "2024", 
-        image: "img/coragemirmao.jpg", 
-        isSeries: true,
-        description: "Dois irmãos enfrentam dilemas morais e inimigos impiedosos para proteger o que restou da família.",
-        seasons: {
-            "1": [
-                { epNum: 1, title: "Episódio 1", duration: "50m", desc: "Uma aliança inesperada é formada.", videoUrl: "" }
-            ]
-        }
-    }
+    { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "https://fembed.sx/e/222766", description: "Um assassino profissional altamente qualificado conhecido como O Chacal assume seu contrato mais desafiador." },
+    { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "https://betterflix.lat/api/player?id=82452&type=tv&season=1&episode=1", description: "Um jovem Avatar deve aprender a dominar os quatro elementos para salvar um mundo dividido pela guerra." },
+    { title: "Capoeiras", genre: "Ação", year: "2024", image: "img/capoeiras.jpg", videoUrl: "", description: "A arte marcial tradicional serve de base para combates intensos e estratégias de sobrevivência urbana." },
+    { title: "Coragem, Irmão!", genre: "Ação", year: "2024", image: "img/coragemirmao.jpg", videoUrl: "", description: "Dois irmãos enfrentam dilemas morais e inimigos impiedosos para proteger o que restou da família." }
 ];
 
 const topSeries = [
-    { 
-        title: "O Dia do Chacal", 
-        genre: "Thriller", 
-        year: "2024", 
-        image: "img/chacal.jpg", 
-        isSeries: true,
-        description: "Um assassino profissional altamente qualificado conhecido como O Chacal assume seu contrato mais desafiador.",
-        seasons: {
-            "1": [
-                { epNum: 1, title: "Episódio 1", duration: "50m", desc: "O Chacal se prepara para seu próximo grande alvo.", videoUrl: "https://fembed.sx/e/222766" }
-            ]
-        }
-    },
-    { 
-        title: "Avatar: O Último Mestre do Air", 
-        genre: "Aventura", 
-        year: "2024", 
-        image: "img/avata.jpg", 
-        isSeries: true,
-        description: "Um jovem Avatar deve aprender a dominar os quatro elementos para salvar um mundo dividido pela guerra.",
-        seasons: {
-            "1": [
-                { epNum: 1, title: "Aang", duration: "1h 2m", desc: "Um Dobrador de ar precisa se adaptar à sua nova realidade quando a guerra começa.", videoUrl: "https://betterflix.lat/api/player?id=82452&type=tv&season=1&episode=1" }
-            ]
-        }
-    }
+    { title: "O Dia do Chacal", genre: "Thriller", year: "2024", image: "img/chacal.jpg", videoUrl: "https://fembed.sx/e/222766", description: "Um assassino profissional altamente qualificado conhecido como O Chacal assume seu contrato mais desafiador." },
+    { title: "Avatar: O Último Mestre do Air", genre: "Aventura", year: "2024", image: "img/avata.jpg", videoUrl: "https://betterflix.lat/api/player?id=82452&type=tv&season=1&episode=1", description: "Um jovem Avatar deve aprender a dominar os quatro elementos para salvar um mundo dividido pela guerra." }
 ];
 
 const premiumMovies = [
@@ -229,25 +155,77 @@ function createMovieCard(item) {
         const moviePlayer = document.getElementById('moviePlayer');
         const playerContainer = document.getElementById('playerContainer');
         const detailsContainer = document.getElementById('modalDetailsContainer');
-        const serieEpisodesSection = document.getElementById('serieEpisodesSection');
-        const episodesList = document.getElementById('episodesList');
-        const seasonSelect = document.getElementById('seasonSelect');
 
         if (videoModal) {
-            modalBackdrop.src = item.image;
-            modalMovieTitle.textContent = item.title;
-            modalMetadata.textContent = `${item.year} • ${item.genre}`;
-            modalMovieDesc.textContent = item.description || "Sem descrição disponível.";
+            if (modalBackdrop) modalBackdrop.src = item.image;
+            if (modalMovieTitle) modalMovieTitle.textContent = item.title;
+            if (modalMetadata) modalMetadata.textContent = `${item.year} • ${item.genre}`;
+            if (modalMovieDesc) modalMovieDesc.textContent = item.description || "Sem descrição disponível.";
 
-            detailsContainer.style.display = 'block';
-            playerContainer.style.display = 'none';
-            moviePlayer.src = '';
+            if (detailsContainer) detailsContainer.style.display = 'block';
+            if (playerContainer) playerContainer.style.display = 'none';
+            if (moviePlayer) moviePlayer.src = '';
 
-            // Verifica se é Série ou Filme
-            if (item.isSeries && item.seasons) {
-                if (playBtn) playBtn.style.display = 'none';
-                if (serieEpisodesSection) serieEpisodesSection.style.display = 'block';
+            if (playBtn) {
+                playBtn.onclick = () => {
+                    if (detailsContainer) detailsContainer.style.display = 'none';
+                    if (playerContainer) playerContainer.style.display = 'block';
+                    if (moviePlayer) moviePlayer.src = item.videoUrl || '';
+                };
+            }
 
-                if (seasonSelect) {
-                    seasonSelect.innerHTML = '';
-                    Object.keys(item.seasons).forEach
+            videoModal.style.display = 'flex';
+        }
+    });
+
+    return card;
+}
+
+function setupSearchAndFilter() {
+    const searchInput = document.getElementById('searchInput');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const searchedMovies = movies.filter(m => m.title.toLowerCase().includes(query) || m.genre.toLowerCase().includes(query));
+            const searchedSeries = series.filter(s => s.title.toLowerCase().includes(query) || s.genre.toLowerCase().includes(query));
+            renderMovies(searchedMovies, searchedSeries);
+        });
+    }
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const category = btn.getAttribute('data-category');
+            if (category === 'all') {
+                renderMovies(movies, series);
+            } else {
+                const filteredM = movies.filter(m => m.genre === category);
+                const filteredS = series.filter(s => s.genre === category);
+                renderMovies(filteredM, filteredS);
+            }
+        });
+    });
+}
+
+function setupVideoModal() {
+    const videoModal = document.getElementById('videoModal');
+    const closeVideoModalBtn = document.getElementById('closeVideoModal');
+    const moviePlayer = document.getElementById('moviePlayer');
+    const detailsContainer = document.getElementById('modalDetailsContainer');
+    const playerContainer = document.getElementById('playerContainer');
+
+    function closeModal() {
+        if (videoModal) {
+            videoModal.style.display = 'none';
+            if (moviePlayer) moviePlayer.src = ''; 
+            if (detailsContainer) detailsContainer.style.display = 'block';
+            if (playerContainer) playerContainer.style.display = 'none';
+        }
+    }
+
+    if (closeVideoModalBtn) {
+        closeVideoModalBtn.addEventListener('click', close
