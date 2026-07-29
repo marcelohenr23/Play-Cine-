@@ -3,104 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Play Cine - Neon Edition</title>
-    <link rel="stylesheet" href="style.css?v=4.0">
+    <title>Play Cine</title>
+    <!-- FontAwesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body style="background-color: #0f1014; color: white; margin: 0; font-family: sans-serif;">
 
-    <div id="introSplash" class="splash-screen">
-        <div class="neon-logo-box">
-            <span class="neon-play">PLAY</span><span class="neon-cine">CINE</span>
+    <!-- Splash Screen Inicial -->
+    <div id="introSplash" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#0f1014; display:flex; align-items:center; justify-content:center; z-index:9999; transition: opacity 0.5s ease;">
+        <h1 style="color: #ff0055; font-size: 2.5rem; letter-spacing: 2px;">PLAY CINE</h1>
+    </div>
+
+    <!-- Cabeçalho -->
+    <header style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: rgba(15,16,20,0.9); position: sticky; top: 0; z-index: 100;">
+        <h1 style="color: #ff0055; font-size: 1.5rem; margin: 0;">PLAYCINE</h1>
+        <button id="menuBtn" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;"><i class="fa-solid fa-bars"></i></button>
+    </header>
+
+    <!-- Barra de Pesquisa -->
+    <div style="padding: 15px 20px;">
+        <div style="background: #1a1b22; display: flex; align-items: center; padding: 10px 15px; border-radius: 8px; border: 1px solid #2a2b36;">
+            <i class="fa-solid fa-magnifying-glass" style="color: #888; margin-right: 10px;"></i>
+            <input type="text" id="searchInput" placeholder="Pesquisar filme ou gênero..." style="background: none; border: none; color: white; width: 100%; outline: none; font-size: 0.95rem;">
         </div>
     </div>
 
-    <section id="mainAppSection" class="view-section active">
-        <header class="navbar">
-            <div class="header-brand" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-                <h1 class="brand-header" style="margin-bottom:0; font-size:1.8rem;">
-                    <span class="neon-play">PLAY</span><span class="neon-cine">CINE</span>
-                </h1>
-                <button id="menuBtn" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 5px;">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-            </div>
-        </header>
+    <!-- Filtros por Categoria -->
+    <div style="display: flex; gap: 10px; overflow-x: auto; padding: 0 20px 15px 20px; scrollbar-width: none;">
+        <button class="filter-btn active" data-category="all" style="background: #007bff; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; white-space: nowrap; font-weight: bold;">Todos</button>
+        <button class="filter-btn" data-category="Ação" style="background: #1a1b22; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; white-space: nowrap;">Ação</button>
+        <button class="filter-btn" data-category="Terror" style="background: #1a1b22; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; white-space: nowrap;">Terror</button>
+        <button class="filter-btn" data-category="Ficção" style="background: #1a1b22; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; white-space: nowrap;">Ficção</button>
+        <button class="filter-btn" data-category="Aventura" style="background: #1a1b22; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; white-space: nowrap;">Aventura</button>
+    </div>
 
-        <div class="content-container">
-            <div class="search-bar-container neon-search">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Pesquisar filme ou gênero...">
-            </div>
+    <!-- Conteúdo Principal / Seções -->
+    <main style="padding: 0 20px 40px 20px;">
+        <section style="margin-bottom: 25px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 10px; color: #fff;">Lançamentos Recentes</h3>
+            <div id="recentMovieGrid"></div>
+        </section>
 
-            <div class="filter-bar">
-                <button class="filter-btn active" data-category="all">Todos</button>
-                <button class="filter-btn" data-category="Ação">Ação</button>
-                <button class="filter-btn" data-category="Terror">Terror</button>
-                <button class="filter-btn" data-category="Ficção">Ficção</button>
-                <button class="filter-btn" data-category="Aventura">Aventura</button>
-                <button class="filter-btn" data-category="Comédia">Comédia</button>
-            </div>
+        <section style="margin-bottom: 25px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 10px; color: #fff;">Filmes</h3>
+            <div id="movieGrid"></div>
+        </section>
 
-            <section class="catalog-section">
-                <h3>Lançamentos Recentes</h3>
-                <div id="recentMovieGrid" class="movie-grid" style="margin-bottom: 25px;"></div>
+        <section style="margin-bottom: 25px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 10px; color: #fff;">Séries</h3>
+            <div id="serieGrid"></div>
+        </section>
 
-                <h3>Filmes</h3>
-                <div id="movieGrid" class="movie-grid" style="margin-bottom: 25px;"></div>
+        <section style="margin-bottom: 25px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 10px; color: #fff;">Tops Séries</h3>
+            <div id="topSerieGrid"></div>
+        </section>
 
-                <h3>Séries</h3>
-                <div id="serieGrid" class="movie-grid" style="margin-bottom: 25px;"></div>
+        <section style="margin-bottom: 25px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 10px; color: #fff;">Conteúdo Premium</h3>
+            <div id="premiumGrid"></div>
+        </section>
+    </main>
 
-                <h3>Tops Séries</h3>
-                <div id="topSerieGrid" class="movie-grid" style="margin-bottom: 25px;"></div>
-
-                <h3 id="Conteúdo Premium">Conteúdo Premium</h3>
-                <div id="premiumGrid" class="movie-grid"></div>
-            </section>
-        </div>
-    </section>
-
-    <footer style="text-align: center; padding: 20px; color: var(--text-muted);">
-        <p>&copy; 2026 Play Cine. Todos os direitos reservados.</p>
-    </footer>
-            
+    <!-- Modal de Vídeo / Detalhes Estilo Netflix -->
     <div id="videoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:1000; flex-direction:column; overflow-y:auto;">
-    <!-- Botão Fechar -->
-    <button id="closeVideoModal" style="position:absolute; top:20px; right:20px; z-index:10; background:none; border:none; color:white; font-size:24px; cursor:pointer;">✕</button>
+        <!-- Botão Fechar -->
+        <button id="closeVideoModal" style="position:absolute; top:20px; right:20px; z-index:10; background:none; border:none; color:white; font-size:24px; cursor:pointer;">✕</button>
 
-    <!-- 1. Tela de Detalhes (Estilo Netflix) -->
-    <div id="modalDetailsContainer" style="width:100%; max-width:600px; margin:auto; padding:20px; color:white;">
-        <img id="modalBackdrop" src="" alt="Capa" style="width:100%; height:300px; object-fit:cover; border-radius:8px;">
-        <h2 id="modalMovieTitle" style="margin-top:15px; font-size:1.8rem;"></h2>
-        <p id="modalMetadata" style="color:#aaa; font-size:0.9rem; margin:5px 0;"></p>
-        
-        <!-- Botão Assistir (Usado para filmes ou play geral) -->
-        <button id="playButton" style="width:100%; background:white; color:black; border:none; padding:12px; border-radius:4px; font-weight:bold; font-size:1rem; margin:15px 0; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
-            <i class="fa-solid fa-play"></i> Assistir
-        </button>
+        <!-- 1. Tela de Detalhes -->
+        <div id="modalDetailsContainer" style="width:100%; max-width:600px; margin:auto; padding:20px; color:white; box-sizing: border-box;">
+            <img id="modalBackdrop" src="" alt="Capa" style="width:100%; height:250px; object-fit:cover; border-radius:8px;">
+            <h2 id="modalMovieTitle" style="margin-top:15px; font-size:1.6rem;"></h2>
+            <p id="modalMetadata" style="color:#aaa; font-size:0.9rem; margin:5px 0;"></p>
+            
+            <!-- Botão Assistir (Para Filmes) -->
+            <button id="playButton" style="width:100%; background:white; color:black; border:none; padding:12px; border-radius:4px; font-weight:bold; font-size:1rem; margin:15px 0; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
+                <i class="fa-solid fa-play"></i> Assistir
+            </button>
 
-        <p id="modalMovieDesc" style="font-size:0.95rem; line-height:1.4; color:#ddd; margin-bottom: 20px;"></p>
+            <p id="modalMovieDesc" style="font-size:0.95rem; line-height:1.4; color:#ddd; margin-bottom: 20px;"></p>
 
-        <!-- SEÇÃO DE EPISÓDIOS (Aparece apenas para Séries) -->
-        <div id="serieEpisodesSection" style="display:none; border-top: 1px solid #333; padding-top: 15px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <h3 style="font-size: 1.2rem; margin: 0;">Episódios</h3>
-                <select id="seasonSelect" style="background: #222; color: white; border: 1px solid #444; padding: 6px 12px; border-radius: 4px; font-size: 0.9rem; outline: none;">
-                    <option value="1">Temporada 1</option>
-                </select>
+            <!-- SEÇÃO DE EPISÓDIOS (Estilo Netflix para Séries) -->
+            <div id="serieEpisodesSection" style="display:none; border-top: 1px solid #333; padding-top: 15px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="font-size: 1.2rem; margin: 0;">Episódios</h3>
+                    <select id="seasonSelect" style="background: #222; color: white; border: 1px solid #444; padding: 6px 12px; border-radius: 4px; font-size: 0.9rem; outline: none;">
+                        <option value="1">Temporada 1</option>
+                    </select>
+                </div>
+                <!-- Lista de Episódios -->
+                <div id="episodesList" style="display: flex; flex-direction: column; gap: 12px;"></div>
             </div>
-            <!-- Lista de Episódios gerada dinamicamente -->
-            <div id="episodesList" style="display: flex; flex-direction: column; gap: 12px;"></div>
+        </div>
+
+        <!-- 2. Container do Player (Iframe) -->
+        <div id="playerContainer" style="display:none; width:100%; height:100%; margin:auto;">
+            <iframe id="moviePlayer" src="" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
         </div>
     </div>
 
-    <!-- 2. Container do Player -->
-    <div id="playerContainer" style="display:none; width:100%; height:100%; margin:auto;">
-        <iframe id="moviePlayer" src="" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
-    </div>
-    </div>
-
-    <script src="script.js?v=6.0"></script>
+    <script src="script.js"></script>
 </body>
 </html>
